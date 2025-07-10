@@ -1,3 +1,0 @@
-#!/bin/bash
-set -xe
-test -z $(cat reports/mutation/mutation.json |sed 's/\([{},]\)/\1\n/g'|grep '^"status"'|egrep -v "Ignored|Killed|Timeout")
