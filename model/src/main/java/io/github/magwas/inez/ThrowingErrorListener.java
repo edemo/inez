@@ -5,14 +5,15 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
-public class ThrowingErrorListener extends BaseErrorListener {
+import io.github.magwas.kodekonveyorannotations.Glue;
 
-	public static final ThrowingErrorListener INSTANCE = new ThrowingErrorListener();
+@Glue
+public class ThrowingErrorListener extends BaseErrorListener {
 
 	@Override
 	public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
-			int line, int charPositionInLine, String msg, RecognitionException e)
-			throws ParseCancellationException {
+			final int line, final int charPositionInLine, final String msg,
+			RecognitionException e) {
 		throw new ParseCancellationException(
 				line + ":" + charPositionInLine + " " + msg);
 	}

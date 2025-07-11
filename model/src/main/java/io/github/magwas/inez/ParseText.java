@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.parser.BridiLexer;
 import io.github.magwas.inez.parser.BridiParser;
-import io.github.magwas.inez.parser.SumtiParser.BridiContext;
-import io.github.magwas.inez.parser.SumtiParser.TextReferenceContext;
+import io.github.magwas.inez.parser.BridiParser.BridiContext;
+import io.github.magwas.inez.parser.BridiParser.TextReferenceContext;
 
 @Service
 public class ParseText {
 
-	public List<Bridi> apply(String input) throws ParseCancellationException {
+	public List<Bridi> apply(final String input) {
 		BridiLexer lexer = new BridiLexer(CharStreams.fromString(input));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		BridiParser parser = new BridiParser(tokens);
@@ -30,40 +30,43 @@ public class ParseText {
 		return compileBridiFromTree(bridi);
 	}
 
-	public List<Bridi> compileBridiFromTree(BridiContext bridi)
-			throws ParseCancellationException {
+	public List<Bridi> compileBridiFromTree(final BridiContext bridi) {
 		Set<Bridi> bridis = new HashSet<>();
-		Bridi topBridi;
-		String bridiRepresentation = "";
-		String representation = "";
+		StringBuilder bridiRepresentation = new StringBuilder();
+		StringBuilder representation = new StringBuilder();
 		List<String> sumtiList = new ArrayList<>();
 		int index = 0;
 		for (ParseTree kid : bridi.children) {
 			if (kid instanceof TerminalNode) {
-				bridiRepresentation += kid.getText();
-				representation += kid.getText();
+				bridiRepresentation.append(kid.getText());
+				representation.append(kid.getText());
 			} else if (kid instanceof BridiContext) {
 				List<Bridi> bridisDown = compileBridiFromTree((BridiContext) kid);
 				bridis.addAll(bridisDown);
 				Bridi sumti = bridisDown.get(0);
 				sumtiList.add(sumti.id);
-				bridiRepresentation += index++;
-				representation += sumti.representation;
+				bridiRepresentation.append(index++);
+				representation.append(sumti.representation);
 			} else if (kid instanceof TextReferenceContext) {
 				String reference = kid.getChild(1).getText();
 				sumtiList.add(reference);
-				bridiRepresentation += index++;
-				representation += reference;
+				bridiRepresentation.append(index++);
+				representation.append(reference);
 			} else
 				throw new ParseCancellationException("unrecognized tree element" + kid);
 		}
-		if (sumtiList.size() == 0) {
-			topBridi = new Bridi(representation, representation);
+		Bridi topBridi;
+		String representationString = representation.toString();
+		if (sumtiList.isEmpty()) {
+			topBridi = new Bridi(representationString, representationString);
 		} else {
-			Bridi selbri = new Bridi(bridiRepresentation, bridiRepresentation);
+			String bridiRepresentationString = bridiRepresentation.toString();
+			Bridi selbri = new Bridi(bridiRepresentationString,
+					bridiRepresentationString);
 			bridis.add(selbri);
 			sumtiList.add(0, selbri.id);
-			topBridi = new Bridi(representation, representation, sumtiList);
+			topBridi = new Bridi(representationString, representationString,
+					sumtiList);
 		}
 		List<Bridi> ret = new ArrayList<>(bridis);
 		ret.add(0, topBridi);

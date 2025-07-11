@@ -1,10 +1,12 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.storage;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
+
+import io.github.magwas.inez.BridiTestData;
 
 class BridiRepositoryStub implements BridiTestData {
 	public static BridiRepository stub() {

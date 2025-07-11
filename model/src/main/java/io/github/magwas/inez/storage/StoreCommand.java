@@ -1,5 +1,6 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.storage;
 
+import io.github.magwas.inez.Bridi;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,5 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class StoreCommand {
 	BridiStoreOperation operation;
-	String id;
+	Bridi old;
+	Bridi now;
 }

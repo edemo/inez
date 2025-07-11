@@ -1,6 +1,9 @@
 package io.github.magwas.inez;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,8 +11,7 @@ import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
 
-public class CreateBridiFromBridiListTest extends TestBase
-		implements BridiTestData {
+class CreateBridiFromBridiListTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
 	CreateBridiFromBridiList createBridiFromBridiList;
@@ -18,7 +20,15 @@ public class CreateBridiFromBridiListTest extends TestBase
 	@DisplayName("creates a bridi from the list containing the ids of the selbri and the sumtis")
 	void test3() {
 		assertEquals(RECURSIVE_BRIDI,
-				createBridiFromBridiList.apply(RECURSIVE_BRIDI_REFERENCES));
+				createBridiFromBridiList.apply(RECURSIVE_BRIDI_REFERENCES),
+				"bridi differs");
+	}
+
+	@Test
+	@DisplayName("if some of the referenced bridis are not in the store, a NoSuchElementException is thrown")
+	void test4() {
+		assertThrows(NoSuchElementException.class,
+				() -> createBridiFromBridiList.apply(BAD_BRIDI_REFERENCES), "no throw");
 	}
 
 }

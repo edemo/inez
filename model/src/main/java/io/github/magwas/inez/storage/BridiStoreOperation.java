@@ -1,4 +1,4 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.storage;
 
 enum BridiStoreOperation {
 	SAVE, DELETE

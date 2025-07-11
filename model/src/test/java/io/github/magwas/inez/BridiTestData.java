@@ -5,6 +5,7 @@ import java.util.List;
 public interface BridiTestData {
 	String THING_REPR = "thing";
 	Bridi THING = new Bridi(THING_REPR, THING_REPR);
+	Bridi THING_CHANGED = new Bridi(THING_REPR, "thung");
 	String SUMTI_REP = "sumti";
 	Bridi SUMTI = new Bridi(SUMTI_REP, SUMTI_REP);
 	String BRIDI_REPR = "bridi";
@@ -20,6 +21,8 @@ public interface BridiTestData {
 	String STUFF_ID = "stuff";
 	List<String> RECURSIVE_BRIDI_REFERENCES = List.of(IS_A_REPR,
 			SUMTI_IS_A_THING_REPR, THING_REPR);
+	List<String> BAD_BRIDI_REFERENCES = List.of(IS_A_REPR, SUMTI_IS_A_THING_REPR,
+			BRIDI_REPR);
 	Bridi RECURSIVE_BRIDI = new Bridi(RECURSIVE_BRIDI_REPR_NOREFERENCE,
 			RECURSIVE_BRIDI_REPR_NOREFERENCE, RECURSIVE_BRIDI_REFERENCES);
 	List<Bridi> PARSED_INPUT = List.of(SUMTI, THING, IS_A, SUMTI_IS_A_THING,

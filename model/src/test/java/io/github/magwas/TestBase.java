@@ -2,13 +2,18 @@ package io.github.magwas;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.TestInstantiationException;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import io.github.magwas.kodekonveyorannotations.Glue;
+
+@Glue
 public class TestBase {
 	@BeforeEach
 	public void setUp() {
@@ -17,10 +22,13 @@ public class TestBase {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	public void tearDown() {
 	}
 
-	public static void stubUp(Object test) {
+	@SuppressWarnings({
+			"PMD.AvoidAccessibilityAlteration",
+			"PMD.AvoidPrintStackTrace" })
+	public static void stubUp(final Object test) {
 		try {
 			for (Field objField : test.getClass().getDeclaredFields()) {
 				if (objField.isAnnotationPresent(InjectMocks.class)) {
@@ -33,13 +41,17 @@ public class TestBase {
 					stubFill(instance);
 				}
 			}
-		} catch (Exception e) {
+		} catch (NoSuchMethodException | SecurityException | InstantiationException
+				| IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
-			throw new Error(e);
+			throw new TestInstantiationException("stubUp", e);
 		}
 	}
 
-	public static void stubFill(Object instance) {
+	@SuppressWarnings({
+			"PMD.AvoidPrintStackTrace",
+			"PMD.AvoidAccessibilityAlteration" })
+	public static void stubFill(final Object instance) {
 		Class<? extends Object> type = instance.getClass();
 		for (Field field : type.getDeclaredFields()) {
 			if (field.isAnnotationPresent(Autowired.class)) {
@@ -50,19 +62,23 @@ public class TestBase {
 					stub = Class.forName(stubName);
 					Method method = stub.getDeclaredMethod("stub");
 					if (null == method) {
-						throw new Error(stubName + " does not have stub");
+						throw new TestInstantiationException(
+								stubName + " does not have stub");
 					}
 					method.setAccessible(true);
 					value = method.invoke(null);
-				} catch (Exception e) {
+				} catch (ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalAccessException
+						| InvocationTargetException e) {
 					e.printStackTrace();
-					throw new Error("problem with stub " + stubName, e);
+					throw new TestInstantiationException("problem with stub " + stubName,
+							e);
 				}
 				field.setAccessible(true);
 				try {
 					field.set(instance, value);
-				} catch (Exception e) {
-					throw new Error(e);
+				} catch (IllegalAccessException e) {
+					throw new TestInstantiationException("stubFill", e);
 				}
 			}
 		}

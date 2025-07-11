@@ -36,10 +36,10 @@
 		</license>
 	</licenses>
 
-  <modules>
-    <module>parser</module>
-    <module>model</module>
-  </modules>
+	<modules>
+		<module>parser</module>
+		<module>model</module>
+	</modules>
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
@@ -47,6 +47,7 @@
 		<spring-version>6.2.8</spring-version>
 		<spring-boot-version>3.5.3</spring-boot-version>
 		<junit-version>5.12.1</junit-version>
+		<pmdrules-version>0.0.2-3-g5b9385b</pmdrules-version>
 		<main.basedir>${project.basedir}</main.basedir>
 	</properties>
 
@@ -117,20 +118,35 @@
 					</execution>
 				</executions>
 			</plugin>
-			  <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.27.0</version>
+				<version>3.26.0</version>
 				<configuration>
-					<minimumTokens>25</minimumTokens>
-					<ignoreAnnotations>true</ignoreAnnotations>
+					<includeXmlInReports />
 					<includeTests>true</includeTests>
 					<rulesets>
-						<ruleset>../pmd.xml</ruleset>
+						<ruleset>prod.xml</ruleset>
 					</rulesets>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>io.github.magwas</groupId>
+						<artifactId>konveyor-pmdrules</artifactId>
+						<version>${pmdrules-version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>pmd</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>pmd</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
+	<reporting> </reporting>
 </project>
