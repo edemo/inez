@@ -54,5 +54,24 @@
          </menu>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="io.github.magwas.inez.ui.product"
+            name="Inez">
+      </product>
+   </extension>
+   <extension
+         id="inez"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="io.github.magwas.inez.ui.application"
+            name="Inez">
+         <property
+               name="appName"
+               value="Inez">
+         </property>
+      </product>
+   </extension>
 
 </plugin>

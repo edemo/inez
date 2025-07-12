@@ -41,17 +41,37 @@
 		<module>parser</module>
 		<module>model</module>
 		<module>io.github.magwas.inez.ui</module>
+		<module>io.github.magwas.inez.ui.product</module>
 	</modules>
 	<properties>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tycho-version>3.0.5</tycho-version>
+		<jdk.version>17</jdk.version>
+		<jdk.full.version>JavaSE-${jdk.version}</jdk.full.version>
+		<project.encoding>UTF-8</project.encoding>
+		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
+		<maven.compiler.source>${jdk.version}</maven.compiler.source>
+		<maven.compiler.target>${jdk.version}</maven.compiler.target>
+		<maven.compiler.compilerVersion>${jdk.version}</maven.compiler.compilerVersion>
+		<maven.compiler.fork>true</maven.compiler.fork>
+		<maven.compiler.verbose>true</maven.compiler.verbose>
+		<maven.compiler.optimize>true</maven.compiler.optimize>
+		<maven.compiler.debug>true</maven.compiler.debug>
+		<maven.dependency.plugin.version>2.10</maven.dependency.plugin.version>
+		<maven.clean.plugin.version>3.0.0</maven.clean.plugin.version>
 		<spring-version>6.2.8</spring-version>
 		<spring-boot-version>3.5.3</spring-boot-version>
 		<junit-version>5.12.1</junit-version>
 		<pmdrules-version>0.0.2-3-g5b9385b</pmdrules-version>
 		<main.basedir>${project.basedir}</main.basedir>
 	</properties>
+	<repositories>
+		<repository>
+			<id>2025-03</id>
+			<layout>p2</layout>
+			<url>https://download.eclipse.org/releases/2025-03</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -123,9 +143,10 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.5.1</version>
+				<inherited>false</inherited>
 				<executions>
 					<execution>
-						<id>testsetup</id>
+						<id>update-manifest</id>
 						<phase>initialize</phase>
 						<goals>
 							<goal>exec</goal>
@@ -137,7 +158,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<!--plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
@@ -166,6 +186,25 @@
 					</execution>
 				</executions>
 			</plugin-->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Bundle-RequiredExecutionEnvironment>
+								${jdk.full.version}</Bundle-RequiredExecutionEnvironment>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
