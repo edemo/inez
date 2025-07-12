@@ -1,0 +1,2 @@
+#!/bin/bash
+sed -i "s/Bundle-Version:.*/Bundle-Version: $(git describe)/" io.github.magwas.inez.ui/META-INF/MANIFEST.MF
