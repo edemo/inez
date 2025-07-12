@@ -18,14 +18,14 @@ public class BridiStore {
 
 	Deque<StoreCommand> history = new ConcurrentLinkedDeque<StoreCommand>();
 
-	void save(final Bridi bridi) {
+	public void save(final Bridi bridi) {
 		Optional<Bridi> old = bridiRepository.findById(bridi.getId());
 		bridiRepository.save(bridi);
 		history.add(
 				new StoreCommand(BridiStoreOperation.SAVE, old.orElse(null), bridi));
 	}
 
-	void delete(final Bridi bridi) {
+	public void delete(final Bridi bridi) {
 		Optional<Bridi> old = bridiRepository.findById(bridi.getId());
 		if (old.isEmpty())
 			throw new NoSuchElementException("no such bridi:" + bridi);
@@ -36,6 +36,14 @@ public class BridiStore {
 
 	public Optional<Bridi> findById(String string) {
 		return bridiRepository.findById(string);
+	}
+
+	public void undo() {
+		StoreCommand last = history.removeLast();
+		if (null != last.old)
+			bridiRepository.save(last.old);
+		else
+			bridiRepository.delete(last.now);
 	}
 
 }

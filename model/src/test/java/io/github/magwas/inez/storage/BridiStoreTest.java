@@ -2,6 +2,7 @@ package io.github.magwas.inez.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.NoSuchElementException;
@@ -67,6 +68,23 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 		Optional<Bridi> actual = bridiStore.findById(THING_REPR);
 		verify(bridiStore.bridiRepository).findById(THING_REPR);
 		assertEquals(THING, actual.get());
+	}
+
+	@Test
+	@DisplayName("undo saves the old if it exists")
+	void test6() {
+		bridiStore.save(THING);
+		bridiStore.save(THING_CHANGED);
+		bridiStore.undo();
+		verify(bridiStore.bridiRepository, times(2)).save(THING);
+	}
+
+	@Test
+	@DisplayName("undo deletes the new if old is null")
+	void test7() {
+		bridiStore.save(BRIDI);
+		bridiStore.undo();
+		verify(bridiStore.bridiRepository, times(1)).delete(BRIDI);
 	}
 
 }

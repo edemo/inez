@@ -7,9 +7,9 @@
 	<artifactId>inez</artifactId>
 	<version>0.0.1</version>
 	<packaging>pom</packaging>
-	<name>Metamodel based modeling using the ideas of lojban language</name>
+	<name>inez</name>
 	<description>
-	Metamodel based modeling using the ideas of lojban language
+		Metamodel based modeling using the ideas of lojban language
 	</description>
 
 	<url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -19,7 +19,8 @@
 	</issueManagement>
 	<scm>
 		<connection>scm:git:https://github.com/kode-konveyor/inez-server.git</connection>
-		<developerConnection>scm:git:https://github.com/kode-konveyor/inez-server.git</developerConnection>
+		<developerConnection>
+			scm:git:https://github.com/kode-konveyor/inez-server.git</developerConnection>
 		<url>https://github.com/kode-konveyor/inez-server.git</url>
 	</scm>
 	<developers>
@@ -39,6 +40,7 @@
 	<modules>
 		<module>parser</module>
 		<module>model</module>
+		<module>io.github.magwas.inez.ui</module>
 	</modules>
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -81,7 +83,6 @@
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>3.0.0-M4</version>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
@@ -118,7 +119,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!--plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.26.0</version>
@@ -145,8 +146,36 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin-->
 		</plugins>
 	</build>
-	<reporting> </reporting>
+	<profiles>
+		<profile>
+			<id>nosign</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-gpg-plugin</artifactId>
+							<version>3.2.8</version>
+							<executions>
+								<execution>
+									<id>sign-artifacts</id>
+									<phase>verify</phase>
+									<goals>
+										<goal>sign</goal>
+									</goals>
+									<configuration>
+										<skip>true</skip>
+									</configuration>
+								</execution>
+							</executions>
+
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
 </project>

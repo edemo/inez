@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>io.github.magwas</groupId>
 		<artifactId>inez</artifactId>
-		<version>v0.3.0-3-g6d97397</version>
+		<version>v0.3.0-4-gb501f42</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>io.github.magwas</groupId>
 			<artifactId>inez-parser</artifactId>
-			<version>v0.3.0-3-g6d97397</version>
+			<version>v0.3.0-4-gb501f42</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

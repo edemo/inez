@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lifecycleMappingMetadata>
+
+  <pluginExecutions>
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <groupId>apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <versionRange>3.7.0</versionRange>
+        <goals>
+          <goal>pmd</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <groupId>apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <versionRange>3.26.0</versionRange>
+        <goals>
+          <goal>pmd</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <groupId>apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <versionRange>3.2.8</versionRange>
+        <goals>
+          <goal>sign</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+  </pluginExecutions>
+</lifecycleMappingMetadata>
