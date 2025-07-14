@@ -7,7 +7,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 
 public class ModelTreeContentProvider implements ITreeContentProvider {
 	
-	Map<String,List<String>> contents = Map.of(
+	public static Map<String,List<String>> contents = Map.of(
 			"parent",List.of("one","two","three"),
 			"one",List.of("four","five"),
 			"two",List.of("seven","eight"),

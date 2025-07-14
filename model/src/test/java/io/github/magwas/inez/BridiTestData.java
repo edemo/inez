@@ -1,38 +1,33 @@
 package io.github.magwas.inez;
 
 import java.util.List;
+import java.util.Set;
 
-public interface BridiTestData {
-	String THING_REPR = "thing";
-	Bridi THING = new Bridi(THING_REPR, THING_REPR);
-	Bridi THING_CHANGED = new Bridi(THING_REPR, "thung");
-	String SUMTI_REP = "sumti";
-	Bridi SUMTI = new Bridi(SUMTI_REP, SUMTI_REP);
-	String BRIDI_REPR = "bridi";
-	Bridi BRIDI = new Bridi(BRIDI_REPR, BRIDI_REPR);
-	String IS_A_REPR = "{0} is a {1}";
-	Bridi IS_A = new Bridi(IS_A_REPR, IS_A_REPR);
-	String SUMTI_IS_A_THING_REPR = "{sumti} is a {thing}";
-	Bridi SUMTI_IS_A_THING = new Bridi(SUMTI_IS_A_THING_REPR,
-			SUMTI_IS_A_THING_REPR, List.of(IS_A_REPR, SUMTI_REP, THING_REPR));
-	String RECURSIVE_BRIDI_REPR = "{{sumti} is a {thing}} is a {@thing}";
-	String RECURSIVE_BRIDI_REPR_NOREFERENCE = "{{sumti} is a {thing}} is a {thing}";
-	String INPUT_BAD = "{bridi is a {thing}";
-	String STUFF_ID = "stuff";
-	List<String> RECURSIVE_BRIDI_REFERENCES = List.of(IS_A_REPR,
-			SUMTI_IS_A_THING_REPR, THING_REPR);
-	List<String> BAD_BRIDI_REFERENCES = List.of(IS_A_REPR, SUMTI_IS_A_THING_REPR,
-			BRIDI_REPR);
-	Bridi RECURSIVE_BRIDI = new Bridi(RECURSIVE_BRIDI_REPR_NOREFERENCE,
-			RECURSIVE_BRIDI_REPR_NOREFERENCE, RECURSIVE_BRIDI_REFERENCES);
-	List<Bridi> PARSED_INPUT = List.of(SUMTI, THING, IS_A, SUMTI_IS_A_THING,
-			RECURSIVE_BRIDI);
+import io.github.magwas.inez.storage.StorageConstants;
 
-	String GO_REPRESENTATION = "go";
+public interface BridiTestData extends BridiFieldTestData {
 
 	Bridi GO1 = new Bridi("go1", GO_REPRESENTATION);
 	Bridi GO2 = new Bridi("go2", GO_REPRESENTATION);
+	Bridi RECURSIVE_BRIDI = new Bridi(RECURSIVE_BRIDI_REPR_NOREFERENCE,
+			RECURSIVE_BRIDI_REPR_NOREFERENCE, RECURSIVE_BRIDI_REFERENCES, true);
+	Bridi RECURSIVE_BRIDI_SHORTTERM = new Bridi(RECURSIVE_BRIDI_REPR_NOREFERENCE,
+			RECURSIVE_BRIDI_REPR_NOREFERENCE, RECURSIVE_BRIDI_REFERENCES, false);
+	Bridi THING = new Bridi(THING_REPR, THING_REPR);
+	Bridi THING_CHANGED = new Bridi(THING_REPR, "thung");
+	Bridi SUMTI = new Bridi(SUMTI_REP, SUMTI_REP);
+	Bridi BRIDI = new Bridi(BRIDI_REPR, BRIDI_REPR);
+	Bridi IS_A = new Bridi(IS_A_REPR, IS_A_REPR);
+	Bridi SUMTI_IS_A_THING = new Bridi(SUMTI_IS_A_THING_REPR,
+			SUMTI_IS_A_THING_REPR, List.of(IS_A_REPR, SUMTI_REP, THING_REPR), true);
+	Bridi SUMTI_IS_A_THING_SHORTTERM = new Bridi(SUMTI_IS_A_THING_REPR,
+			SUMTI_IS_A_THING_REPR, List.of(IS_A_REPR, SUMTI_REP, THING_REPR), false);
 
-	String DESCRIPTION_SUMTI_IS_A_THING_STRING = "sumti is a thing";
+	Bridi QUERY_BRIDI = new Bridi(StorageConstants.QUERY_BRIDI_ID,
+			StorageConstants.QUERY_BRIDI_ID);
+
+	Bridi SIMPLE_QUERY = new Bridi(SIMPLE_QUERY_STRING, SIMPLE_QUERY_STRING,
+			List.of(IS_A_REPR, StorageConstants.QUERY_BRIDI_ID, THING_REPR), true);
+	Set<Bridi> SIMPLE_QUERY_OUTPUT = Set.of(RECURSIVE_BRIDI, SUMTI_IS_A_THING);
 
 }

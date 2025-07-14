@@ -14,12 +14,12 @@ import io.github.magwas.TestBase;
 class CreateBridiFromBridiListTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
-	CreateBridiFromBridiList createBridiFromBridiList;
+	CreateBridiFromReferences createBridiFromBridiList;
 
 	@Test
 	@DisplayName("creates a bridi from the list containing the ids of the selbri and the sumtis")
 	void test3() {
-		assertEquals(RECURSIVE_BRIDI,
+		assertEquals(RECURSIVE_BRIDI_SHORTTERM,
 				createBridiFromBridiList.apply(RECURSIVE_BRIDI_REFERENCES),
 				"bridi differs");
 	}

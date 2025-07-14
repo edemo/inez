@@ -1,26 +1,31 @@
 package io.github.magwas.inez;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.parser.BridiLexer;
 import io.github.magwas.inez.parser.BridiParser;
 import io.github.magwas.inez.parser.BridiParser.BridiContext;
 import io.github.magwas.inez.parser.BridiParser.TextReferenceContext;
+import io.github.magwas.inez.storage.BridiStore;
 
 @Service
 public class ParseText {
 
-	public List<Bridi> apply(final String input) {
+	@Autowired
+	BridiStore bridiStore;
+
+	public BridiSet apply(final String input) {
 		BridiLexer lexer = new BridiLexer(CharStreams.fromString(input));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		BridiParser parser = new BridiParser(tokens);
@@ -30,8 +35,8 @@ public class ParseText {
 		return compileBridiFromTree(bridi);
 	}
 
-	public List<Bridi> compileBridiFromTree(final BridiContext bridi) {
-		Set<Bridi> bridis = new HashSet<>();
+	private BridiSet compileBridiFromTree(final BridiContext bridi) {
+		Map<String, Bridi> bridis = new HashMap<>();
 		StringBuilder bridiRepresentation = new StringBuilder();
 		StringBuilder representation = new StringBuilder();
 		List<String> sumtiList = new ArrayList<>();
@@ -41,9 +46,10 @@ public class ParseText {
 				bridiRepresentation.append(kid.getText());
 				representation.append(kid.getText());
 			} else if (kid instanceof BridiContext) {
-				List<Bridi> bridisDown = compileBridiFromTree((BridiContext) kid);
-				bridis.addAll(bridisDown);
-				Bridi sumti = bridisDown.get(0);
+				BridiSet bridisDown = compileBridiFromTree((BridiContext) kid);
+				Map<String, Bridi> downBridis = bridisDown.bridis;
+				bridis.putAll(downBridis);
+				Bridi sumti = downBridis.get(bridisDown.topId);
 				sumtiList.add(sumti.id);
 				bridiRepresentation.append(index++);
 				representation.append(sumti.representation);
@@ -59,17 +65,20 @@ public class ParseText {
 		String representationString = representation.toString();
 		if (sumtiList.isEmpty()) {
 			topBridi = new Bridi(representationString, representationString);
+			bridiStore.save(topBridi);
 		} else {
 			String bridiRepresentationString = bridiRepresentation.toString();
 			Bridi selbri = new Bridi(bridiRepresentationString,
 					bridiRepresentationString);
-			bridis.add(selbri);
-			sumtiList.add(0, selbri.id);
+			bridiStore.save(selbri);
+
+			bridis.put(selbri.id, selbri);
+			sumtiList.add(0, bridiRepresentationString);
 			topBridi = new Bridi(representationString, representationString,
-					sumtiList);
+					sumtiList, false);
+			bridiStore.save(topBridi);
 		}
-		List<Bridi> ret = new ArrayList<>(bridis);
-		ret.add(0, topBridi);
-		return ret;
+		bridis.put(topBridi.id, topBridi);
+		return new BridiSet(topBridi.id, bridis);
 	}
 }

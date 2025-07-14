@@ -15,8 +15,6 @@
 	<name>inez-ui</name>
 	<packaging>eclipse-plugin</packaging>
 
-
-
 	<dependencies>
 		<dependency>
 			<groupId>io.github.magwas</groupId>

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 	@DisplayName("save saves the bridi and updates the history\n"
 			+ "- if there was no previous bridi saved, the history contains null for the old bridi")
 	void test() {
-		bridiStore.save(BRIDI);
+		bridiStore.save(List.of(BRIDI));
 		verify(bridiStore.bridiRepository).save(BRIDI);
 		StoreCommand last = bridiStore.history.getLast();
 		assertEquals(BridiStoreOperation.SAVE, last.operation);
@@ -36,7 +37,7 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("- if there was previous bridi saved, the history contains it for the old bridi")
 	void test1() {
-		bridiStore.save(THING_CHANGED);
+		bridiStore.save(List.of(THING_CHANGED));
 		verify(bridiStore.bridiRepository).save(THING_CHANGED);
 		StoreCommand last = bridiStore.history.getLast();
 		assertEquals(BridiStoreOperation.SAVE, last.operation);
@@ -73,8 +74,7 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("undo saves the old if it exists")
 	void test6() {
-		bridiStore.save(THING);
-		bridiStore.save(THING_CHANGED);
+		bridiStore.save(List.of(THING, THING_CHANGED));
 		bridiStore.undo();
 		verify(bridiStore.bridiRepository, times(2)).save(THING);
 	}
@@ -82,7 +82,7 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("undo deletes the new if old is null")
 	void test7() {
-		bridiStore.save(BRIDI);
+		bridiStore.save(List.of(BRIDI));
 		bridiStore.undo();
 		verify(bridiStore.bridiRepository, times(1)).delete(BRIDI);
 	}

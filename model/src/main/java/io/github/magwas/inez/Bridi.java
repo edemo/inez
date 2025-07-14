@@ -1,5 +1,6 @@
 package io.github.magwas.inez;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -10,12 +11,15 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
+@Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Bridi {
 	@Id
 	final String id;
 	final String representation;
-	List<String> references;
+	@Builder.Default
+	List<String> references = new ArrayList<>();
+	@Builder.Default
+	Boolean longTerm = false;
 }

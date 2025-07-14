@@ -1,8 +1,14 @@
 package io.github.magwas.inez.storage;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +22,61 @@ public class BridiStore {
 	@Autowired
 	BridiRepository bridiRepository;
 
+	@Autowired
+	BridiIndexRepository bridiIndexRepository;
+
 	Deque<StoreCommand> history = new ConcurrentLinkedDeque<StoreCommand>();
 
-	public void save(final Bridi bridi) {
-		Optional<Bridi> old = bridiRepository.findById(bridi.getId());
-		bridiRepository.save(bridi);
-		history.add(
-				new StoreCommand(BridiStoreOperation.SAVE, old.orElse(null), bridi));
+	Map<String, Map<String, Map<Integer, List<String>>>> selbriSumtiMap = new HashMap<>();
+
+	public Collection<Bridi> save(Collection<Bridi> values) {
+		Collection<Bridi> ret = new ArrayList<>();
+		for (Bridi bridi : values) {
+			ret.add(save(bridi));
+		}
+		return ret;
+	}
+
+	public Bridi save(final Bridi bridi) {
+		Bridi old = bridiRepository.findById(bridi.getId()).orElse(null);
+		if (old != null && old.getLongTerm()) {
+			bridi.setLongTerm(true);
+		}
+		Bridi retVal = bridiRepository.save(bridi);
+
+		removeOldReferences(bridi);
+
+		saveNewReferences(retVal);
+		history.add(new StoreCommand(BridiStoreOperation.SAVE, old, bridi));
+		return retVal;
+	}
+
+	private void removeOldReferences(Bridi bridi) {
+		List<String> references = bridi.getReferences();
+		if (!references.isEmpty()) {
+			String selbriId = references.get(0);
+			for (int i = 0; i < references.size(); i++) {
+				String id = createIdForIndex(selbriId, references.get(i), i);
+				BridiIndex refs = bridiIndexRepository.findById(id)
+						.orElse(new BridiIndex(id));
+				refs.getReferences().remove(bridi.getId());
+				bridiIndexRepository.save(refs);
+			}
+		}
+	}
+
+	private void saveNewReferences(Bridi retVal) {
+		List<String> references = retVal.getReferences();
+		if (!references.isEmpty()) {
+			String selbriId = references.get(0);
+			for (int i = 0; i < references.size(); i++) {
+				String id = createIdForIndex(selbriId, references.get(i), i);
+				BridiIndex refs = bridiIndexRepository.findById(id)
+						.orElse(new BridiIndex(id));
+				refs.getReferences().add(retVal.getId());
+				bridiIndexRepository.save(refs);
+			}
+		}
 	}
 
 	public void delete(final Bridi bridi) {
@@ -44,6 +98,21 @@ public class BridiStore {
 			bridiRepository.save(last.old);
 		else
 			bridiRepository.delete(last.now);
+	}
+
+	public Iterable<Bridi> getBridiBySelbriAndSumtiIds(String selbriId,
+			String nthSumtiiId, int n) {
+		String id = createIdForIndex(selbriId, nthSumtiiId, n);
+		Optional<BridiIndex> index = bridiIndexRepository.findById(id);
+		if (index.isEmpty())
+			return List.of();
+		Set<String> idList = index.get().getReferences();
+		return bridiRepository.findAllById(idList);
+	}
+
+	private String createIdForIndex(String selbriId, String nthSumtiiId, int n) {
+		String id = selbriId + "{" + nthSumtiiId + "{" + n;
+		return id;
 	}
 
 }

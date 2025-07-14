@@ -15,31 +15,19 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="io.github.magwas.inez.ui.Perspective"
-            name="Perspective"
-            id="io.github.magwas.inez.ui.perspective">
+            fixed="true"
+            id="io.github.magwas.inez.ui.perspective"
+            name="Perspective">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="io.github.magwas.inez.ui.View"
-            name="View"
-            id="io.github.magwas.inez.ui.view"
+            class="io.github.magwas.inez.ui.TreeModelView"
+            name="TreemodelView"
+            id="io.github.magwas.inez.ui.treeModelView"
             inject="true">
       </view>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="*">
-         <view
-               id="io.github.magwas.inez.ui.view"
-               minimized="false"
-               relationship="left"
-               standalone="true"
-               relative="org.eclipse.ui.editorss">
-         </view>
-      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -72,6 +60,18 @@
                value="Inez">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="io.github.magwas.inez.ui.ModelEditorView"
+            default="true"
+            id="io.github.magwas.inez.ui.EditorView"
+            name="EditorView">
+         <contentTypeBinding
+               contentTypeId="io.github.magwas.inez.ui.contentTypeBinding1">
+         </contentTypeBinding>
+      </editor>
    </extension>
 
 </plugin>

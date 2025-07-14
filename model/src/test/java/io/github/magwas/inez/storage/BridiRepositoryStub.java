@@ -1,5 +1,6 @@
 package io.github.magwas.inez.storage;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +19,7 @@ class BridiRepositoryStub implements BridiTestData {
 		when(mock.findById(SUMTI_IS_A_THING_REPR))
 				.thenReturn(Optional.of(SUMTI_IS_A_THING));
 		when(mock.findById(THING_REPR)).thenReturn(Optional.of(THING));
+		when(mock.save(any())).thenAnswer(x -> x.getArguments()[0]);
 		return mock;
 	}
 }
