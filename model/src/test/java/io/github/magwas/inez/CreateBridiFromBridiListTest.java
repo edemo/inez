@@ -19,7 +19,7 @@ class CreateBridiFromBridiListTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("creates a bridi from the list containing the ids of the selbri and the sumtis")
 	void test3() {
-		assertEquals(RECURSIVE_BRIDI_SHORTTERM,
+		assertEquals(SUMTI_IS_A_THING_IS_A_THING,
 				createBridiFromBridiList.apply(RECURSIVE_BRIDI_REFERENCES),
 				"bridi differs");
 	}

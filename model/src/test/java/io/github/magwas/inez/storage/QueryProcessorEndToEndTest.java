@@ -2,7 +2,6 @@ package io.github.magwas.inez.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,7 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.github.magwas.TestBase;
 import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.BridiSet;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.ParseText;
 import io.github.magwas.inez.TestConfig;
@@ -33,11 +31,11 @@ class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 	@Autowired
 	ParseText parseText;
 
-	private InezFactory factory;
+	private Inez factory;
 
 	@Test
 	void test1() {
-		factory = InezFactory.getInstance();
+		factory = Inez.getInstance();
 
 		//@formatter:off
 		save(List.of(
@@ -49,30 +47,28 @@ class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 				"{cecile} {{looks at} {banana}}"
 				));
 
-//		assertQuery(Set.of("{alice} {{eats} {banana}}"),
-//				"{alice} {{eats} {banana}}");
+		assertQuery(Set.of("alice"),
+				"alice");
+		assertQuery(Set.of("{alice} {{eats} {banana}}"),
+				"{alice} {{eats} {banana}}");
 		assertQuery(Set.of("{alice} {{eats} {banana}}", "{bob} {{eats} {banana}}",
 				"{cecile} {{eats} {banana}}"), "{$?} {{eats} {banana}}");
-//		assertQuery(
-//				Set.of("{cecile} {{eats} {banana}}", "{cecile} {{looks at} {banana}}"),
-//				"{cecile} {{$?} {banana}}");
-//		assertQuery(Set.of("{alice} {{eats} {banana}}", "{alice} {{eats} {chips}}"),
-//				"{alice} {{eats} {$?}}");
+		assertQuery(
+				Set.of("{cecile} {{eats} {banana}}", "{cecile} {{looks at} {banana}}"),
+				"{cecile} {{$?} {banana}}");
+		assertQuery(Set.of("{alice} {{eats} {banana}}", "{alice} {{eats} {chips}}"),
+				"{alice} {{eats} {$?}}");
 	}
 
 	private void save(List<String> sentences) {
 		for (String sentence : sentences) {
-			BridiSet bridis = parseText.apply(sentence);
-			Collection<Bridi> values = bridis.getBridis().values();
-			values.forEach(x -> x.setLongTerm(true));
-			factory.save(values);
+			factory.create(sentence);
 		}
 	}
 
-	private Set<Bridi> assertQuery(Set<String> expected, String query) {
+private Set<Bridi> assertQuery(Set<String> expected, String query) {
 		Set<Bridi> result = factory.query(query);
-		Set<String> actual = result.stream().map(bridi -> bridi.getId())
-				.collect(Collectors.toSet());
+		Set<String> actual = result.stream().map(bridi -> bridi.getId()).collect(Collectors.toSet());
 		if (!expected.equals(actual)) {
 			System.out.println("actual:");
 			actual.forEach((x) -> System.out.println(x));

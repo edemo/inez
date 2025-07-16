@@ -1,15 +1,17 @@
 package io.github.magwas.inez.storage;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,8 @@ public class BridiStore {
 
 	Map<String, Map<String, Map<Integer, List<String>>>> selbriSumtiMap = new HashMap<>();
 
-	public Collection<Bridi> save(Collection<Bridi> values) {
-		Collection<Bridi> ret = new ArrayList<>();
+	public Set<Bridi> save(Collection<Bridi> values) {
+		Set<Bridi> ret = new HashSet<>();
 		for (Bridi bridi : values) {
 			ret.add(save(bridi));
 		}
@@ -39,9 +41,6 @@ public class BridiStore {
 
 	public Bridi save(final Bridi bridi) {
 		Bridi old = bridiRepository.findById(bridi.getId()).orElse(null);
-		if (old != null && old.getLongTerm()) {
-			bridi.setLongTerm(true);
-		}
 		Bridi retVal = bridiRepository.save(bridi);
 
 		removeOldReferences(bridi);
@@ -92,6 +91,12 @@ public class BridiStore {
 		return bridiRepository.findById(string);
 	}
 
+	public Stream<Bridi> findAllByRepresentation(String string) {
+		Iterable<Bridi> allByRepresentation = bridiRepository
+				.findAllByRepresentation(string);
+		return StreamSupport.stream(allByRepresentation.spliterator(), false);
+	}
+
 	public void undo() {
 		StoreCommand last = history.removeLast();
 		if (null != last.old)
@@ -100,14 +105,15 @@ public class BridiStore {
 			bridiRepository.delete(last.now);
 	}
 
-	public Iterable<Bridi> getBridiBySelbriAndSumtiIds(String selbriId,
+	public Stream<Bridi> getBridiBySelbriAndSumtiIds(String selbriId,
 			String nthSumtiiId, int n) {
 		String id = createIdForIndex(selbriId, nthSumtiiId, n);
 		Optional<BridiIndex> index = bridiIndexRepository.findById(id);
 		if (index.isEmpty())
-			return List.of();
+			return Stream.of();
 		Set<String> idList = index.get().getReferences();
-		return bridiRepository.findAllById(idList);
+		Iterable<Bridi> allById = bridiRepository.findAllById(idList);
+		return StreamSupport.stream(allById.spliterator(), false);
 	}
 
 	private String createIdForIndex(String selbriId, String nthSumtiiId, int n) {

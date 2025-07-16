@@ -68,9 +68,6 @@
             default="true"
             id="io.github.magwas.inez.ui.EditorView"
             name="EditorView">
-         <contentTypeBinding
-               contentTypeId="io.github.magwas.inez.ui.contentTypeBinding1">
-         </contentTypeBinding>
       </editor>
    </extension>
 

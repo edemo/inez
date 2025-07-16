@@ -3,6 +3,9 @@ package io.github.magwas.inez;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+import java.util.Map;
+
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,16 +13,42 @@ import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
 
-class ParseTextTest extends TestBase implements BridiSetTestData {
+class ParseTextTest extends TestBase implements ParserOutputTestData {
 
 	@InjectMocks
 	ParseText parseText;
 
 	@Test
-	@DisplayName("returns a resultSet parsing the query")
+	@DisplayName("a sumti parsed to just a top element")
 	void test() {
-		BridiSet actual = parseText.apply(RECURSIVE_BRIDI_REPR);
-		assertEquals(PARSED_INPUT, actual, "set differs");
+		ParserOutput actual = parseText.apply("alice");
+		assertEquals(new ParserOutput("alice"), actual);
+	}
+
+	@Test
+	@DisplayName("a bridi with one sumti is parsed to the bridi representation and a map containing"
+			+ "- from the representation to the list of its selbrified version and the sumti")
+	void test2() {
+		ParserOutput actual = parseText.apply("{alice} go");
+		assertEquals(new ParserOutput("{alice} go",
+				Map.of("{alice} go", List.of("{0} go", "alice"))), actual);
+	}
+
+	@Test
+	@DisplayName("a bridi with one reference is parsed to the bridi representation and a map containing"
+			+ "- from the representation to the list of its selbrified version and the reference")
+	void test3() {
+		ParserOutput actual = parseText.apply("{@alice} go");
+		assertEquals(new ParserOutput("{@alice} go",
+				Map.of("{@alice} go", List.of("{0} go", "@alice"))), actual);
+	}
+
+	@Test
+	@DisplayName("a bridi with two sumties is parsed to the bridi representation and a map containing"
+			+ "- from the representation to the list of its selbrified version and the sumties")
+	void test4() {
+		ParserOutput actual = parseText.apply(TAUTOLOGY_GENERATED_REPR);
+		assertEquals(OUTPUT_TAUTOLOGY, actual);
 	}
 
 	@Test

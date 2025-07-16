@@ -4,29 +4,30 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import io.github.magwas.inez.Bridi;
+import io.github.magwas.inez.ParseText;
+import io.github.magwas.inez.ParserOutput;
 
 @Component
-public class InezFactory implements ApplicationContextAware {
-	private static ApplicationContext _appCtx;
+public class Inez {
 	@Autowired
 	BridiStoreChangeListeners bridiStoreChangeListeners;
 	@Autowired
 	QueryProcessor queryProcessor;
 	@Autowired
+	ParseText parseText;
+	@Autowired
 	BridiStore bridiStore;
+	@Autowired
+	CreateBridisFromParserOutput createBridisFromParserOutput;
 
-	@Override
-	public void setApplicationContext(ApplicationContext ctx) {
-		_appCtx = ctx;
-	}
+	private Inez() {
+	};
 
-	public static InezFactory getInstance() {
-		return _appCtx.getBean(InezFactory.class);
+	public static Inez getInstance() {
+		return ApplicationContextHolder.getInez();
 	}
 
 	public void registerListener(BridiStoreChangeListener listener) {
@@ -38,11 +39,20 @@ public class InezFactory implements ApplicationContextAware {
 	}
 
 	public Set<Bridi> query(String query) {
-		return queryProcessor.apply(query);
-
+		ParserOutput parserOutput = parseText.apply(query);
+		Set<Bridi> bridiSet = queryProcessor.apply(parserOutput);
+		return bridiSet;
 	}
 
-	public Collection<Bridi> save(Collection<Bridi> values) {
+	public Set<Bridi> create(String query) {
+		ParserOutput parserOutput = parseText.apply(query);
+		Set<Bridi> created = this.createBridisFromParserOutput.apply(parserOutput);
+		bridiStore.save(created);
+		return created;
+	}
+
+	public Set<Bridi> save(Collection<Bridi> values) {
 		return bridiStore.save(values);
 	}
+
 }

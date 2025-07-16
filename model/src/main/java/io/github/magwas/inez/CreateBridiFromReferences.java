@@ -23,7 +23,7 @@ public class CreateBridiFromReferences {
 					return "{" + bridiStore.findById(id).get().representation + "}";
 				}).toArray();
 		String repr = MessageFormat.format(sumtiRepresentation, selbrireprs);
-		return new Bridi(repr, repr, bridiList, false);
+		return new Bridi(repr, repr, bridiList);
 	}
 
 }

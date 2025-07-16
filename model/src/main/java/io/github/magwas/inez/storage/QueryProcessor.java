@@ -1,113 +1,140 @@
 package io.github.magwas.inez.storage;
 
+import static io.github.magwas.inez.LogUtil.debug;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.BridiSet;
 import io.github.magwas.inez.ParseText;
+import io.github.magwas.inez.ParserOutput;
 
 @Service
 public class QueryProcessor implements StorageConstants {
 
 	@Autowired
-	public ParseText parseText;
+	ParseText parseText;
 	@Autowired
-	public BridiStore bridiStore;
+	BridiStore bridiStore;
 
 	public Set<Bridi> apply(String query) {
-		BridiSet bridiSet = parseText.apply(query);
-		Bridi theBridi = bridiSet.getBridis().get(bridiSet.getTopId());
-		List<String> reflist = theBridi.getReferences();
-		if (reflist.isEmpty())
-			return Set.of(theBridi);
-		Set<Bridi> candidates = queryWithUnknowns(reflist);
+		debug("\n\napply(" + query);
+		ParserOutput parserOutput = parseText.apply(query);
+		return apply(parserOutput);
+	}
+
+	public Set<Bridi> apply(ParserOutput parserOutput) {
+		String top = parserOutput.getTop();
+		return query(top, parserOutput.getReferenceMap())
+				.collect(Collectors.toSet());
+	}
+
+	private Stream<Bridi> query(String top,
+			Map<String, List<String>> referenceMap) {
+		debug("query(" + top);
+		if (!referenceMap.containsKey(top)) {
+			return resolveSumti(top);
+		}
+		return resolveBridi(top, referenceMap);
+	}
+
+	private Stream<Bridi> resolveSumti(String top) {
+		debug("resolveSumti(" + top);
+		if (top.startsWith("@")) {
+			return getBridiByReference(top);
+		} else {
+			return bridiStore.findAllByRepresentation(top);
+		}
+	}
+
+	private Stream<Bridi> resolveBridi(String top,
+			Map<String, List<String>> referenceMap) {
+		debug("resolveBridi(" + top);
+		List<Bridi> byRepresentation = bridiStore.findAllByRepresentation(top)
+				.toList();
+		if (!byRepresentation.isEmpty()) {
+			return byRepresentation.stream();
+		}
+		List<String> partList = referenceMap.get(top);
+		List<Set<String>> foundIds = new ArrayList<>();
+		int notAnyIndex = 0;
+		for (int i = 1; i < partList.size(); i++) {
+			final String sumti = partList.get(i);
+			if (!sumti.equals(QUERY_BRIDI_ID))
+				notAnyIndex = i;
+			Stream<Bridi> sumtiStream = query(sumti, referenceMap);
+			Stream<String> sumtiIdStream = sumtiStream.map(bridi -> bridi.getId());
+			Set<String> sumtiIds = sumtiIdStream.collect(Collectors.toSet());
+			foundIds.add(sumtiIds);
+		}
+		Stream<Bridi> candidates = findCandidates(top, partList, notAnyIndex,
+				foundIds);
+		candidates = filterCandidates(partList, foundIds, candidates);
+		return candidates;
+
+	}
+
+	private Stream<Bridi> findCandidates(String top, List<String> partList,
+			int notAnyIndex, List<Set<String>> foundIds) {
+		debug("findCandidates(" + top, partList, notAnyIndex, foundIds);
+		if (notAnyIndex == 0)
+			throw new ParseCancellationException("only anys in bridi:" + top);
+		final int partIndex = notAnyIndex;
+		String selbriId = partList.get(0);
+		Set<String> sumtiIdSet = foundIds.get(partIndex - 1);
+		debug("finding candidates for " + top, partIndex, partList);
+		Stream<Bridi> candidates = Stream.of();
+		for (String sumtiId : sumtiIdSet) {
+			debug("getBridiBySelbriAndSumtiIds#2(" + selbriId, sumtiId, partIndex);
+			Stream<Bridi> candidatesForOne = bridiStore
+					.getBridiBySelbriAndSumtiIds(selbriId, sumtiId, partIndex);
+			candidatesForOne = candidatesForOne.peek(bridi -> debug("#2>", selbriId,
+					sumtiId, notAnyIndex - 1 + partIndex, bridi));
+			candidates = Stream.concat(candidates, candidatesForOne);
+		}
 		return candidates;
 	}
 
-	private Set<Bridi> queryWithUnknowns(List<String> reflist) {
-		if (reflist.isEmpty())
-			return Set.of();
-		String selbriId = reflist.get(0);
-		List<List<String>> bridiLists = getIdListForAllSumties(reflist, selbriId);
-
-		for (int j = 1; j < reflist.size() - 1; j++) {
-			bridiLists = permutate(bridiLists, j);
-			if (null == bridiLists) {
-				return Set.of();
+	private Stream<Bridi> filterCandidates(List<String> partList,
+			List<Set<String>> foundForSelbries, Stream<Bridi> candidates) {
+		for (int j = 1; j < partList.size(); j++) {
+			final int sumtiIndex = j - 1;
+			final int referenceIndex = j;
+			String sumti = partList.get(referenceIndex);
+			if (!QUERY_BRIDI_ID.equals(sumti)) {
+				Set<String> allowableSumtiIdSet = foundForSelbries.get(sumtiIndex);
+				debug("filter setup", referenceIndex, allowableSumtiIdSet, partList);
+				candidates = candidates.filter(bridi -> {
+					List<String> references = bridi.getReferences();
+					if (references.size() <= referenceIndex)
+						return false;
+					String matchedId = references.get(referenceIndex);
+					debug("filtering", referenceIndex, allowableSumtiIdSet, matchedId,
+							partList, bridi);
+					return allowableSumtiIdSet.contains(matchedId);
+				});
 			}
 		}
-
-		Iterable<Bridi> bridiBySelbriAndSumtiIds = bridiStore
-				.getBridiBySelbriAndSumtiIds(selbriId, selbriId, 0);
-
-		Stream<Bridi> candidates = StreamSupport
-				.stream(bridiBySelbriAndSumtiIds.spliterator(), false);
-		for (int j = 0; j < reflist.size(); j++) {
-			final String nthSumtiId = reflist.get(j);
-			if (!(nthSumtiId.equals(QUERY_BRIDI_ID)
-					|| nthSumtiId.contains("{" + QUERY_BRIDI_ID + "}"))) {
-				final int k = j;
-				candidates = candidates
-						.filter(x -> x.getReferences().get(k).equals(nthSumtiId));
-			}
-		}
-		candidates = candidates.filter(x -> x.getLongTerm() == true);
-		return candidates.collect(Collectors.toSet());
+		return candidates;
 	}
 
-	private List<List<String>> getIdListForAllSumties(List<String> reflist,
-			String selbriId) {
-		List<List<String>> bridiLists = new ArrayList<>();
-		for (int i = 1; i < reflist.size(); i++) {
-			final String nthSumtiId = reflist.get(i);
-			List<String> results;
-			if (nthSumtiId.equals(QUERY_BRIDI_ID)) {
-				results = List.of(QUERY_BRIDI_ID);
-			} else {
-				Bridi sumti = bridiStore.findById(nthSumtiId).get();
-				List<String> references = sumti.getReferences();
-				if (!references.isEmpty())
-					results = queryWithUnknowns(references).stream()
-							.map(bridi -> bridi.getId()).toList();
-				else
-					results = List.of(sumti.getId());
-			}
-			bridiLists.add(results);
-		}
-		return bridiLists;
+	private Stream<Bridi> getBridiByReference(String top) {
+		Stream<Bridi> matchingBridis;
+		Optional<Bridi> bridiP = bridiStore.findById(top.substring(1));
+		if (bridiP.isEmpty())
+			matchingBridis = Stream.of();
+		else
+			matchingBridis = Stream.of(bridiP.get());
+		return matchingBridis;
 	}
 
-	private List<List<String>> permutate(List<List<String>> bridiLists,
-			int position) {
-		// lists before position are permutated and uniform length
-		List<String> current = bridiLists.get(position);
-		int currentLength = current.size();
-		if (1 == currentLength)
-			return bridiLists;
-		if (0 == currentLength) {
-			return null;
-		}
-		int prevLength = bridiLists.get(position - 1).size();
-		List<String> newCurrent = new ArrayList<>();
-		for (int i = 0; i < prevLength; i++) {
-			newCurrent.addAll(current);
-		}
-		bridiLists.set(position, newCurrent);
-		for (int listIndex = 0; listIndex < position; listIndex++) {
-			List<String> newList = new ArrayList<>();
-			for (int i = 0; i < prevLength; i++) {
-				newList.addAll(current);
-			}
-			bridiLists.set(position, newList);
-		}
-		return bridiLists;
-	}
 }

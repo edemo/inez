@@ -20,6 +20,4 @@ public class Bridi {
 	final String representation;
 	@Builder.Default
 	List<String> references = new ArrayList<>();
-	@Builder.Default
-	Boolean longTerm = false;
 }
