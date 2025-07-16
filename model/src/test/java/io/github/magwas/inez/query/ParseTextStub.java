@@ -1,8 +1,9 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.query;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import io.github.magwas.inez.query.ParseText;
 import io.github.magwas.inez.storage.StorageConstants;
 
 class ParseTextStub implements ParserOutputTestData {

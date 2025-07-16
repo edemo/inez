@@ -1,4 +1,4 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.query;
 
 import java.util.ArrayList;
 import java.util.HashMap;

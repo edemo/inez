@@ -1,4 +1,4 @@
-package io.github.magwas.inez.storage;
+package io.github.magwas.inez.query;
 
 import static io.github.magwas.inez.LogUtil.debug;
 
@@ -14,9 +14,9 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.ParseText;
-import io.github.magwas.inez.ParserOutput;
+import io.github.magwas.inez.model.Bridi;
+import io.github.magwas.inez.storage.BridiStore;
+import io.github.magwas.inez.storage.StorageConstants;
 
 @Service
 public class QueryProcessor implements StorageConstants {
@@ -72,7 +72,7 @@ public class QueryProcessor implements StorageConstants {
 			if (!sumti.equals(QUERY_BRIDI_ID))
 				notAnyIndex = i;
 			Stream<Bridi> sumtiStream = query(sumti, referenceMap);
-			Stream<String> sumtiIdStream = sumtiStream.map(bridi -> bridi.getId());
+			Stream<String> sumtiIdStream = sumtiStream.map(bridi -> bridi.id());
 			Set<String> sumtiIds = sumtiIdStream.collect(Collectors.toSet());
 			foundIds.add(sumtiIds);
 		}
@@ -94,9 +94,13 @@ public class QueryProcessor implements StorageConstants {
 		debug("finding candidates for " + top, partIndex, partList);
 		Stream<Bridi> candidates = Stream.of();
 		for (String sumtiId : sumtiIdSet) {
-			debug("getBridiBySelbriAndSumtiIds#2(" + selbriId, sumtiId, partIndex);
+			debug("getBridiBySelbriAndSumtiIds(" + selbriId, sumtiId, partIndex);
 			Stream<Bridi> candidatesForOne = bridiStore
-					.getBridiBySelbriAndSumtiIds(selbriId, sumtiId, partIndex);
+					.getBridiIdBySelbriAndSumtiIds(selbriId, sumtiId, partIndex)
+					.peek(x -> debug("-id", x)).map(id -> {
+						debug("finding", id);
+						return bridiStore.findById(id).get();
+					});
 			candidatesForOne = candidatesForOne.peek(bridi -> debug("#2>", selbriId,
 					sumtiId, notAnyIndex - 1 + partIndex, bridi));
 			candidates = Stream.concat(candidates, candidatesForOne);
@@ -114,7 +118,7 @@ public class QueryProcessor implements StorageConstants {
 				Set<String> allowableSumtiIdSet = foundForSelbries.get(sumtiIndex);
 				debug("filter setup", referenceIndex, allowableSumtiIdSet, partList);
 				candidates = candidates.filter(bridi -> {
-					List<String> references = bridi.getReferences();
+					List<String> references = bridi.references();
 					if (references.size() <= referenceIndex)
 						return false;
 					String matchedId = references.get(referenceIndex);

@@ -6,9 +6,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.ParseText;
-import io.github.magwas.inez.ParserOutput;
+import io.github.magwas.inez.model.Bridi;
+import io.github.magwas.inez.query.ParseText;
+import io.github.magwas.inez.query.ParserOutput;
+import io.github.magwas.inez.query.QueryProcessor;
 
 @Component
 public class Inez {

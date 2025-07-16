@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
+import io.github.magwas.inez.model.BridiTestData;
 
 class CreateBridiFromBridiListTest extends TestBase implements BridiTestData {
 

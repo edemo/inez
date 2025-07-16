@@ -1,4 +1,4 @@
-package io.github.magwas.inez.storage;
+package io.github.magwas.inez.query;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
-import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.LogUtil;
+import io.github.magwas.inez.model.Bridi;
+import io.github.magwas.inez.model.BridiTestData;
+import io.github.magwas.inez.query.QueryProcessor;
+import io.github.magwas.inez.storage.StorageConstants;
 
 class QueryProcessorTest extends TestBase implements BridiTestData {
 
@@ -104,7 +106,8 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	void test3() {
 		Set<Bridi> actual = queryProcessor.apply(RECURSIVE_QUERY);
 		actual.stream().forEach(x -> LogUtil.debug("->" + x));
-		assertEquals(Set.of(SUMTI_IS_A_THING_IS_A_THING, TAUTOLOGY_IS_A_THING), actual);
+		assertEquals(Set.of(SUMTI_IS_A_THING_IS_A_THING, TAUTOLOGY_IS_A_THING),
+				actual);
 	}
 
 }

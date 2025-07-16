@@ -1,6 +1,6 @@
 package io.github.magwas.inez.storage;
 
-import io.github.magwas.inez.Bridi;
+import io.github.magwas.inez.model.Bridi;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

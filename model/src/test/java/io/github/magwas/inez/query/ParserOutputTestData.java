@@ -1,8 +1,10 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.query;
 
 import java.util.List;
 import java.util.Map;
 
+import io.github.magwas.inez.model.BridiFieldTestData;
+import io.github.magwas.inez.query.ParserOutput;
 import io.github.magwas.inez.storage.StorageConstants;
 
 public interface ParserOutputTestData extends BridiFieldTestData {

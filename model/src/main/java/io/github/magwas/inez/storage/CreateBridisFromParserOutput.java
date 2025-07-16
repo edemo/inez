@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.ParserOutput;
+import io.github.magwas.inez.model.Bridi;
+import io.github.magwas.inez.query.ParserOutput;
 
 @Service
 public class CreateBridisFromParserOutput {
@@ -20,7 +20,7 @@ public class CreateBridisFromParserOutput {
 
 	private Set<Bridi> apply(String top, Map<String, List<String>> refMap) {
 		if (!refMap.containsKey(top))
-			return Set.of(new Bridi(top, top));
+			return Set.of(new Bridi(top, top, null));
 		List<String> partList = refMap.get(top);
 		HashSet<Bridi> ret = new HashSet<>();
 		ret.add(new Bridi(top, top, partList));

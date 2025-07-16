@@ -2,8 +2,7 @@ package io.github.magwas.inez.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
-import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.inez.model.Bridi;
+import io.github.magwas.inez.model.BridiTestData;
 
 class BridiStoreTest extends TestBase implements BridiTestData {
 
@@ -27,22 +26,14 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 			+ "- if there was no previous bridi saved, the history contains null for the old bridi")
 	void test() {
 		bridiStore.save(List.of(BRIDI));
-		verify(bridiStore.bridiRepository).save(BRIDI);
-		StoreCommand last = bridiStore.history.getLast();
-		assertEquals(BridiStoreOperation.SAVE, last.operation);
-		assertEquals(BRIDI, last.now);
-		assertEquals(null, last.old);
+		fail();
 	}
 
 	@Test
 	@DisplayName("- if there was previous bridi saved, the history contains it for the old bridi")
 	void test1() {
 		bridiStore.save(List.of(THING_CHANGED));
-		verify(bridiStore.bridiRepository).save(THING_CHANGED);
-		StoreCommand last = bridiStore.history.getLast();
-		assertEquals(BridiStoreOperation.SAVE, last.operation);
-		assertEquals(THING_CHANGED, last.now);
-		assertEquals(THING, last.old);
+		fail();
 	}
 
 	@Test
@@ -56,18 +47,14 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 	@DisplayName("- if there was previous bridi saved, the history contains it for the old bridi")
 	void test4() {
 		bridiStore.delete(THING);
-		verify(bridiStore.bridiRepository).delete(THING);
-		StoreCommand last = bridiStore.history.getLast();
-		assertEquals(BridiStoreOperation.DELETE, last.operation);
-		assertEquals(null, last.now);
-		assertEquals(THING, last.old);
+		fail();
 	}
 
 	@Test
 	@DisplayName("findById simply delegates to the repository")
 	void test5() {
 		Optional<Bridi> actual = bridiStore.findById(THING_REPR);
-		verify(bridiStore.bridiRepository).findById(THING_REPR);
+		fail();
 		assertEquals(THING, actual.get());
 	}
 
@@ -76,7 +63,7 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 	void test6() {
 		bridiStore.save(List.of(THING, THING_CHANGED));
 		bridiStore.undo();
-		verify(bridiStore.bridiRepository, times(2)).save(THING);
+		fail();
 	}
 
 	@Test
@@ -84,7 +71,7 @@ class BridiStoreTest extends TestBase implements BridiTestData {
 	void test7() {
 		bridiStore.save(List.of(BRIDI));
 		bridiStore.undo();
-		verify(bridiStore.bridiRepository, times(1)).delete(BRIDI);
+		fail();
 	}
 
 }

@@ -1,4 +1,4 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.model;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public interface BridiFieldTestData {
 	String THING_IS_A_SUMTI_REPR = "{thing} is a {sumti}";
 	String TAUTOLOGY_REPR = "the most basic tautology";
 	String TAUTOLOGY_GENERATED_REPR = "{thing} is a {thing}";
-	String RECURSIVE_BRIDI_REPR = "{{sumti} is a {thing}} is a {@thing}";
-	String RECURSIVE_BRIDI_REPR_NOREFERENCE = "{{sumti} is a {thing}} is a {thing}";
+	String SUMTI_IS_A_THING_IS_A_THING_REPR = "{{sumti} is a {thing}} is a {@thing}";
+	String SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE = "{{sumti} is a {thing}} is a {thing}";
 	String TAUTOLOGY_IS_A_THING_REPR = "{{thing} is a {thing}} is a {thing}";
 	String STUFF_ID = "stuff";
 
@@ -37,6 +37,13 @@ public interface BridiFieldTestData {
 	List<String> TAUTOLOGY_IS_A_THING_REFERENCES = List.of(IS_A_REPR,
 			TAUTOLOGY_GENERATED_REPR, THING_REPR);
 	List<String> BAD_BRIDI_REFERENCES = List.of(IS_A_REPR, SUMTI_IS_A_THING_REPR,
-			BRIDI_REPR);
-
+			NONEXISTENT_ID);
+	String TWO_SUMTI_BRIDI_REPR = "{0} {1}";
+	List<String> TEST_TEXT = List.of("{alice} {{eats} {banana}}",
+			"{alice} {{eats} {chips}}", "{bob} {{eats} {banana}}",
+			"{bob} {{eats} {chips}}", "{cecile} {{eats} {banana}}",
+			"{cecile} {{looks at} {banana}}", SUMTI_IS_A_THING_REPR,
+			THING_IS_A_SUMTI_REPR, TAUTOLOGY_GENERATED_REPR,
+			SUMTI_IS_A_THING_IS_A_THING_REPR,
+			SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE, TAUTOLOGY_IS_A_THING_REPR);
 }

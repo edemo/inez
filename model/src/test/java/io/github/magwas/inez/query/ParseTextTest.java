@@ -1,4 +1,4 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.query;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
+import io.github.magwas.inez.query.ParseText;
+import io.github.magwas.inez.query.ParserOutput;
 
 class ParseTextTest extends TestBase implements ParserOutputTestData {
 
