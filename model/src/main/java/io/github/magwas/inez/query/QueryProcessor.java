@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,7 +17,10 @@ import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.Inez;
-import io.github.magwas.inez.storage.BridiStore;
+import io.github.magwas.inez.storage.FindAllByRepresentation;
+import io.github.magwas.inez.storage.FindAllIdByRepresentation;
+import io.github.magwas.inez.storage.FindBridiById;
+import io.github.magwas.inez.storage.GetBridiIdBySelbriAndSumtiIds;
 
 @Service
 public class QueryProcessor {
@@ -24,7 +28,13 @@ public class QueryProcessor {
 	@Autowired
 	ParseText parseText;
 	@Autowired
-	BridiStore bridiStore;
+	FindAllByRepresentation findAllByRepresentation;
+	@Autowired
+	FindAllIdByRepresentation findAllIdByRepresentation;
+	@Autowired
+	GetBridiIdBySelbriAndSumtiIds getBridiIdBySelbriAndSumtiIds;
+	@Autowired
+	FindBridiById findBridiById;
 
 	public Set<Bridi> apply(String query) {
 		debug("\n\napply(" + query);
@@ -49,17 +59,18 @@ public class QueryProcessor {
 	private Stream<Bridi> resolveSumti(String top) {
 		debug("resolveSumti(" + top);
 		if (top.startsWith("@")) {
+			debug("byRef");
 			return getBridiByReference(top);
 		} else {
-			return bridiStore.findAllByRepresentation(top);
+			debug("byStore");
+			return findAllByRepresentation.apply(top);
 		}
 	}
 
 	private Stream<Bridi> resolveBridi(String top,
 			Map<String, List<String>> referenceMap) {
 		debug("resolveBridi(" + top);
-		List<Bridi> byRepresentation = bridiStore.findAllByRepresentation(top)
-				.toList();
+		List<Bridi> byRepresentation = findAllByRepresentation.apply(top).toList();
 		if (!byRepresentation.isEmpty()) {
 			return byRepresentation.stream();
 		}
@@ -87,24 +98,33 @@ public class QueryProcessor {
 		debug("findCandidates(" + top, partList, notAnyIndex, foundIds);
 		if (notAnyIndex == 0)
 			throw new ParseCancellationException("only anys in bridi:" + top);
-		final int partIndex = notAnyIndex;
-		String selbriId = partList.get(0);
-		Set<String> sumtiIdSet = foundIds.get(partIndex - 1);
-		debug("finding candidates for " + top, partIndex, partList);
-		Stream<Bridi> candidates = Stream.of();
+		String representation = partList.get(0);
+		debug("findAllIdByRepresentation(" + representation);
+		return findAllIdByRepresentation.apply(representation)
+				.peek(x -> debug("-1>", x))
+				.mapMulti((String selbri,
+						Consumer<Stream<Bridi>> consumer) -> findCandidatesForOne(selbri,
+								consumer, top, partList, notAnyIndex, foundIds))
+				.flatMap(c -> c).peek(x -> debug("-2>", x));
+	}
+
+	private void findCandidatesForOne(String selbriId,
+			Consumer<Stream<Bridi>> consumer, String top, List<String> partList,
+			int notAnyIndex, List<Set<String>> foundIds) {
+		Set<String> sumtiIdSet = foundIds.get(notAnyIndex - 1);
+		debug("findCandidatesForOne(" + top, notAnyIndex, partList);
 		for (String sumtiId : sumtiIdSet) {
-			debug("getBridiBySelbriAndSumtiIds(" + selbriId, sumtiId, partIndex);
-			Stream<Bridi> candidatesForOne = bridiStore
-					.getBridiIdBySelbriAndSumtiIds(selbriId, sumtiId, partIndex)
-					.peek(x -> debug("-id", x)).map(id -> {
+			debug("getBridiBySelbriAndSumtiIds(" + selbriId, sumtiId, notAnyIndex);
+			Stream<Bridi> candidatesForOne = getBridiIdBySelbriAndSumtiIds
+					.apply(selbriId, sumtiId, notAnyIndex).peek(x -> debug("-id", x))
+					.map(id -> {
 						debug("finding", id);
-						return bridiStore.findById(id).get();
+						return findBridiById.apply(id).get();
 					});
 			candidatesForOne = candidatesForOne.peek(bridi -> debug("#2>", selbriId,
-					sumtiId, notAnyIndex - 1 + partIndex, bridi));
-			candidates = Stream.concat(candidates, candidatesForOne);
+					sumtiId, notAnyIndex - 1 + notAnyIndex, bridi));
+			consumer.accept(candidatesForOne);
 		}
-		return candidates;
 	}
 
 	private Stream<Bridi> filterCandidates(List<String> partList,
@@ -115,7 +135,8 @@ public class QueryProcessor {
 			String sumti = partList.get(referenceIndex);
 			if (!Inez.QUERY_BRIDI_ID.equals(sumti)) {
 				Set<String> allowableSumtiIdSet = foundForSelbries.get(sumtiIndex);
-				debug("filter setup", referenceIndex, allowableSumtiIdSet, partList);
+				debug("filter setup", referenceIndex, allowableSumtiIdSet, partList,
+						sumti);
 				candidates = candidates.filter(bridi -> {
 					List<String> references = bridi.references();
 					if (references.size() <= referenceIndex)
@@ -132,7 +153,7 @@ public class QueryProcessor {
 
 	private Stream<Bridi> getBridiByReference(String top) {
 		Stream<Bridi> matchingBridis;
-		Optional<Bridi> bridiP = bridiStore.findById(top.substring(1));
+		Optional<Bridi> bridiP = findBridiById.apply(top.substring(1));
 		if (bridiP.isEmpty())
 			matchingBridis = Stream.of();
 		else

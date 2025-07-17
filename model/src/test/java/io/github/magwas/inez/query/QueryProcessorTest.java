@@ -15,7 +15,6 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.impl.LogUtil;
-import io.github.magwas.inez.query.QueryProcessor;
 
 class QueryProcessorTest extends TestBase implements BridiTestData {
 
@@ -83,7 +82,7 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@DisplayName("for a bridi where one of the sumties is '$?', the matching bridies return")
 	void test1() {
 		Set<Bridi> actual = queryProcessor.apply(QUERY_STRING_SIMPLE);
-		actual.forEach(x -> System.out.println("-->" + x));
+		actual.forEach(x -> LogUtil.debug("-->" + x));
 		assertEquals(SIMPLE_QUERY_OUTPUT, actual);
 	}
 

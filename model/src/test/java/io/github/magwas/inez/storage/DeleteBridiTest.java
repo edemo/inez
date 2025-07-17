@@ -38,7 +38,8 @@ public class DeleteBridiTest extends TestBase
 	@DisplayName("- the references are cleared")
 	void test() {
 		deleteBridi.apply(SUMTI_IS_A_THING);
-		verify(deleteBridi.removeReferences).apply(SUMTI_IS_A_THING.references());
+		verify(deleteBridi.removeReferences).apply(SUMTI_IS_A_THING_ID,
+				SUMTI_IS_A_THING.references());
 	}
 
 	@Test

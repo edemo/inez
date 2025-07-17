@@ -45,7 +45,8 @@ public class SaveBridiTest extends TestBase
 	@DisplayName(" - and cleans its references")
 	void test4_1() {
 		saveBridi.apply(SUMTI_IS_A_THING_CHANGED);
-		verify(saveBridi.removeReferences).apply(SUMTI_IS_A_THING.references());
+		verify(saveBridi.removeReferences).apply(SUMTI_IS_A_THING_ID,
+				SUMTI_IS_A_THING.references());
 	}
 
 	@Test

@@ -1,69 +1,54 @@
 package io.github.magwas.inez.storage;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Set;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
-import io.github.magwas.inez.InezUtil;
+import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.TestConfig;
 import io.github.magwas.inez.impl.LogUtil;
-import io.github.magwas.inez.query.ParseText;
-import io.github.magwas.inez.query.ParserOutput;
-import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
-import io.github.magwas.inez.storage.repository.SumtiRepository;
 
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
 public class BridiStoreEndToEndTest implements BridiTestData {
 
-	@Autowired
-	SumtiRepository sumtiRepository;
-
-	@Autowired
-	BridiReferenceRepository bridiReferenceRepository;
-
-	@Autowired
-	ParseText parseText;
-
-	@Autowired
-	BridiStore bridiStore;
-
 	@Test
 	void test() {
-		TEST_TEXT.forEach(sentence -> {
-			ParserOutput output = parseText.apply(sentence);
-			output.referenceMap().entrySet().forEach(x -> LogUtil.debug("parsed", x));
-			saveOutput(output.top(), output);
-		});
-		bridiStore.save(GO1);
-		bridiStore.save(GO2);
-		bridiStore.findAllByRepresentation(GO_REPRESENTATION)
+		Inez inez = Inez.getInstance();
+		TEST_TEXT.forEach(sentence -> inez.create(sentence));
+		inez.save(Set.of(GO1, GO2));
+		inez.findAllByRepresentation(GO_REPRESENTATION)
 				.forEach(x -> LogUtil.debug("go", x));
-		bridiReferenceRepository.findAll().forEach(
-				bridiReference -> LogUtil.debug("bridiReference", bridiReference));
-		bridiStore
-				.getBridiIdBySelbriAndSumtiIds(InezUtil.createID(IS_A_REPR),
-						InezUtil.createID(THING_REPR), 2)
-				.forEach(x -> LogUtil.debug("getBridiBySelbriAndSumtiIds", x));
+		String CECILE_EATS_BANANA_REPR = "{cecile} {{eats} {banana}}";
+		String CECILE_LOOKS_AT_BANANA_REPR = "{cecile} {{looks at} {banana}}";
+		Bridi cecile_eats_banana = assertGotTheBridi(CECILE_EATS_BANANA_REPR,
+				inez.query(CECILE_EATS_BANANA_REPR));
+		Bridi ceclie_looks_at_banana = assertGotTheBridi(
+				CECILE_LOOKS_AT_BANANA_REPR, inez.query(CECILE_LOOKS_AT_BANANA_REPR));
+		assertEquals(Set.of(cecile_eats_banana, ceclie_looks_at_banana),
+				inez.query("{cecile} {{$?} {banana}}"));
+
+		Bridi looks_at_banana = inez
+				.findById(ceclie_looks_at_banana.references().get(2)).get();
+		Bridi looks_at = inez.findById(looks_at_banana.references().get(1)).get();
+		assertEquals("looks at", looks_at.representation());
 
 	}
 
-	private String saveOutput(String top, ParserOutput parserOutput) {
-		String bridiId = top;
-		List<String> references = parserOutput.referenceMap().get(top);
-		if (null != references)
-			references.forEach(x -> saveOutput(x, parserOutput));
-		Bridi bridi = bridiStore.createBridiFromRepresentations(top, references);
-		bridiStore.save(bridi);
-		return bridiId;
+	private Bridi assertGotTheBridi(String expected, Set<Bridi> actual) {
+		assertEquals(1, actual.size());
+		Bridi bridi1 = actual.iterator().next();
+		assertEquals(expected, bridi1.representation());
+		return bridi1;
 	}
 
 }

@@ -52,6 +52,13 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	}
 
 	@Test
+	@DisplayName("in case of unrecognized tree element, an InternalError is thrown")
+	void test5() {
+		assertThrows(InternalError.class,
+				() -> parseText.apply(INPUT_FROM_UNKNOWN_PARSER));
+	}
+
+	@Test
 	@DisplayName("if the text cannot be unambigously parsed, a ParseCancellationException is thrown")
 	void test1() {
 		assertThrows(ParseCancellationException.class,

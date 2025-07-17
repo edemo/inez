@@ -24,11 +24,11 @@ import io.github.magwas.inez.TestUtil;
 @ContextConfiguration(classes = TestConfig.class)
 class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 
-	private Inez factory;
+	private Inez inez;
 
 	@Test
 	void test1() {
-		factory = Inez.getInstance();
+		inez = Inez.getInstance();
 		save(TEST_TEXT);
 
 		assertQuery(Set.of("alice"), "alice");
@@ -45,13 +45,13 @@ class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 
 	private void save(List<String> sentences) {
 		for (String sentence : sentences) {
-			factory.create(sentence);
+			inez.create(sentence);
 		}
 	}
 
 	private Set<Bridi> assertQuery(Set<String> expected, String query) {
-		Set<Bridi> result = factory.query(query);
-		Set<String> actual = result.stream().map(bridi -> bridi.id())
+		Set<Bridi> result = inez.query(query);
+		Set<String> actual = result.stream().map(bridi -> bridi.representation())
 				.collect(Collectors.toSet());
 		if (!expected.equals(actual)) {
 			System.out.println("actual:");

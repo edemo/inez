@@ -11,9 +11,11 @@ public class TestUtil {
 		System.out.println("expected - actual:");
 		remaining.forEach(x -> System.out.println(x));
 
-		actual.removeAll(expected);
+		Set<T> actualCopy = new HashSet<T>();
+		actualCopy.addAll(actual);
+		actualCopy.removeAll(expected);
 		System.out.println("actual - expected:");
-		actual.forEach(x -> System.out.println(x));
+		actualCopy.forEach(x -> System.out.println(x));
 
 	}
 

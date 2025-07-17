@@ -1,0 +1,24 @@
+package io.github.magwas.inez.query;
+
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.springframework.stereotype.Service;
+
+import io.github.magwas.inez.parser.BridiLexer;
+import io.github.magwas.inez.parser.BridiParser;
+import io.github.magwas.kodekonveyorannotations.Glue;
+
+@Glue
+@Service
+public class CreateParserFromTokens {
+
+	BridiParser apply(String input) {
+		BridiLexer lexer = new BridiLexer(CharStreams.fromString(input));
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		BridiParser parser = new BridiParser(tokens);
+		parser.removeErrorListeners();
+		parser.addErrorListener(new ThrowingErrorListener());
+		return parser;
+	}
+
+}

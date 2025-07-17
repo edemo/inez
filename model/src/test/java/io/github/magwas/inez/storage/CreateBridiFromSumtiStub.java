@@ -13,6 +13,8 @@ public class CreateBridiFromSumtiStub implements BridiTestData, SumtiTestData {
 		when(mock.apply(SUMTI_IS_A_THING_CHANGED_SUMTI))
 				.thenReturn(SUMTI_IS_A_THING_CHANGED);
 		when(mock.apply(SUMTI_IS_A_THING_SUMTI)).thenReturn(SUMTI_IS_A_THING);
+		when(mock.apply(GO1_SUMTI)).thenReturn(GO1);
+		when(mock.apply(GO2_SUMTI)).thenReturn(GO2);
 		when(mock.apply(null)).thenThrow(new NullPointerException());
 		return mock;
 	}

@@ -13,4 +13,7 @@ public interface BridiReferenceRepository
 
 	Set<BridiReference> findAllBySumtiIdAndPosition(String sumtiId, int position);
 
+	void deleteBybridiIdAndPositionAndSumtiId(String BridiId, Integer Position,
+			String SumtiId);
+
 }

@@ -9,5 +9,7 @@ public interface SumtiTestData extends BridiFieldTestData {
 			SUMTI_IS_A_THING_REPR);
 	Sumti SUMTI_IS_A_THING_CHANGED_SUMTI = new Sumti(SUMTI_IS_A_THING_ID,
 			SUMTI_IS_A_THING_CHANGED_REPR);
+	Sumti GO1_SUMTI = new Sumti(GO1_ID, GO_REPRESENTATION);
+	Sumti GO2_SUMTI = new Sumti(GO2_ID, GO_REPRESENTATION);
 
 }

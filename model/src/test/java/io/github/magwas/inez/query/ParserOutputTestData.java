@@ -18,7 +18,8 @@ public interface ParserOutputTestData extends BridiFieldTestData {
 	ParserOutput OUTPUT_ANY = new ParserOutput(Inez.QUERY_BRIDI_ID, Map.of());
 
 	ParserOutput OUTPUT_SUMTI_IS_A_THING = new ParserOutput(SUMTI_IS_A_THING_REPR,
-			Map.of(SUMTI_IS_A_THING_REPR, List.of(SUMTI_IS_A_THING_REPR)));
+			Map.of(SUMTI_IS_A_THING_REPR,
+					List.of(IS_A_REPR, SUMTI_REPR, THING_REPR)));
 	ParserOutput OUTPUT_TAUTOLOGY = new ParserOutput(TAUTOLOGY_GENERATED_REPR,
 			Map.of(TAUTOLOGY_GENERATED_REPR,
 					List.of(IS_A_REPR, THING_REPR, THING_REPR)));

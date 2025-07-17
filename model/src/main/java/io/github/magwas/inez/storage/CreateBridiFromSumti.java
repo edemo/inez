@@ -35,7 +35,7 @@ public class CreateBridiFromSumti {
 			i++;
 		}
 		Bridi bridi = new Bridi(sumti.id(), sumti.representation(), parts);
-		LogUtil.debug("bridi:", bridi);
+		LogUtil.debug("bridi:" + bridi);
 		return bridi;
 	}
 

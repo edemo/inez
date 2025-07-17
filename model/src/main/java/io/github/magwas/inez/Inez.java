@@ -1,7 +1,9 @@
 package io.github.magwas.inez;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import io.github.magwas.inez.impl.ApplicationContextHolder;
 
@@ -21,5 +23,9 @@ public interface Inez {
 	public Set<Bridi> create(String query);
 
 	public Set<Bridi> save(Collection<Bridi> values);
+
+	public Stream<Bridi> findAllByRepresentation(String representation);
+
+	public Optional<Bridi> findById(String string);
 
 }

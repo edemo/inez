@@ -40,7 +40,7 @@ public class SaveBridi {
 		if (null != old) {
 			oldBridi = createBridiFromSumti.apply(old);
 			LogUtil.debug("old", old, oldBridi);
-			removeReferences.apply(oldBridi.references());
+			removeReferences.apply(oldBridi.id(), oldBridi.references());
 		}
 		Sumti sumti = new Sumti(bridi.id(), bridi.representation());
 		sumtiRepository.save(sumti);

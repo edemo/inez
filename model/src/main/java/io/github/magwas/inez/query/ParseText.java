@@ -5,27 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.magwas.inez.parser.BridiLexer;
 import io.github.magwas.inez.parser.BridiParser;
 import io.github.magwas.inez.parser.BridiParser.BridiContext;
 import io.github.magwas.inez.parser.BridiParser.TextReferenceContext;
 
 @Service
 public class ParseText {
+	@Autowired
+	CreateParserFromTokens createParserFromTokens;
 
 	public ParserOutput apply(final String input) {
-		BridiLexer lexer = new BridiLexer(CharStreams.fromString(input));
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		BridiParser parser = new BridiParser(tokens);
-		parser.removeErrorListeners();
-		parser.addErrorListener(new ThrowingErrorListener());
+		BridiParser parser = createParserFromTokens.apply(input);
 		BridiContext bridi = parser.bridi();
 		return compileBridiFromTree(bridi);
 	}
@@ -50,7 +45,7 @@ public class ParseText {
 				String reference = kid.getText();
 				kidrefs.add(reference);
 			} else
-				throw new ParseCancellationException("unrecognized tree element" + kid);
+				throw new InternalError("unrecognized tree element" + kid);
 		}
 		String repr = representation.toString();
 		if (childIndex > 0) {
