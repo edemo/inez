@@ -1,4 +1,4 @@
-package io.github.magwas.inez.storage;
+package io.github.magwas.inez.impl;
 
 import java.util.Collection;
 import java.util.Set;
@@ -6,13 +6,18 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.github.magwas.inez.model.Bridi;
+import io.github.magwas.inez.Bridi;
+import io.github.magwas.inez.BridiStoreChangeListener;
+import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.query.CreateBridisFromParserOutput;
 import io.github.magwas.inez.query.ParseText;
 import io.github.magwas.inez.query.ParserOutput;
 import io.github.magwas.inez.query.QueryProcessor;
+import io.github.magwas.inez.storage.BridiStore;
+import io.github.magwas.inez.storage.BridiStoreChangeListeners;
 
 @Component
-public class Inez {
+class InezImpl implements Inez {
 	@Autowired
 	BridiStoreChangeListeners bridiStoreChangeListeners;
 	@Autowired
@@ -24,19 +29,15 @@ public class Inez {
 	@Autowired
 	CreateBridisFromParserOutput createBridisFromParserOutput;
 
-	private Inez() {
+	private InezImpl() {
 	};
 
-	public static Inez getInstance() {
-		return ApplicationContextHolder.getInez();
-	}
-
 	public void registerListener(BridiStoreChangeListener listener) {
-		bridiStoreChangeListeners.listeners.add(listener);
+		bridiStoreChangeListeners.getListeners().add(listener);
 	}
 
 	public void unregisterListener(BridiStoreChangeListener listener) {
-		bridiStoreChangeListeners.listeners.remove(listener);
+		bridiStoreChangeListeners.getListeners().remove(listener);
 	}
 
 	public Set<Bridi> query(String query) {

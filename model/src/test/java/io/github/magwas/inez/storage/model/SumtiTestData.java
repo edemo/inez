@@ -1,0 +1,13 @@
+package io.github.magwas.inez.storage.model;
+
+import io.github.magwas.inez.BridiFieldTestData;
+
+public interface SumtiTestData extends BridiFieldTestData {
+
+	Sumti THING_SUMTI = new Sumti(THING_ID, THING_REPR);
+	Sumti SUMTI_IS_A_THING_SUMTI = new Sumti(SUMTI_IS_A_THING_ID,
+			SUMTI_IS_A_THING_REPR);
+	Sumti SUMTI_IS_A_THING_CHANGED_SUMTI = new Sumti(SUMTI_IS_A_THING_ID,
+			SUMTI_IS_A_THING_CHANGED_REPR);
+
+}

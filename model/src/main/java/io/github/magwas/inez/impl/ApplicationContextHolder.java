@@ -1,11 +1,11 @@
-package io.github.magwas.inez.storage;
+package io.github.magwas.inez.impl;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-class ApplicationContextHolder implements ApplicationContextAware {
+public class ApplicationContextHolder implements ApplicationContextAware {
 	private static ApplicationContext _appCtx;
 
 	@Override
@@ -13,7 +13,7 @@ class ApplicationContextHolder implements ApplicationContextAware {
 		_appCtx = ctx;
 	}
 
-	public static Inez getInez() {
-		return _appCtx.getBean(Inez.class);
+	public static InezImpl getInez() {
+		return _appCtx.getBean(InezImpl.class);
 	}
 }

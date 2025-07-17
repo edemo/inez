@@ -6,7 +6,8 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import io.github.magwas.inez.model.BridiTestData;
+import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.inez.Inez;
 
 class BridiStoreStub implements BridiTestData {
 	public static BridiStore stub() {
@@ -19,11 +20,10 @@ class BridiStoreStub implements BridiTestData {
 				.thenReturn(Optional.of(TAUTOLOGY_IS_A_THING));
 		when(mock.findById(THING_REPR)).thenReturn(Optional.of(THING));
 		when(mock.findById("thung")).thenReturn(Optional.of(THING_CHANGED));
-		when(mock.findById(SUMTI_REP)).thenReturn(Optional.of(SUMTI));
+		when(mock.findById(SUMTI_ID)).thenReturn(Optional.of(SUMTI));
 		when(mock.findById(BRIDI_REPR)).thenReturn(Optional.of(BRIDI));
 		when(mock.findById(IS_A_REPR)).thenReturn(Optional.of(IS_A));
-		when(mock.findById(StorageConstants.QUERY_BRIDI_ID))
-				.thenReturn(Optional.of(ANY));
+		when(mock.findById(Inez.QUERY_BRIDI_ID)).thenReturn(Optional.of(ANY));
 		when(mock.findById(SUMTI_IS_A_THING_REPR))
 				.thenReturn(Optional.of(SUMTI_IS_A_THING));
 		when(mock.findById(TAUTOLOGY_GENERATED_REPR))
@@ -56,7 +56,7 @@ class BridiStoreStub implements BridiTestData {
 				.thenAnswer((args) -> Stream.of(GO1, GO2));
 		when(mock.findAllByRepresentation(SUMTI_IS_A_THING_REPR))
 				.thenAnswer((args) -> Stream.of(SUMTI_IS_A_THING));
-		when(mock.findAllByRepresentation(StorageConstants.QUERY_BRIDI_ID))
+		when(mock.findAllByRepresentation(Inez.QUERY_BRIDI_ID))
 				.thenAnswer((args) -> Stream.of(ANY));
 
 		return mock;

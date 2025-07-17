@@ -43,8 +43,8 @@ public class ParseText {
 			} else if (kid instanceof BridiContext) {
 				representation.append(childIndex++);
 				ParserOutput parsedKid = compileBridiFromTree((BridiContext) kid);
-				references.putAll(parsedKid.referenceMap);
-				kidrefs.add(parsedKid.top);
+				references.putAll(parsedKid.referenceMap());
+				kidrefs.add(parsedKid.top());
 			} else if (kid instanceof TextReferenceContext) {
 				representation.append(childIndex++);
 				String reference = kid.getText();

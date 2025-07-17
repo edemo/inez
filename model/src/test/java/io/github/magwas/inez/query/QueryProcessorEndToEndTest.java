@@ -9,38 +9,29 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.github.magwas.TestBase;
+import io.github.magwas.inez.Bridi;
+import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.TestConfig;
 import io.github.magwas.inez.TestUtil;
-import io.github.magwas.inez.model.Bridi;
-import io.github.magwas.inez.model.BridiTestData;
-import io.github.magwas.inez.query.ParseText;
-import io.github.magwas.inez.storage.Inez;
 
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
 class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 
-	@Autowired
-	ParseText parseText;
-
 	private Inez factory;
 
 	@Test
 	void test1() {
 		factory = Inez.getInstance();
-
-		//@formatter:off
-		
 		save(TEST_TEXT);
 
-		assertQuery(Set.of("alice"),
-				"alice");
+		assertQuery(Set.of("alice"), "alice");
 		assertQuery(Set.of("{alice} {{eats} {banana}}"),
 				"{alice} {{eats} {banana}}");
 		assertQuery(Set.of("{alice} {{eats} {banana}}", "{bob} {{eats} {banana}}",
@@ -58,9 +49,10 @@ class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 		}
 	}
 
-private Set<Bridi> assertQuery(Set<String> expected, String query) {
+	private Set<Bridi> assertQuery(Set<String> expected, String query) {
 		Set<Bridi> result = factory.query(query);
-		Set<String> actual = result.stream().map(bridi -> bridi.id()).collect(Collectors.toSet());
+		Set<String> actual = result.stream().map(bridi -> bridi.id())
+				.collect(Collectors.toSet());
 		if (!expected.equals(actual)) {
 			System.out.println("actual:");
 			actual.forEach((x) -> System.out.println(x));

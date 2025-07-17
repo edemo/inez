@@ -1,6 +1,6 @@
 package io.github.magwas.inez.query;
 
-import static io.github.magwas.inez.LogUtil.debug;
+import static io.github.magwas.inez.impl.LogUtil.debug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +14,12 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.magwas.inez.model.Bridi;
+import io.github.magwas.inez.Bridi;
+import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.storage.BridiStore;
-import io.github.magwas.inez.storage.StorageConstants;
 
 @Service
-public class QueryProcessor implements StorageConstants {
+public class QueryProcessor {
 
 	@Autowired
 	ParseText parseText;
@@ -33,9 +33,8 @@ public class QueryProcessor implements StorageConstants {
 	}
 
 	public Set<Bridi> apply(ParserOutput parserOutput) {
-		String top = parserOutput.getTop();
-		return query(top, parserOutput.getReferenceMap())
-				.collect(Collectors.toSet());
+		String top = parserOutput.top();
+		return query(top, parserOutput.referenceMap()).collect(Collectors.toSet());
 	}
 
 	private Stream<Bridi> query(String top,
@@ -69,7 +68,7 @@ public class QueryProcessor implements StorageConstants {
 		int notAnyIndex = 0;
 		for (int i = 1; i < partList.size(); i++) {
 			final String sumti = partList.get(i);
-			if (!sumti.equals(QUERY_BRIDI_ID))
+			if (!sumti.equals(Inez.QUERY_BRIDI_ID))
 				notAnyIndex = i;
 			Stream<Bridi> sumtiStream = query(sumti, referenceMap);
 			Stream<String> sumtiIdStream = sumtiStream.map(bridi -> bridi.id());
@@ -114,7 +113,7 @@ public class QueryProcessor implements StorageConstants {
 			final int sumtiIndex = j - 1;
 			final int referenceIndex = j;
 			String sumti = partList.get(referenceIndex);
-			if (!QUERY_BRIDI_ID.equals(sumti)) {
+			if (!Inez.QUERY_BRIDI_ID.equals(sumti)) {
 				Set<String> allowableSumtiIdSet = foundForSelbries.get(sumtiIndex);
 				debug("filter setup", referenceIndex, allowableSumtiIdSet, partList);
 				candidates = candidates.filter(bridi -> {

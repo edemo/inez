@@ -1,4 +1,4 @@
-package io.github.magwas.inez.storage;
+package io.github.magwas.inez.query;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,14 +7,13 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import io.github.magwas.inez.model.Bridi;
-import io.github.magwas.inez.query.ParserOutput;
+import io.github.magwas.inez.Bridi;
 
 @Service
 public class CreateBridisFromParserOutput {
 	public Set<Bridi> apply(ParserOutput parserOutput) {
-		String top = parserOutput.getTop();
-		Map<String, List<String>> refMap = parserOutput.getReferenceMap();
+		String top = parserOutput.top();
+		Map<String, List<String>> refMap = parserOutput.referenceMap();
 		return apply(top, refMap);
 	}
 

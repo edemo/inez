@@ -3,8 +3,8 @@ package io.github.magwas.inez.query;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.query.ParseText;
-import io.github.magwas.inez.storage.StorageConstants;
 
 class ParseTextStub implements ParserOutputTestData {
 	public static ParseText stub() {
@@ -17,7 +17,7 @@ class ParseTextStub implements ParserOutputTestData {
 		when(mock.apply(NONEXISTENT_REFERENCE))
 				.thenReturn(OUTPUT_NONEXISTENT_REFERENCE);
 		when(mock.apply(TAUTOLOGY_GENERATED_REPR)).thenReturn(OUTPUT_TAUTOLOGY);
-		when(mock.apply(StorageConstants.QUERY_BRIDI_ID)).thenReturn(OUTPUT_ANY);
+		when(mock.apply(Inez.QUERY_BRIDI_ID)).thenReturn(OUTPUT_ANY);
 
 		when(mock.apply(QUERY_STRING_SIMPLE)).thenReturn(OUTPUT_SIMPLE);
 		when(mock.apply(QUERY_STRING_ALL_ANY)).thenReturn(OUTPUT_ALL_ANY);

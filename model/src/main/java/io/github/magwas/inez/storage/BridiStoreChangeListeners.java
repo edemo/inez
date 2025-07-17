@@ -5,7 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-@Component 
+import io.github.magwas.inez.BridiStoreChangeListener;
+import lombok.Data;
+
+@Component
+@Data
 public class BridiStoreChangeListeners {
-	List<BridiStoreChangeListener> listeners = new ArrayList<>();
+	final List<BridiStoreChangeListener> listeners = new ArrayList<>();
 }

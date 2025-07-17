@@ -1,17 +1,7 @@
 package io.github.magwas.inez.query;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@RequiredArgsConstructor
-public class ParserOutput {
-	final String top;
-	Map<String, List<String>> referenceMap = new HashMap<>();
+public record ParserOutput(String top, Map<String, List<String>> referenceMap) {
 }

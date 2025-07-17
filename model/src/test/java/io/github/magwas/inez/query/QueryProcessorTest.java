@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
-import io.github.magwas.inez.LogUtil;
-import io.github.magwas.inez.model.Bridi;
-import io.github.magwas.inez.model.BridiTestData;
+import io.github.magwas.inez.Bridi;
+import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.impl.LogUtil;
 import io.github.magwas.inez.query.QueryProcessor;
-import io.github.magwas.inez.storage.StorageConstants;
 
 class QueryProcessorTest extends TestBase implements BridiTestData {
 
@@ -75,7 +75,7 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("'$?' returns a list of the any sumti")
 	void test_7() {
-		Set<Bridi> actual = queryProcessor.apply(StorageConstants.QUERY_BRIDI_ID);
+		Set<Bridi> actual = queryProcessor.apply(Inez.QUERY_BRIDI_ID);
 		assertEquals(Set.of(ANY), actual);
 	}
 

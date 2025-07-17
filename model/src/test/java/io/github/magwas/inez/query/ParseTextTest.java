@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import io.github.magwas.TestBase;
-import io.github.magwas.inez.query.ParseText;
-import io.github.magwas.inez.query.ParserOutput;
 
 class ParseTextTest extends TestBase implements ParserOutputTestData {
 
@@ -24,7 +22,7 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	@DisplayName("a sumti parsed to just a top element")
 	void test() {
 		ParserOutput actual = parseText.apply("alice");
-		assertEquals(new ParserOutput("alice"), actual);
+		assertEquals(new ParserOutput("alice", Map.of()), actual);
 	}
 
 	@Test

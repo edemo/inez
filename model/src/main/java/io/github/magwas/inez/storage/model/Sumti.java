@@ -1,4 +1,4 @@
-package io.github.magwas.inez.storage;
+package io.github.magwas.inez.storage.model;
 
 import org.springframework.data.annotation.Id;
 

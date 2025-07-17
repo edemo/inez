@@ -1,4 +1,4 @@
-package io.github.magwas.inez.model;
+package io.github.magwas.inez;
 
 import java.util.List;
 

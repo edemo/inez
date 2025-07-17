@@ -1,0 +1,19 @@
+package io.github.magwas.inez.storage;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.inez.storage.model.SumtiTestData;
+
+public class CreateBridiFromSumtiStub implements BridiTestData, SumtiTestData {
+	public static CreateBridiFromSumti stub() {
+		CreateBridiFromSumti mock = mock(CreateBridiFromSumti.class);
+		when(mock.apply(THING_SUMTI)).thenReturn(THING);
+		when(mock.apply(SUMTI_IS_A_THING_CHANGED_SUMTI))
+				.thenReturn(SUMTI_IS_A_THING_CHANGED);
+		when(mock.apply(SUMTI_IS_A_THING_SUMTI)).thenReturn(SUMTI_IS_A_THING);
+		when(mock.apply(null)).thenThrow(new NullPointerException());
+		return mock;
+	}
+}
