@@ -7,13 +7,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.storage.model.BridiReferenceTestData;
+import io.github.magwas.testing.TestBase;
 
 public class AddReferencesTest extends TestBase
 		implements BridiReferenceTestData {
 	@InjectMocks
-	AddReferences addReferences;
+	AddReferencesService addReferences;
 
 	@Test
 	@DisplayName("adds all the references of the bridi to the repository")

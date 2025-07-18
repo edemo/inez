@@ -12,12 +12,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.TestConfig;
-import io.github.magwas.inez.TestUtil;
+import io.github.magwas.testing.TestBase;
+import io.github.magwas.testing.TestUtil;
 
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)

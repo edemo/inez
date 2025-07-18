@@ -10,16 +10,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiStoreOperation;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
+import io.github.magwas.testing.TestBase;
 
 public class DeleteBridiTest extends TestBase
 		implements BridiTestData, SumtiTestData {
 
 	@InjectMocks
-	DeleteBridi deleteBridi;
+	DeleteBridiService deleteBridi;
 
 	@Test
 	@DisplayName("delete deletes the bridi and returns it\n")

@@ -8,13 +8,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.testing.TestBase;
 
 public class RemoveReferencesTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
-	RemoveReferences removeReferences;
+	RemoveReferencesService removeReferences;
 
 	@Test
 	@DisplayName("removes references from the BridiReferenceRepository\n"

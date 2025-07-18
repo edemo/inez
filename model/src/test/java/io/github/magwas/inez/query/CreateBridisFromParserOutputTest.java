@@ -8,14 +8,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.testing.TestBase;
 
 class CreateBridisFromParserOutputTest extends TestBase
 		implements BridiTestData, ParserOutputTestData {
 	@InjectMocks
-	CreateBridisFromParserOutput createBridisFromParserOutput;
+	CreateBridisFromParserOutputService createBridisFromParserOutput;
 
 	@Test
 	@DisplayName("creates a list of bridis from the output of the parser\n"

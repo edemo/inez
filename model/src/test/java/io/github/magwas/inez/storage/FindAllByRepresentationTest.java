@@ -9,14 +9,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.testing.TestBase;
 
 public class FindAllByRepresentationTest extends TestBase
 		implements BridiTestData {
 
 	@InjectMocks
-	FindAllByRepresentation findAllByRepresentation;
+	FindAllByRepresentationService findAllByRepresentation;
 
 	@Test
 	@DisplayName("finds all bridis based on a representation")

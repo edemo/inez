@@ -6,15 +6,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
+import io.github.magwas.testing.TestBase;
 
 public class CreateBridiFromSumtiTest extends TestBase
 		implements BridiTestData, SumtiTestData {
 
 	@InjectMocks
-	CreateBridiFromSumti createBridiFromSumti;
+	CreateBridiFromSumtiService createBridiFromSumti;
 
 	@Test
 	@DisplayName("creates a bridi from the sumti")

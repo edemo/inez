@@ -10,16 +10,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.Inez;
-import io.github.magwas.inez.impl.LogUtil;
+import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.testing.TestBase;
 
 class QueryProcessorTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
-	QueryProcessor queryProcessor;
+	QueryProcessorService queryProcessor;
 
 	@Test
 	@DisplayName("for a nonexisting sumti returns the empty list")

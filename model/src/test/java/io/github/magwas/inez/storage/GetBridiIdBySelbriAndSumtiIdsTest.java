@@ -9,14 +9,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.testing.TestBase;
 
 public class GetBridiIdBySelbriAndSumtiIdsTest extends TestBase
 		implements BridiTestData {
 
 	@InjectMocks
-	GetBridiIdBySelbriAndSumtiIds getBridiIdBySelbriAndSumtiIds;
+	GetBridiIdBySelbriAndSumtiIdsService getBridiIdBySelbriAndSumtiIds;
 
 	@Test
 	@DisplayName("returns the ids of all bridies with the given sumti,"

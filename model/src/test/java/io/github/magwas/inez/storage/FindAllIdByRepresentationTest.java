@@ -9,13 +9,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiFieldTestData;
+import io.github.magwas.testing.TestBase;
 
 public class FindAllIdByRepresentationTest extends TestBase
 		implements BridiFieldTestData {
 	@InjectMocks
-	FindAllIdByRepresentation findAllIdByRepresentation;
+	FindAllIdByRepresentationService findAllIdByRepresentation;
 
 	@Test
 	@DisplayName("returns the ids of all the sumties with the given representation")

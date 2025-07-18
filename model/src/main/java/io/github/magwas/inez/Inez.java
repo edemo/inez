@@ -5,27 +5,29 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import io.github.magwas.inez.impl.ApplicationContextHolder;
+import io.github.magwas.kodekonveyorannotations.Glue;
+import io.github.magwas.runtime.ApplicationContextHolder;
 
+@Glue
 public interface Inez {
-	static final String QUERY_BRIDI_ID = "$?";
+	String QUERY_BRIDI_ID = "$?";
 
-	public static Inez getInstance() {
-		return ApplicationContextHolder.getInez();
+	static Inez getInstance() {
+		return ApplicationContextHolder.getBean(InezImpl.class);
 	}
 
-	public void registerListener(BridiStoreChangeListener listener);
+	void registerListener(BridiStoreChangeListener listener);
 
-	public void unregisterListener(BridiStoreChangeListener listener);
+	void unregisterListener(BridiStoreChangeListener listener);
 
-	public Set<Bridi> query(String query);
+	Set<Bridi> query(String query);
 
-	public Set<Bridi> create(String query);
+	Set<Bridi> create(String query);
 
-	public Set<Bridi> save(Collection<Bridi> values);
+	Set<Bridi> save(Collection<Bridi> values);
 
-	public Stream<Bridi> findAllByRepresentation(String representation);
+	Stream<Bridi> findAllByRepresentation(String representation);
 
-	public Optional<Bridi> findById(String string);
+	Optional<Bridi> findById(String string);
 
 }

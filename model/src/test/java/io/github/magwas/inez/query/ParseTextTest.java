@@ -11,12 +11,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
+import io.github.magwas.testing.TestBase;
 
 class ParseTextTest extends TestBase implements ParserOutputTestData {
 
 	@InjectMocks
-	ParseText parseText;
+	ParseTextService parseText;
 
 	@Test
 	@DisplayName("a sumti parsed to just a top element")

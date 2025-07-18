@@ -9,16 +9,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiStoreOperation;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
+import io.github.magwas.testing.TestBase;
 
 public class SaveBridiTest extends TestBase
 		implements BridiTestData, SumtiTestData {
 
 	@InjectMocks
-	SaveBridi saveBridi;
+	SaveBridiService saveBridi;
 
 	@Test
 	@DisplayName("saving a bridi returns the old bridi if exists, and")

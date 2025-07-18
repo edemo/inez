@@ -8,13 +8,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.TestBase;
 import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.testing.TestBase;
 
 public class FindBridiByIdTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
-	FindBridiById findBridiById;
+	FindBridiByIdService findBridiById;
 
 	@Test
 	@DisplayName("finds the bridi by Id")

@@ -14,7 +14,7 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.TestConfig;
-import io.github.magwas.inez.impl.LogUtil;
+import io.github.magwas.runtime.LogUtil;
 
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)

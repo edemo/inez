@@ -4,14 +4,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import io.github.magwas.inez.storage.model.BridiReferenceTestData;
 
 public class BridiReferenceRepositoryStub implements BridiReferenceTestData {
-
-	static void foo(String id, Integer pos, Stream<String> r) {
-	}
 
 	public static BridiReferenceRepository stub() {
 		BridiReferenceRepository mock = mock(BridiReferenceRepository.class);
