@@ -1,5 +1,0 @@
-#!/bin/bash
-set -xe
-VERSION=$(git describe |sed 's/-/./;s/-.*//')
-sed -i "s/Bundle-Version:.*/Bundle-Version: $VERSION/" io.github.magwas.inez.ui/META-INF/MANIFEST.MF
-sed -i 's/Inez" version="[^"]*"/Inez" version="'$VERSION'"/' io.github.magwas.inez.ui.product/Inez.product

@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import io.github.magwas.inez.query.CreateBridisFromParserOutputService;
 import io.github.magwas.inez.query.ParseTextService;
@@ -23,8 +23,10 @@ import io.github.magwas.inez.storage.GetBridiIdBySelbriAndSumtiIdsService;
 import io.github.magwas.inez.storage.SaveBridiService;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
+import io.github.magwas.kodekonveyorannotations.Delegate;
 
-@Service
+@Component
+@Delegate
 class InezImpl implements Inez {
 	@Autowired
 	BridiStoreChangeListenersService bridiStoreChangeListeners;

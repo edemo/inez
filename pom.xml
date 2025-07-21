@@ -9,6 +9,8 @@
 	<packaging>pom</packaging>
 	<name>inez</name>
 	<description>
+		Inez is Not Even Zenta
+
 		Metamodel based modeling using the ideas of lojban language
 	</description>
 
@@ -36,6 +38,13 @@
 			<comments>GNU Affero General Public License</comments>
 		</license>
 	</licenses>
+	<distributionManagement>
+		<site>
+			<id>website</id>
+			<name>Project site</name>
+			<url>https://repo.kodekonveyor.com/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
 
 	<modules>
 		<module>parser</module>
@@ -58,12 +67,14 @@
 		<maven.compiler.optimize>true</maven.compiler.optimize>
 		<maven.compiler.debug>true</maven.compiler.debug>
 		<maven.dependency.plugin.version>2.10</maven.dependency.plugin.version>
-		<maven.clean.plugin.version>3.0.0</maven.clean.plugin.version>
 		<spring-version>6.2.8</spring-version>
 		<spring-boot-version>3.5.3</spring-boot-version>
 		<junit-version>5.12.1</junit-version>
-		<pmdrules-version>0.0.2-3-g5b9385b</pmdrules-version>
+		<pmdrules-version>0.1.8</pmdrules-version>
+		<konveyor.uploadRsyncURI>
+			server:/var/www/repository/${project.artifactId}</konveyor.uploadRsyncURI>
 		<main.basedir>${project.basedir}</main.basedir>
+		<maven.site.deploy.skip>true</maven.site.deploy.skip>
 	</properties>
 	<repositories>
 		<repository>
@@ -87,126 +98,259 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.5.3</version>
+					<configuration>
+						<argLine>
+							-javaagent:${org.mockito:mockito-core:jar}</argLine>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.21.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>3.0.0-M4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>3.2.8</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>0.8.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<publishingServerId>central</publishingServerId>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.4.2</version>
+					<executions>
+						<execution>
+							<id>fake-javadoc</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							<configuration>
+								<classifier>javadoc</classifier>
+								<classesDirectory>
+									${project.build.directory}/site</classesDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>3.9.0</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.5.1</version>
+					<executions>
+						<execution>
+							<id>mkexec</id>
+							<phase>process-sources</phase>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<configuration>
+								<workingDirectory>${basedir}</workingDirectory>
+								<executable>/bin/sh</executable>
+								<arguments>
+									<argument>
+										${main.basedir}/target/tools/mkExec.sh</argument>
+								</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>generate-apidoc</id>
+							<phase>pre-site</phase>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<configuration>
+								<workingDirectory>${basedir}</workingDirectory>
+								<executable>
+									${main.basedir}/target/tools/makeSourceDoc.sh</executable>
+							</configuration>
+						</execution>
+						<execution>
+							<id>siteDeploy</id>
+							<phase>site-deploy</phase>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+							<configuration>
+								<workingDirectory>${basedir}</workingDirectory>
+								<executable>
+									${main.basedir}/target/tools/deploySite.sh</executable>
+								<arguments>
+									<argument>${konveyor.uploadRsyncURI}</argument>
+								</arguments>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.26.0</version>
+					<configuration>
+						<includeXmlInReports />
+						<includeTests>true</includeTests>
+						<rulesets>
+							<ruleset>konveyor.xml</ruleset>
+							<ruleset>upstream.xml</ruleset>
+						</rulesets>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>io.github.magwas</groupId>
+							<artifactId>konveyor-pmdrules</artifactId>
+							<version>${pmdrules-version}</version>
+						</dependency>
+					</dependencies>
+					<executions>
+						<execution>
+							<id>pmd</id>
+							<phase>compile</phase>
+							<goals>
+								<goal>pmd</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<archive>
+							<manifestEntries>
+								<Bundle-RequiredExecutionEnvironment>
+									${jdk.full.version}</Bundle-RequiredExecutionEnvironment>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-maven-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<extensions>true</extensions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.8.1</version>
+					<executions>
+						<execution>
+							<id>copy-xml</id>
+							<phase>initialize</phase>
+							<goals>
+								<goal>unpack</goal>
+							</goals>
+							<configuration>
+								<artifactItems>
+									<artifactItem>
+										<groupId>io.github.magwas</groupId>
+										<artifactId>konveyor-pmdrules</artifactId>
+										<version>${pmdrules-version}</version>
+										<classifier>jar-with-dependencies</classifier>
+										<type>jar</type>
+										<overWrite>false</overWrite>
+									</artifactItem>
+								</artifactItems>
+								<outputDirectory>
+									${project.build.directory}</outputDirectory>
+								<includes>tools/*.sh,*.xml,xslt/*.xslt</includes>
+							</configuration>
+						</execution>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>initialize</phase>
+							<goals>
+								<goal>copy</goal>
+							</goals>
+							<configuration>
+								<artifactItems>
+									<artifactItem>
+										<groupId>io.github.magwas</groupId>
+										<artifactId>konveyor-pmdrules</artifactId>
+										<version>${pmdrules-version}</version>
+										<classifier>jar-with-dependencies</classifier>
+										<type>jar</type>
+										<overWrite>false</overWrite>
+									</artifactItem>
+									<artifactItem>
+										<groupId>net.sf.saxon</groupId>
+										<artifactId>Saxon-HE</artifactId>
+										<version>12.5</version>
+									</artifactItem>
+								</artifactItems>
+								<outputDirectory>
+									${project.build.directory}/lib</outputDirectory>
+								<stripVersion>true</stripVersion>
+							</configuration>
+						</execution>
+						<execution>
+							<goals>
+								<goal>properties</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.7.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>3.0.0-M4</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>3.2.8</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
-				<version>0.8.0</version>
-				<extensions>true</extensions>
-				<configuration>
-					<publishingServerId>central</publishingServerId>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.11.2</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.5.1</version>
-				<inherited>false</inherited>
-				<executions>
-					<execution>
-						<id>update-manifest</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${basedir}</workingDirectory>
-							<executable>tools/updateManifestVersion</executable>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!--plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.26.0</version>
+				<version>3.27.0</version>
 				<configuration>
 					<includeXmlInReports />
 					<includeTests>true</includeTests>
 					<rulesets>
-						<ruleset>prod.xml</ruleset>
+						<ruleset>${main.basedir}/target/konveyor.xml</ruleset>
+						<ruleset>${main.basedir}/target/upstream.xml</ruleset>
 					</rulesets>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>io.github.magwas</groupId>
-						<artifactId>konveyor-pmdrules</artifactId>
-						<version>${pmdrules-version}</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<id>pmd</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>pmd</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin-->
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-packaging-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Bundle-RequiredExecutionEnvironment>
-								${jdk.full.version}</Bundle-RequiredExecutionEnvironment>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<extensions>true</extensions>
 			</plugin>
 		</plugins>
-	</build>
+	</reporting>
+
 	<profiles>
 		<profile>
 			<id>nosign</id>
@@ -229,7 +373,6 @@
 									</configuration>
 								</execution>
 							</executions>
-
 						</plugin>
 					</plugins>
 				</pluginManagement>
