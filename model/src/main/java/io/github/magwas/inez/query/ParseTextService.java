@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -15,7 +16,7 @@ import io.github.magwas.inez.parser.BridiParser.BridiContext;
 import io.github.magwas.inez.parser.BridiParser.TextReferenceContext;
 
 @Service
-public class ParseTextService {
+public class ParseTextService implements Function<String, ParserOutput> {
 	@Autowired
 	CreateParserFromTokensService createParserFromTokens;
 

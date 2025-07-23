@@ -3,6 +3,7 @@ package io.github.magwas.inez;
 import java.util.List;
 
 public interface BridiFieldTestData {
+	String ALICE_REPR = "alice";
 	String THING_REPR = "thing";
 	String THING_ID = "ID:thing";
 	String THING_REFERENCE = "@" + THING_ID;
@@ -38,13 +39,14 @@ public interface BridiFieldTestData {
 	String GOD_REPR = "god";
 
 	String TWO_SUMTI_BRIDI_REPR = "{0} {1}";
-	List<String> TEST_TEXT = List.of("{alice} {{eats} {banana}}",
-			"{alice} {{eats} {chips}}", "{bob} {{eats} {banana}}",
-			"{bob} {{eats} {chips}}", "{cecile} {{eats} {banana}}",
-			"{cecile} {{looks at} {banana}}", SUMTI_IS_A_THING_REPR,
-			THING_IS_A_SUMTI_REPR, TAUTOLOGY_GENERATED_REPR,
-			SUMTI_IS_A_THING_IS_A_THING_REPR,
-			SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE, TAUTOLOGY_IS_A_THING_REPR);
+	String TEST_TEXT = "{alice} {{eats} {banana}}\n"
+			+ "{alice} {{eats} {chips}}\n" + "{bob} {{eats} {banana}}\n"
+			+ "{bob} {{eats} {chips}}\n" + "{cecile} {{eats} {banana}}\n"
+			+ "{cecile} {{looks at} {banana}}\n" + "" + SUMTI_IS_A_THING_REPR + "\n"
+			+ THING_IS_A_SUMTI_REPR + "\n" + TAUTOLOGY_GENERATED_REPR + "\n"
+			+ SUMTI_IS_A_THING_IS_A_THING_REPR + "\n"
+			+ SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE + "\n"
+			+ TAUTOLOGY_IS_A_THING_REPR;
 
 	String SUMTI_ID = InezUtil.createID("sumti");
 	String BRIDI_ID = InezUtil.createID("bridi");

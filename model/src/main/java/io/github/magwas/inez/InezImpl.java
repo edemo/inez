@@ -1,6 +1,8 @@
 package io.github.magwas.inez;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import io.github.magwas.inez.query.CreateBridisFromParserOutputService;
 import io.github.magwas.inez.query.ParseTextService;
-import io.github.magwas.inez.query.ParserOutput;
 import io.github.magwas.inez.query.QueryProcessorService;
 import io.github.magwas.inez.storage.BridiStoreChangeListenersService;
 import io.github.magwas.inez.storage.BridiStoreHistoryRepository;
@@ -24,10 +25,11 @@ import io.github.magwas.inez.storage.SaveBridiService;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
 import io.github.magwas.kodekonveyorannotations.Delegate;
+import io.github.magwas.runtime.LogUtil;
 
 @Component
 @Delegate
-class InezImpl implements Inez {
+public class InezImpl implements Inez {
 	@Autowired
 	BridiStoreChangeListenersService bridiStoreChangeListeners;
 	@Autowired
@@ -61,24 +63,26 @@ class InezImpl implements Inez {
 	}
 
 	public void registerListener(BridiStoreChangeListener listener) {
-		bridiStoreChangeListeners.getListeners().add(listener);
+		bridiStoreChangeListeners.listeners.add(listener);
 	}
 
 	public void unregisterListener(BridiStoreChangeListener listener) {
-		bridiStoreChangeListeners.getListeners().remove(listener);
+		bridiStoreChangeListeners.listeners.remove(listener);
 	}
 
-	public Set<Bridi> query(String query) {
-		ParserOutput parserOutput = parseText.apply(query);
-		Set<Bridi> bridiSet = queryProcessor.apply(parserOutput);
-		return bridiSet;
+	public Stream<Bridi> query(String query) {
+		return Arrays.asList(query.split("\n")).stream()
+				.peek(x -> LogUtil.debug("query:" + x)).map(parseText)
+				.flatMap(queryProcessor);
 	}
 
-	public Set<Bridi> create(String query) {
-		ParserOutput parserOutput = parseText.apply(query);
-		Set<Bridi> created = createBridisFromParserOutput.apply(parserOutput);
-		saveBridi.apply(created);
-		return created;
+	public Stream<Bridi> create(String query) {
+		LogUtil.debug("create(" + query);
+		List<String> asList = Arrays.asList(query.split("\n"));
+		LogUtil.debug("list:" + asList);
+		return asList.stream().map(parseText)
+				.flatMap(createBridisFromParserOutput::apply)
+				.peek(x -> LogUtil.debug("saving" + x)).map(saveBridi);
 	}
 
 	public Set<Bridi> save(Collection<Bridi> values) {

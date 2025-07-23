@@ -2,7 +2,9 @@ package io.github.magwas.inez.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,7 @@ import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.TestConfig;
 import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.testing.TestUtil;
 
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
@@ -24,7 +27,10 @@ public class BridiStoreEndToEndTest implements BridiTestData {
 	@Test
 	void test() {
 		Inez inez = Inez.getInstance();
-		TEST_TEXT.forEach(sentence -> inez.create(sentence));
+		inez.create(TEST_TEXT).toArray();
+		assertEquals(List.of(ALICE),
+				inez.findAllByRepresentation("alice").toList());
+
 		inez.save(Set.of(GO1, GO2));
 		inez.findAllByRepresentation(GO_REPRESENTATION)
 				.forEach(x -> LogUtil.debug("go", x));
@@ -34,7 +40,8 @@ public class BridiStoreEndToEndTest implements BridiTestData {
 				inez.query(CECILE_EATS_BANANA_REPR));
 		Bridi ceclie_looks_at_banana = assertGotTheBridi(
 				CECILE_LOOKS_AT_BANANA_REPR, inez.query(CECILE_LOOKS_AT_BANANA_REPR));
-		assertEquals(Set.of(cecile_eats_banana, ceclie_looks_at_banana),
+		TestUtil.assertStreamEquals(
+				Set.of(cecile_eats_banana, ceclie_looks_at_banana),
 				inez.query("{cecile} {{$?} {banana}}"));
 
 		Bridi looks_at_banana = inez
@@ -44,11 +51,12 @@ public class BridiStoreEndToEndTest implements BridiTestData {
 
 	}
 
-	private Bridi assertGotTheBridi(String expected, Set<Bridi> actual) {
-		assertEquals(1, actual.size());
-		Bridi bridi1 = actual.iterator().next();
-		assertEquals(expected, bridi1.representation());
-		return bridi1;
+	private Bridi assertGotTheBridi(String expected, Stream<Bridi> actual) {
+		List<Bridi> actualList = actual.toList();
+		assertEquals(1, actualList.size());
+		Bridi bridi = actualList.get(0);
+		assertEquals(expected, bridi.representation());
+		return bridi;
 	}
 
 }

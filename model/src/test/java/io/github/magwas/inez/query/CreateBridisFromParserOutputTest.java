@@ -3,6 +3,7 @@ package io.github.magwas.inez.query;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ class CreateBridisFromParserOutputTest extends TestBase
 		Set<Bridi> expected = Set.of(THING_GENERATED, IS_A, SUMTI,
 				SUMTI_IS_A_THING_GENERATED);
 		Set<Bridi> actual = createBridisFromParserOutput
-				.apply(OUTPUT_SUMTI_IS_A_THING);
+				.apply(OUTPUT_SUMTI_IS_A_THING).collect(Collectors.toSet());
 		assertEquals(expected, actual);
 	}
 }

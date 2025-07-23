@@ -104,22 +104,6 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>exec-maven-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>mkexec</id>
-						</execution>
-						<execution>
-							<id>generate-apidoc</id>
-							<configuration>
-								<workingDirectory>${basedir}</workingDirectory>
-								<executable>
-									${main.basedir}/tools/makeSourceDoc.sh</executable>
-							</configuration>
-						</execution>
-						<execution>
-							<id>siteDeploy</id>
-						</execution>
-					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>

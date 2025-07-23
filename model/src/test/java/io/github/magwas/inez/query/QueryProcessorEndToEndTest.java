@@ -16,6 +16,7 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.TestConfig;
+import io.github.magwas.runtime.LogUtil;
 import io.github.magwas.testing.TestBase;
 import io.github.magwas.testing.TestUtil;
 
@@ -28,9 +29,11 @@ class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 
 	@Test
 	void test1() {
-		inez = Inez.getInstance();
-		save(TEST_TEXT);
 
+		inez = Inez.getInstance();
+		inez.create(TEST_TEXT).peek(x -> LogUtil.debug("created:" + x)).toList();
+		assertEquals(List.of(ALICE),
+				inez.findAllByRepresentation("alice").toList());
 		assertQuery(Set.of("alice"), "alice");
 		assertQuery(Set.of("{alice} {{eats} {banana}}"),
 				"{alice} {{eats} {banana}}");
@@ -43,14 +46,8 @@ class QueryProcessorEndToEndTest extends TestBase implements BridiTestData {
 				"{alice} {{eats} {$?}}");
 	}
 
-	private void save(List<String> sentences) {
-		for (String sentence : sentences) {
-			inez.create(sentence);
-		}
-	}
-
 	private Set<Bridi> assertQuery(Set<String> expected, String query) {
-		Set<Bridi> result = inez.query(query);
+		Set<Bridi> result = inez.query(query).collect(Collectors.toSet());
 		Set<String> actual = result.stream().map(bridi -> bridi.representation())
 				.collect(Collectors.toSet());
 		if (!expected.equals(actual)) {

@@ -31,6 +31,10 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.antlr</groupId>
 				<artifactId>antlr4-maven-plugin</artifactId>
 				<version>4.13.2</version>
@@ -55,47 +59,13 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>mkexec</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
+						<phase>pre-site</phase>
 						<configuration>
-							<workingDirectory>${basedir}</workingDirectory>
-							<executable>/bin/sh</executable>
-							<arguments>
-								<argument>${main.basedir}/target/tools/mkExec.sh</argument>
-							</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>generate-apidoc</id>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${basedir}</workingDirectory>
-							<executable>
-								tools/makeSourceDoc.sh</executable>
-						</configuration>
-					</execution>
-					<execution>
-						<id>siteDeploy</id>
-						<phase>site-deploy</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${basedir}</workingDirectory>
-							<executable>
-								${main.basedir}/target/tools/deploySite.sh</executable>
-							<arguments>
-								<argument>${project.artifactId}</argument>
-							</arguments>
+							<skip>true</skip>
 						</configuration>
 					</execution>
 				</executions>
+
 			</plugin>
 		</plugins>
 	</build>

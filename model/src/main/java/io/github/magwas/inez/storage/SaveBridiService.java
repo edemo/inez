@@ -3,6 +3,7 @@ package io.github.magwas.inez.storage;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import io.github.magwas.inez.storage.repository.SumtiRepository;
 import io.github.magwas.runtime.LogUtil;
 
 @Service
-public class SaveBridiService {
+public class SaveBridiService implements Function<Bridi, Bridi> {
 	@Autowired
 	SumtiRepository sumtiRepository;
 	@Autowired

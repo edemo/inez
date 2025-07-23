@@ -20,9 +20,9 @@ public interface Inez {
 
 	void unregisterListener(BridiStoreChangeListener listener);
 
-	Set<Bridi> query(String query);
+	Stream<Bridi> query(String query);
 
-	Set<Bridi> create(String query);
+	Stream<Bridi> create(String query);
 
 	Set<Bridi> save(Collection<Bridi> values);
 

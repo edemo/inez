@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,9 +22,11 @@ import io.github.magwas.inez.storage.FindAllByRepresentationService;
 import io.github.magwas.inez.storage.FindAllIdByRepresentationService;
 import io.github.magwas.inez.storage.FindBridiByIdService;
 import io.github.magwas.inez.storage.GetBridiIdBySelbriAndSumtiIdsService;
+import io.github.magwas.runtime.LogUtil;
 
 @Service
-public class QueryProcessorService {
+public class QueryProcessorService
+		implements Function<ParserOutput, Stream<Bridi>> {
 
 	@Autowired
 	ParseTextService parseText;
@@ -36,15 +39,16 @@ public class QueryProcessorService {
 	@Autowired
 	FindBridiByIdService findBridiById;
 
-	public Set<Bridi> apply(String query) {
+	public Stream<Bridi> apply(String query) {
 		debug("\n\napply(" + query);
 		ParserOutput parserOutput = parseText.apply(query);
 		return apply(parserOutput);
 	}
 
-	public Set<Bridi> apply(ParserOutput parserOutput) {
+	public Stream<Bridi> apply(ParserOutput parserOutput) {
 		String top = parserOutput.top();
-		return query(top, parserOutput.referenceMap()).collect(Collectors.toSet());
+		LogUtil.debug("top:" + top);
+		return query(top, parserOutput.referenceMap());
 	}
 
 	private Stream<Bridi> query(String top,

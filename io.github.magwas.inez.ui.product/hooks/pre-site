@@ -1,0 +1,6 @@
+#!/bin/bash
+set -xe
+rm -rf .konveyor/generated-site
+mkdir -p .konveyor/generated-site/markdown .konveyor/generated-site/resources .konveyor/generated-site/resources/download
+cp README .konveyor/generated-site/markdown/index.md
+cp pom.xml .konveyor/generated-site/resources

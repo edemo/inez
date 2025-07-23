@@ -1,8 +1,11 @@
 package io.github.magwas.inez;
 
+import java.util.List;
 import java.util.Set;
 
 public interface BridiTestData extends BridiFieldTestData {
+
+	Bridi ALICE = new Bridi(InezUtil.createID(ALICE_REPR), ALICE_REPR, List.of());
 
 	Bridi GO1 = new Bridi(GO1_ID, GO_REPRESENTATION, null);
 	Bridi GO2 = new Bridi(GO2_ID, GO_REPRESENTATION, null);

@@ -1,9 +1,9 @@
 package io.github.magwas.inez.query;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
@@ -11,22 +11,27 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.InezUtil;
 
 @Service
-public class CreateBridisFromParserOutputService {
-	public Set<Bridi> apply(ParserOutput parserOutput) {
+public class CreateBridisFromParserOutputService
+		implements Function<ParserOutput, Stream<Bridi>> {
+	public Stream<Bridi> apply(ParserOutput parserOutput) {
 		String top = parserOutput.top();
 		Map<String, List<String>> refMap = parserOutput.referenceMap();
 		return apply(top, refMap);
 	}
 
-	private Set<Bridi> apply(String top, Map<String, List<String>> refMap) {
-		if (!refMap.containsKey(top))
-			return Set.of(new Bridi(InezUtil.createID(top), top, null));
+	private Stream<Bridi> apply(String top, Map<String, List<String>> refMap) {
+		if (!refMap.containsKey(top)) {
+			Bridi bridi = new Bridi(InezUtil.createID(top), top, null);
+			return Stream.of(bridi);
+		}
 		List<String> partList = refMap.get(top);
-		HashSet<Bridi> ret = new HashSet<>();
-		ret.add(new Bridi(InezUtil.createID(top), top,
-				partList.stream().map(x -> InezUtil.createID(x)).toList()));
-		for (String sumti : partList)
-			ret.addAll(apply(sumti, refMap));
-		return ret;
+		return Stream
+				.of(new Bridi(InezUtil.createID(top), top,
+						partList.stream().map(x -> InezUtil.createID(x)).toList()))
+				.mapMulti((topBridi, consumer) -> {
+					consumer.accept(topBridi);
+					partList.stream().map(x -> apply(x, refMap)).flatMap(x -> x)
+							.forEach(x -> consumer.accept(x));
+				});
 	}
 }

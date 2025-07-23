@@ -1,0 +1,5 @@
+#!/bin/bash
+set -xe
+mkdir -p target/generated-site/markdown target/generated-site/resources
+cp README target/generated-site/markdown/index.md
+cp pom.xml target/generated-site/resources
