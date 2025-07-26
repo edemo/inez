@@ -3,9 +3,13 @@ package io.github.magwas.inez;
 import java.util.List;
 import java.util.Set;
 
+import io.github.magwas.inez.parse.BridiFieldTestData;
+import io.github.magwas.inez.parse.ParserConstants;
+
 public interface BridiTestData extends BridiFieldTestData {
 
-	Bridi ALICE = new Bridi(InezUtil.createID(ALICE_REPR), ALICE_REPR, List.of());
+	Bridi ALICE = new Bridi(ParserConstants.createID(ALICE_REPR), ALICE_REPR,
+			List.of());
 
 	Bridi GO1 = new Bridi(GO1_ID, GO_REPRESENTATION, null);
 	Bridi GO2 = new Bridi(GO2_ID, GO_REPRESENTATION, null);
@@ -16,13 +20,14 @@ public interface BridiTestData extends BridiFieldTestData {
 			TAUTOLOGY_IS_A_THING_REPR, SUMTI_IS_A_THING_IS_A_THING_REFERENCES);
 	Bridi THING = new Bridi(THING_ID, THING_REPR, null);
 	Bridi THING_CHANGED = new Bridi(THING_ID, "thung", null);
-	Bridi THING_GENERATED = new Bridi(InezUtil.createID(THING_REPR), THING_REPR,
-			null);
+	Bridi THING_GENERATED = new Bridi(ParserConstants.createID(THING_REPR),
+			THING_REPR, null);
 	Bridi SUMTI = new Bridi(SUMTI_ID, SUMTI_REPR, null);
 	Bridi NONEXISTENT = new Bridi(NONEXISTENT_ID, NONEXISTENT_REPR, null);
 	Bridi BRIDI = new Bridi(BRIDI_ID, BRIDI_REPR, null);
 	Bridi IS_A = new Bridi(IS_A_ID, IS_A_REPR, null);
-	Bridi ANY = new Bridi(Inez.QUERY_BRIDI_ID, Inez.QUERY_BRIDI_ID, null);
+	Bridi ANY = new Bridi(ParserConstants.QUERY_BRIDI_ID,
+			ParserConstants.QUERY_BRIDI_ID, null);
 
 	Bridi SUMTI_IS_A_THING = new Bridi(SUMTI_IS_A_THING_ID, SUMTI_IS_A_THING_REPR,
 			SUMTI_IS_A_THING_REFERENCES);

@@ -1,8 +1,7 @@
 package io.github.magwas.inez;
 
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -10,8 +9,8 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import io.github.magwas.inez.parse.ParseTextService;
 import io.github.magwas.inez.query.CreateBridisFromParserOutputService;
-import io.github.magwas.inez.query.ParseTextService;
 import io.github.magwas.inez.query.QueryProcessorService;
 import io.github.magwas.inez.storage.BridiStoreChangeListenersService;
 import io.github.magwas.inez.storage.BridiStoreHistoryRepository;
@@ -22,6 +21,7 @@ import io.github.magwas.inez.storage.FindAllIdByRepresentationService;
 import io.github.magwas.inez.storage.FindBridiByIdService;
 import io.github.magwas.inez.storage.GetBridiIdBySelbriAndSumtiIdsService;
 import io.github.magwas.inez.storage.SaveBridiService;
+import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
 import io.github.magwas.kodekonveyorannotations.Delegate;
@@ -71,18 +71,13 @@ public class InezImpl implements Inez {
 	}
 
 	public Stream<Bridi> query(String query) {
-		return Arrays.asList(query.split("\n")).stream()
-				.peek(x -> LogUtil.debug("query:" + x)).map(parseText)
-				.flatMap(queryProcessor);
+		return queryProcessor.apply(query);
 	}
 
 	public Stream<Bridi> create(String query) {
 		LogUtil.debug("create(" + query);
-		List<String> asList = Arrays.asList(query.split("\n"));
-		LogUtil.debug("list:" + asList);
-		return asList.stream().map(parseText)
-				.flatMap(createBridisFromParserOutput::apply)
-				.peek(x -> LogUtil.debug("saving" + x)).map(saveBridi);
+		return parseText.apply(query).map(createBridisFromParserOutput)
+				.flatMap(x -> x).peek(x -> LogUtil.debug("saving" + x)).map(saveBridi);
 	}
 
 	public Set<Bridi> save(Collection<Bridi> values) {
@@ -97,6 +92,35 @@ public class InezImpl implements Inez {
 	@Override
 	public Optional<Bridi> findById(String id) {
 		return findBridiById.apply(id);
+	}
+
+	@Override
+	public Sumti createSumti(String id, String representation) {
+		Sumti sumti = new Sumti(id, representation);
+		sumtiRepository.save(sumti);
+		return sumti;
+	}
+
+	public BridiReferenceRepository getBridiReferenceRepository() {
+		return bridiReferenceRepository;
+	}
+
+	@Override
+	public Stream<Bridi> createFromdefinitions(String definitionName) {
+		String elementDefinition;
+		try {
+			elementDefinition = loadResource(definitionName);
+		} catch (IOException e) {
+			throw new Error(e);
+		}
+		return create(elementDefinition);
+	}
+
+	private String loadResource(String definitionName) throws IOException {
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		String elementDefinition = new String(
+				classloader.getResourceAsStream(definitionName).readAllBytes());
+		return elementDefinition;
 	}
 
 }

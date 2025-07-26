@@ -1,4 +1,4 @@
-package io.github.magwas.inez.query;
+package io.github.magwas.inez.parse;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -17,7 +17,7 @@ public class CreateParserFromTokensService {
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		BridiParser parser = new BridiParser(tokens);
 		parser.removeErrorListeners();
-		parser.addErrorListener(new ThrowingErrorListener());
+		parser.addErrorListener(new ThrowingErrorListener(input));
 		return parser;
 	}
 

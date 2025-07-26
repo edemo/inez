@@ -1,5 +1,6 @@
 package io.github.magwas.inez.storage.repository;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.repository.CrudRepository;
@@ -13,9 +14,14 @@ public interface BridiReferenceRepository
 
 	Set<BridiReference> findAllByBridiId(String id);
 
-	Set<BridiReference> findAllBySumtiIdAndPosition(String sumtiId, int position);
+	Set<BridiReference> findAllBySelbriIdAndSumtiIdAndPosition(String selbriId,
+			String sumtiId, int position);
 
 	void deleteBybridiIdAndPositionAndSumtiId(String BridiId, Integer Position,
 			String SumtiId);
+
+	Optional<BridiReference> findByBridiIdAndPosition(String bridiId, int i);
+
+	Set<BridiReference> findAllByBridiIdAndPosition(String bridiId, int i);
 
 }

@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
-import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.parse.ParserConstants;
 import io.github.magwas.testing.TestBase;
 import io.github.magwas.testing.TestUtil;
 
@@ -74,7 +74,7 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@DisplayName("'$?' returns a list of the any sumti")
 	void test_7() {
 		TestUtil.assertStreamEquals(Set.of(ANY),
-				queryProcessor.apply(Inez.QUERY_BRIDI_ID));
+				queryProcessor.apply(ParserConstants.QUERY_BRIDI_ID));
 	}
 
 	@Test
@@ -88,7 +88,7 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@DisplayName("for a bridi where all of the sumties is '$?', a ParseCancellationException is thrown")
 	void test1_1() {
 		assertThrows(ParseCancellationException.class,
-				() -> queryProcessor.apply(QUERY_STRING_ALL_ANY));
+				() -> queryProcessor.apply(QUERY_STRING_ALL_ANY).toArray());
 	}
 
 	@Test
@@ -101,8 +101,7 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("query works with the '$?' being deep down in the query")
 	void test3() {
-		Stream<Bridi> actual = queryProcessor.apply(RECURSIVE_QUERY)
-				.peek(x -> System.out.println("->" + x));
+		Stream<Bridi> actual = queryProcessor.apply(RECURSIVE_QUERY);
 		TestUtil.assertStreamEquals(
 				Set.of(SUMTI_IS_A_THING_IS_A_THING, TAUTOLOGY_IS_A_THING), actual);
 	}

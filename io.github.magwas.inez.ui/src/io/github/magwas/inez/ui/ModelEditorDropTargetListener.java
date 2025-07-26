@@ -8,10 +8,7 @@ import org.eclipse.swt.dnd.Transfer;
 public class ModelEditorDropTargetListener
 		implements TransferDropTargetListener {
 
-	private ModelEditorView view;
-
 	public ModelEditorDropTargetListener(ModelEditorView modelEditorView) {
-		this.view = modelEditorView;
 	}
 
 	@Override

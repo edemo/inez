@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 
 import io.github.magwas.inez.BridiTestData;
-import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.parse.ParserConstants;
 
 public class FindBridiByIdServiceStub implements BridiTestData {
 	public static FindBridiByIdService stub() {
@@ -22,7 +22,8 @@ public class FindBridiByIdServiceStub implements BridiTestData {
 		when(mock.apply(SUMTI_ID)).thenReturn(Optional.of(SUMTI));
 		when(mock.apply(BRIDI_ID)).thenReturn(Optional.of(BRIDI));
 		when(mock.apply(IS_A_ID)).thenReturn(Optional.of(IS_A));
-		when(mock.apply(Inez.QUERY_BRIDI_ID)).thenReturn(Optional.of(ANY));
+		when(mock.apply(ParserConstants.QUERY_BRIDI_ID))
+				.thenReturn(Optional.of(ANY));
 		when(mock.apply(SUMTI_IS_A_THING_ID))
 				.thenReturn(Optional.of(SUMTI_IS_A_THING));
 		when(mock.apply(TAUTOLOGY_ID)).thenReturn(Optional.of(TAUTOLOGY));

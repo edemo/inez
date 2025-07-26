@@ -1,0 +1,21 @@
+{CONTAINER} is a {THING}
+{folder} is a {CONTAINER}
+{model} is a {folder}
+{ROOT} is a {CONTAINER}
+{ROOT} contains {elementModel}
+{ROOT} contains {UNPLACED}
+{UNPLACED} is a {model}
+{elementModel} is a {model}
+{elementModel} contains {THING}
+{elementModel} contains {[{0} is a {1}]}
+{elementModel} contains {CONTAINER}
+{elementModel} contains {[{0} contains {1}]}
+{elementModel} contains {[rule for {0}: {1}]}
+{elementModel} contains {[{CONTAINER} is a {THING}]}
+{elementModel} contains {[{folder} is a {CONTAINER}]}
+{elementModel} contains {[{ROOT} is a {CONTAINER}]}
+{elementModel} contains {[{UNPLACED} is a {model}]}
+{elementModel} contains {[{elementModel} is a {model}]}
+{elementModel} contains {[{model} is a {folder}]}
+{elementModel} contains {folder}
+{elementModel} contains {model}

@@ -32,6 +32,13 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.magwas</groupId>
+			<artifactId>inez-parser</artifactId>
+			<version>${project.version}</version>
+			<classifier>testing</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.magwas</groupId>
 			<artifactId>konveyor-base</artifactId>
 			<version>${konveyor-version}</version>
 			<classifier>runtime</classifier>

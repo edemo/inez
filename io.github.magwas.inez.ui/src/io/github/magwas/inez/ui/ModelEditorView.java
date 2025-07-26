@@ -24,7 +24,7 @@ public class ModelEditorView extends GraphicalEditorWithFlyoutPalette {
 		GraphicalViewer viewer = this.getGraphicalViewer();
 		viewer.addDropTargetListener(new ModelEditorDropTargetListener(this));
 		viewer.setEditPartFactory(new EditorPartFactory(this));
-		Command command = new EditPartCreateCommand();
+		new EditPartCreateCommand();
 	}
 
 	@Override

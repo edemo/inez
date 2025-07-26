@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.stream.Stream;
 
-import io.github.magwas.inez.BridiFieldTestData;
+import io.github.magwas.inez.parse.BridiFieldTestData;
 
 public class GetBridiIdBySelbriAndSumtiIdsServiceStub implements BridiFieldTestData {
 	public static GetBridiIdBySelbriAndSumtiIdsService stub() {

@@ -1,6 +1,6 @@
 package io.github.magwas.inez.storage.model;
 
-import io.github.magwas.inez.BridiFieldTestData;
+import io.github.magwas.inez.parse.BridiFieldTestData;
 
 public interface SumtiTestData extends BridiFieldTestData {
 

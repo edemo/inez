@@ -1,4 +1,4 @@
-package io.github.magwas.inez;
+package io.github.magwas.inez.parse;
 
 import java.util.List;
 
@@ -48,20 +48,20 @@ public interface BridiFieldTestData {
 			+ SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE + "\n"
 			+ TAUTOLOGY_IS_A_THING_REPR;
 
-	String SUMTI_ID = InezUtil.createID("sumti");
-	String BRIDI_ID = InezUtil.createID("bridi");
-	String IS_A_ID = InezUtil.createID("{0} is a {1}");
-	String SUMTI_IS_A_THING_ID = InezUtil.createID("{sumti} is a {thing}");
-	String SUMTI_IS_A_THING_IS_A_THING_ID = InezUtil
+	String SUMTI_ID = ParserConstants.createID("sumti");
+	String BRIDI_ID = ParserConstants.createID("bridi");
+	String IS_A_ID = ParserConstants.createID("{0} is a {1}");
+	String SUMTI_IS_A_THING_ID = ParserConstants.createID("{sumti} is a {thing}");
+	String SUMTI_IS_A_THING_IS_A_THING_ID = ParserConstants
 			.createID("{{sumti} is a {thing}} is a {thing}");
-	String TAUTOLOGY_IS_A_THING_ID = InezUtil
+	String TAUTOLOGY_IS_A_THING_ID = ParserConstants
 			.createID("{{thing} is a {thing}} is a {thing}");
 	String THING_IS_A_SUMTI_ID = "not tautology";
 	String TAUTOLOGY_ID = "tautology";
 
-	String GOD_ID = InezUtil.createID("god");
-	String NOT_SAVED_ID = InezUtil.createID(SUMTI_REPR);
-	String NONEXISTENT_ID = InezUtil.createID(NONEXISTENT_REPR);
+	String GOD_ID = ParserConstants.createID("god");
+	String NOT_SAVED_ID = ParserConstants.createID(SUMTI_REPR);
+	String NONEXISTENT_ID = ParserConstants.createID(NONEXISTENT_REPR);
 	List<String> SUMTI_IS_A_THING_IS_A_THING_REFERENCES = List.of(IS_A_ID,
 			SUMTI_IS_A_THING_ID, THING_ID);
 	List<String> TAUTOLOGY_IS_A_THING_REFERENCES = List.of(IS_A_ID, TAUTOLOGY_ID,
@@ -73,8 +73,10 @@ public interface BridiFieldTestData {
 	List<String> SUMTI_IS_A_THING_REFERENCES = List.of(IS_A_ID, SUMTI_ID,
 			THING_ID);
 	List<String> SUMTI_IS_A_THING_GENERATED_REFERENCES = List.of(IS_A_ID,
-			SUMTI_ID, InezUtil.createID(THING_REPR));
+			SUMTI_ID, ParserConstants.createID(THING_REPR));
 	List<String> THING_IS_A_SUMTI_REFERENCES = List.of(IS_A_ID, THING_ID,
 			SUMTI_ID);
+	String INPUT_WITH_LITERAL = "{My folder} contains {[{0} is a {1}]}";
+	List<String> INPUT_WITH_LITERAL_REFS = List.of("{0} contains {1}", "My folder", "{0} is a {1}");
 
 }

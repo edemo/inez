@@ -11,7 +11,7 @@ public class EditorPartFactory implements EditPartFactory {
 
 	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
-		EditPart part = new ModelEditPart();
+		new ModelEditPart();
 		// TODO Auto-generated method stub
 		return null;
 	}

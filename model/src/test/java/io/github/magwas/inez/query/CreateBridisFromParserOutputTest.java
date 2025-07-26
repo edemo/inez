@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.inez.parse.ParserOutputTestData;
 import io.github.magwas.testing.TestBase;
 
 class CreateBridisFromParserOutputTest extends TestBase

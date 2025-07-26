@@ -9,9 +9,8 @@ import io.github.magwas.kodekonveyorannotations.Glue;
 
 @Configuration
 @PropertySource("classpath:test.properties")
-@ComponentScan("io.github.magwas.inez")
+@ComponentScan("io.github.magwas")
 @EnableMapRepositories("io.github.magwas.inez")
 @Glue
 public class TestConfig {
-
 }

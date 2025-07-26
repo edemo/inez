@@ -1,4 +1,4 @@
-package io.github.magwas.inez.query;
+package io.github.magwas.inez.parse;
 
 import java.util.List;
 import java.util.Map;

@@ -1,0 +1,16 @@
+<element id='id:my model' type='id:folder' name='my model'>
+	<references>
+	</references>
+	<element id='IS_A' type='THING' name='{0} is a {1}'>
+		<references>
+		</references>
+	</element>
+	<element id='id:Alice' type='id:human' name='Alice'>
+		<references>
+		</references>
+	</element>
+	<element id='id:human' type='id:animal' name='human'>
+		<references>
+		</references>
+	</element>
+</element>

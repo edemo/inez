@@ -7,10 +7,7 @@ import org.eclipse.swt.dnd.DropTargetListener;
 
 public class TreeModelDropTargetListener implements DropTargetListener {
 
-	private TreeViewer viewer;
-
 	public TreeModelDropTargetListener(TreeViewer viewer) {
-		this.viewer = viewer;
 	}
 
 	@Override

@@ -1,0 +1,82 @@
+<element id='ROOT' type='CONTAINER' name='ROOT'>
+	<references>
+	</references>
+	<element id='UNPLACED' type='id:model' name='UNPLACED'>
+		<references>
+		</references>
+	</element>
+	<element id='id:elementModel' type='id:model' name='elementModel'>
+		<references>
+		</references>
+		<element id='CONTAINER' type='THING' name='CONTAINER'>
+			<references>
+			</references>
+		</element>
+		<element id='CONTAINS' type='THING' name='{0} contains {1}'>
+			<references>
+			</references>
+		</element>
+		<element id='IS_A' type='THING' name='{0} is a {1}'>
+			<references>
+			</references>
+		</element>
+		<element id='RULE' type='THING' name='rule for {0}: {1}'>
+			<references>
+			</references>
+		</element>
+		<element id='THING' type='THING' name='THING'>
+			<references>
+			</references>
+		</element>
+		<element id='id:folder' type='CONTAINER' name='folder'>
+			<references>
+			</references>
+		</element>
+		<element id='id:model' type='id:folder' name='model'>
+			<references>
+			</references>
+		</element>
+		<element id='id:{CONTAINER} is a {THING}' type='THING' name='{CONTAINER} is a {THING}'>
+			<references>
+				<reference>IS_A</reference>
+				<reference>CONTAINER</reference>
+				<reference>THING</reference>
+			</references>
+		</element>
+		<element id='id:{ROOT} is a {CONTAINER}' type='THING' name='{ROOT} is a {CONTAINER}'>
+			<references>
+				<reference>IS_A</reference>
+				<reference>ROOT</reference>
+				<reference>CONTAINER</reference>
+			</references>
+		</element>
+		<element id='id:{UNPLACED} is a {model}' type='THING' name='{UNPLACED} is a {model}'>
+			<references>
+				<reference>IS_A</reference>
+				<reference>UNPLACED</reference>
+				<reference>id:model</reference>
+			</references>
+		</element>
+		<element id='id:{elementModel} is a {model}' type='THING' name='{elementModel} is a {model}'>
+			<references>
+				<reference>IS_A</reference>
+				<reference>id:elementModel</reference>
+				<reference>id:model</reference>
+			</references>
+		</element>
+		<element id='id:{folder} is a {CONTAINER}' type='THING' name='{folder} is a {CONTAINER}'>
+			<references>
+				<reference>IS_A</reference>
+				<reference>id:folder</reference>
+				<reference>CONTAINER</reference>
+			</references>
+		</element>
+		<element id='id:{model} is a {folder}' type='THING' name='{model} is a {folder}'>
+			<references>
+				<reference>IS_A</reference>
+				<reference>id:model</reference>
+				<reference>id:folder</reference>
+			</references>
+		</element>
+	</element>
+</element>

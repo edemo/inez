@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
-import io.github.magwas.inez.BridiFieldTestData;
+import io.github.magwas.inez.parse.BridiFieldTestData;
 import io.github.magwas.testing.TestBase;
 
 public class FindAllIdByRepresentationTest extends TestBase

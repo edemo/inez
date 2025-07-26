@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.parse.ParseTextService;
+import io.github.magwas.inez.parse.ParserConstants;
+import io.github.magwas.inez.parse.ParserOutput;
 import io.github.magwas.inez.storage.FindAllByRepresentationService;
 import io.github.magwas.inez.storage.FindAllIdByRepresentationService;
 import io.github.magwas.inez.storage.FindBridiByIdService;
@@ -40,9 +42,7 @@ public class QueryProcessorService
 	FindBridiByIdService findBridiById;
 
 	public Stream<Bridi> apply(String query) {
-		debug("\n\napply(" + query);
-		ParserOutput parserOutput = parseText.apply(query);
-		return apply(parserOutput);
+		return parseText.apply(query).map(x -> apply(x)).flatMap(x -> x);
 	}
 
 	public Stream<Bridi> apply(ParserOutput parserOutput) {
@@ -83,7 +83,7 @@ public class QueryProcessorService
 		int notAnyIndex = 0;
 		for (int i = 1; i < partList.size(); i++) {
 			final String sumti = partList.get(i);
-			if (!sumti.equals(Inez.QUERY_BRIDI_ID))
+			if (!sumti.equals(ParserConstants.QUERY_BRIDI_ID))
 				notAnyIndex = i;
 			Stream<Bridi> sumtiStream = query(sumti, referenceMap);
 			Stream<String> sumtiIdStream = sumtiStream.map(bridi -> bridi.id());
@@ -137,7 +137,7 @@ public class QueryProcessorService
 			final int sumtiIndex = j - 1;
 			final int referenceIndex = j;
 			String sumti = partList.get(referenceIndex);
-			if (!Inez.QUERY_BRIDI_ID.equals(sumti)) {
+			if (!ParserConstants.QUERY_BRIDI_ID.equals(sumti)) {
 				Set<String> allowableSumtiIdSet = foundForSelbries.get(sumtiIndex);
 				debug("filter setup", referenceIndex, allowableSumtiIdSet, partList,
 						sumti);

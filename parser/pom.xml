@@ -10,7 +10,6 @@
 		<version>0.0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-
 	<artifactId>inez-parser</artifactId>
 	<name>inez-parser</name>
 	<properties>
@@ -19,11 +18,30 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.magwas</groupId>
+			<artifactId>konveyor-base</artifactId>
+			<version>${konveyor-version}</version>
+			<classifier>runtime</classifier>
+		</dependency>
+		<dependency>
+			<groupId>io.github.magwas</groupId>
+			<artifactId>konveyor-base</artifactId>
+			<version>${konveyor-version}</version>
+			<classifier>testing</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr4-runtime</artifactId>
 			<version>4.13.2</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
