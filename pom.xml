@@ -6,10 +6,10 @@
 	<parent>
 		<groupId>io.github.magwas</groupId>
 		<artifactId>konveyor-parent</artifactId>
-		<version>0.2.4</version>
+		<version>0.2.5</version>
 	</parent>
 		<properties>
-		<konveyor-version>0.2.4</konveyor-version>
+		<konveyor-version>0.2.5</konveyor-version>
 	</properties>
 
 	<artifactId>inez</artifactId>
