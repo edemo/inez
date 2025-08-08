@@ -5,6 +5,9 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPlaceholderFolderLayout;
 
+import io.github.magwas.inez.ui.editor.ModelEditorView;
+import io.github.magwas.inez.ui.tree.TreeModelView;
+
 public class Perspective implements IPerspectiveFactory {
 
 	public static final String ID = "io.github.magwas.inez.ui.perspective";

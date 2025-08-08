@@ -1,14 +1,19 @@
-package io.github.magwas.inez.ui;
+package io.github.magwas.inez.ui.editor;
 
-import org.eclipse.gef.dnd.TransferDropTargetListener;
 import org.eclipse.jface.util.LocalSelectionTransfer;
+import org.eclipse.jface.util.TransferDropTargetListener;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
 
 public class ModelEditorDropTargetListener
 		implements TransferDropTargetListener {
 
+	ModelEditorView modelEditorView;
+
 	public ModelEditorDropTargetListener(ModelEditorView modelEditorView) {
+		this.modelEditorView = modelEditorView;
 	}
 
 	@Override
@@ -25,12 +30,10 @@ public class ModelEditorDropTargetListener
 
 	@Override
 	public void dragEnter(DropTargetEvent event) {
-		System.out.println("dragEnter");
 	}
 
 	@Override
 	public void dragLeave(DropTargetEvent event) {
-		System.out.println("dragLeave");
 	}
 
 	@Override
@@ -40,13 +43,22 @@ public class ModelEditorDropTargetListener
 
 	@Override
 	public void dragOver(DropTargetEvent event) {
-		System.out.println("dragOver");
 	}
 
 	@Override
 	public void drop(DropTargetEvent event) {
-		System.out
-				.println("drop " + LocalSelectionTransfer.getTransfer().getSelection());
+		ISelection selection = LocalSelectionTransfer.getTransfer().getSelection();
+		if (selection instanceof TreeSelection) {
+			TreeSelection treeSelection = (TreeSelection) selection;
+			treeSelection.forEach(x -> System.out.println(x + "," + x.getClass()));
+			System.out.println(selection.getClass());
+			System.out.println("dropped " + selection);
+			System.out.println(event.currentDataType);
+			System.out.println("at:" + event.x + "," + event.y);
+			modelEditorView.getEditDomain().nativeDragFinished(null, null);
+		} else {
+			throw new Error("unknown selection type");
+		}
 	}
 
 	@Override

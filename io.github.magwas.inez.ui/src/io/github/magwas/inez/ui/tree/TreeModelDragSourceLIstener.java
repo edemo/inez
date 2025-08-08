@@ -1,4 +1,4 @@
-package io.github.magwas.inez.ui;
+package io.github.magwas.inez.ui.tree;
 
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.IStructuredSelection;

@@ -1,22 +1,23 @@
-package io.github.magwas.inez.ui;
-
-import java.util.List;
-import java.util.Map;
+package io.github.magwas.inez.ui.editor;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.swt.widgets.Composite;
+import org.osgi.service.component.annotations.Reference;
 
-import io.github.magwas.inez.ui.tree.ModelTreeContentProvider;
+import io.github.magwas.inez.element.BridiElement;
+import io.github.magwas.inez.osgi.BridiElementService;
 
 public class ModelEditorView extends GraphicalEditorWithFlyoutPalette {
 
 	public static String ID = "io.github.magwas.inez.ui.EditorView";
 	private PaletteRoot palette;
+
+	@Reference
+	BridiElementService bridiElementService;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -45,8 +46,8 @@ public class ModelEditorView extends GraphicalEditorWithFlyoutPalette {
 		return palette;
 	}
 
-	private Map<String, List<String>> getModel() {
-		return ModelTreeContentProvider.contents;
+	private BridiElement getModel() {
+		return bridiElementService.root();
 	}
 
 	@Override

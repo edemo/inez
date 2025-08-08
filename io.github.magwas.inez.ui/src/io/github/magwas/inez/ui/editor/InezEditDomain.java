@@ -1,4 +1,4 @@
-package io.github.magwas.inez.ui;
+package io.github.magwas.inez.ui.editor;
 
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPartViewer;

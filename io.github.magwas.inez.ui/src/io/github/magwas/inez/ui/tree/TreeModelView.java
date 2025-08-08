@@ -1,4 +1,4 @@
-package io.github.magwas.inez.ui;
+package io.github.magwas.inez.ui.tree;
 
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -11,7 +11,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import io.github.magwas.inez.ui.tree.ModelTreeContentProvider;
+import io.github.magwas.inez.ui.editor.EditorInput;
+import io.github.magwas.inez.ui.editor.ModelEditorView;
 import jakarta.inject.Inject;
 
 public class TreeModelView extends ViewPart {

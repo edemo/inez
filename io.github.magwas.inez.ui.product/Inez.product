@@ -18,13 +18,14 @@
    </launcher>
 
    <vm>
-      <linux include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17</linux>
+      <linux include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21</linux>
    </vm>
 
    <plugins>
       <plugin id="com.ibm.icu"/>
       <plugin id="com.sun.jna"/>
       <plugin id="com.sun.jna.platform"/>
+      <plugin id="inez-model"/>
       <plugin id="io.github.magwas.inez.ui"/>
       <plugin id="jakarta.annotation-api"/>
       <plugin id="jakarta.inject.jakarta.inject-api"/>
@@ -96,6 +97,7 @@
    </plugins>
 
    <configurations>
+      <plugin id="io.github.magwas.model" autoStart="true" startLevel="2" />
       <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />

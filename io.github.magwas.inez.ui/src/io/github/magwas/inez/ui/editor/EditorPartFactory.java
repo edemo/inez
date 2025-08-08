@@ -1,4 +1,4 @@
-package io.github.magwas.inez.ui;
+package io.github.magwas.inez.ui.editor;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
@@ -10,10 +10,8 @@ public class EditorPartFactory implements EditPartFactory {
 	}
 
 	@Override
-	public EditPart createEditPart(EditPart context, Object model) {
-		new ModelEditPart();
-		// TODO Auto-generated method stub
-		return null;
+	public ModelEditPart createEditPart(EditPart context, Object model) {
+		return new ModelEditPart();
 	}
 
 }

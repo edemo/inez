@@ -1,4 +1,4 @@
-package io.github.magwas.inez.ui;
+package io.github.magwas.inez.ui.editor;
 
 import org.eclipse.gef.commands.Command;
 

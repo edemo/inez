@@ -52,9 +52,10 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.github.magwas</groupId>
-			<artifactId>inez-model</artifactId>
-			<version>0.0.1</version>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -100,5 +101,5 @@
 			</plugin>
 		</plugins>
 	</build>
-<version>0.4.0</version>
+	<version>0.4.1</version>
 </project>

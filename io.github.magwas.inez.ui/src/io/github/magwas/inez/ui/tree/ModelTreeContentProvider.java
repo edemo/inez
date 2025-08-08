@@ -1,40 +1,45 @@
 package io.github.magwas.inez.ui.tree;
 
-import java.util.List;
-import java.util.Map;
-
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import io.github.magwas.inez.element.BridiElement;
+import io.github.magwas.inez.osgi.BridiElementService;
+import io.github.magwas.inez.ui.Application;
 
 public class ModelTreeContentProvider implements ITreeContentProvider {
-	
-	public static Map<String,List<String>> contents = Map.of(
-			"parent",List.of("one","two","three"),
-			"one",List.of("four","five"),
-			"two",List.of("seven","eight"),
-			"three",List.of("nine","ten"),
-			"four",List.of("eleven","twelve")
-			);
+
+	BridiElementService bridiElementService;
+
+	private void instantiateService() {
+		BundleContext bc = Application.bundleContext;
+		System.out.println("app bundle context:" + bc);
+		ServiceReference<BridiElementService> ref = bc
+				.getServiceReference(BridiElementService.class);
+		bridiElementService = bc.getService(ref);
+	}
+
 	@Override
 	public Object[] getElements(Object inputElement) {
-		System.out.println("getElements "+inputElement);
-		return contents.get(inputElement).toArray();
+		instantiateService();
+		System.out.println("getElements " + inputElement);
+		return bridiElementService.root().getChildren().toArray();
 	}
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		return contents.get(parentElement).toArray();
+		return ((BridiElement) parentElement).getChildren().toArray();
 	}
 
 	@Override
 	public Object getParent(Object element) {
-		return null;
+		return ((BridiElement) element).getParent();
 	}
 
 	@Override
 	public boolean hasChildren(Object element) {
-		if(contents.containsKey(element))
-			return true;
-		return false;
+		return !((BridiElement) element).getChildren().toList().isEmpty();
 	}
 
 }

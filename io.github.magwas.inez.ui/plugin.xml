@@ -23,7 +23,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="io.github.magwas.inez.ui.TreeModelView"
+            class="io.github.magwas.inez.ui.tree.TreeModelView"
             name="TreemodelView"
             id="io.github.magwas.inez.ui.treeModelView"
             inject="true">
@@ -64,7 +64,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="io.github.magwas.inez.ui.ModelEditorView"
+            class="io.github.magwas.inez.ui.editor.ModelEditorView"
             default="true"
             id="io.github.magwas.inez.ui.EditorView"
             name="EditorView">

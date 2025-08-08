@@ -1,21 +1,25 @@
 package io.github.magwas.inez.ui;
 
+import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.osgi.framework.BundleContext;
 
-/**
- * This class controls all aspects of the application's execution
- */
 public class Application implements IApplication {
+
+	public static BundleContext bundleContext;
 
 	@Override
 	public Object start(IApplicationContext context) {
+		System.err.println("appStart");
+		bundleContext = InternalPlatform.getDefault().getBundleContext();
+		System.out.println("context: " + bundleContext);
 		Display display = PlatformUI.createDisplay();
 		try {
-			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
+			int returnCode = PlatformUI.createAndRunWorkbench(display,
+					new ApplicationWorkbenchAdvisor());
 			if (returnCode == PlatformUI.RETURN_RESTART) {
 				return IApplication.EXIT_RESTART;
 			}
@@ -27,13 +31,7 @@ public class Application implements IApplication {
 
 	@Override
 	public void stop() {
-		if (!PlatformUI.isWorkbenchRunning())
-			return;
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		final Display display = workbench.getDisplay();
-		display.syncExec(() -> {
-			if (!display.isDisposed())
-				workbench.close();
-		});
+		System.err.println("appStop");
 	}
+
 }

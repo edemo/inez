@@ -1,10 +1,12 @@
-package io.github.magwas.inez.ui;
+package io.github.magwas.inez.ui.tree;
 
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
+
+import io.github.magwas.inez.element.BridiElement;
 
 public class ModelTreeLabelProvider implements ILabelProvider {
 
@@ -17,13 +19,13 @@ public class ModelTreeLabelProvider implements ILabelProvider {
 	@Override
 	public void addListener(ILabelProviderListener listener) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class ModelTreeLabelProvider implements ILabelProvider {
 	@Override
 	public void removeListener(ILabelProviderListener listener) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -45,7 +47,7 @@ public class ModelTreeLabelProvider implements ILabelProvider {
 
 	@Override
 	public String getText(Object element) {
-		return (String) element;
+		return ((BridiElement) element).getRepresentation();
 	}
 
 }
