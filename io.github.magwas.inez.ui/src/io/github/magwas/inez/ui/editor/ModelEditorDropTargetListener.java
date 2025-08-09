@@ -1,5 +1,8 @@
 package io.github.magwas.inez.ui.editor;
 
+import java.text.MessageFormat;
+import java.util.List;
+
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -7,13 +10,17 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
 
+import io.github.magwas.inez.element.BridiElement;
+
 public class ModelEditorDropTargetListener
 		implements TransferDropTargetListener {
 
-	ModelEditorView modelEditorView;
+	BridiElement viewer;
+	private Integer sizeX;
 
-	public ModelEditorDropTargetListener(ModelEditorView modelEditorView) {
-		this.modelEditorView = modelEditorView;
+	public ModelEditorDropTargetListener(BridiElement viewer, Integer sizeX) {
+		this.viewer = viewer;
+		this.sizeX = sizeX;
 	}
 
 	@Override
@@ -48,14 +55,19 @@ public class ModelEditorDropTargetListener
 	@Override
 	public void drop(DropTargetEvent event) {
 		ISelection selection = LocalSelectionTransfer.getTransfer().getSelection();
+		int x = event.x;
+		int y = event.y;
 		if (selection instanceof TreeSelection) {
-			TreeSelection treeSelection = (TreeSelection) selection;
-			treeSelection.forEach(x -> System.out.println(x + "," + x.getClass()));
-			System.out.println(selection.getClass());
-			System.out.println("dropped " + selection);
-			System.out.println(event.currentDataType);
-			System.out.println("at:" + event.x + "," + event.y);
-			modelEditorView.getEditDomain().nativeDragFinished(null, null);
+			List<BridiElement> selected = ((TreeSelection) selection).toList();
+			for (BridiElement sel : selected) {
+				System.out.println(MessageFormat.format("{0} shows {1} at ({2},{3})",
+						viewer, sel, x, y));
+				x += 100;
+				if (x > (sizeX - 100)) {
+					y += 100;
+					x -= (sizeX - 100);
+				}
+			}
 		} else {
 			throw new Error("unknown selection type");
 		}

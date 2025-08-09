@@ -1,30 +1,35 @@
 package io.github.magwas.inez.ui.editor;
 
+import java.util.ArrayList;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.swt.widgets.Composite;
-import org.osgi.service.component.annotations.Reference;
 
 import io.github.magwas.inez.element.BridiElement;
-import io.github.magwas.inez.osgi.BridiElementService;
 
 public class ModelEditorView extends GraphicalEditorWithFlyoutPalette {
 
 	public static String ID = "io.github.magwas.inez.ui.EditorView";
 	private PaletteRoot palette;
 
-	@Reference
-	BridiElementService bridiElementService;
-
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		GraphicalViewer viewer = this.getGraphicalViewer();
-		viewer.addDropTargetListener(new ModelEditorDropTargetListener(this));
+		BridiElement themodel = ((EditorInput) this.getEditorInput()).element;
+		viewer.addDropTargetListener(
+				new ModelEditorDropTargetListener(themodel, 500));
 		viewer.setEditPartFactory(new EditorPartFactory(this));
+		ArrayList<EditPart> parts = new ArrayList<EditPart>();
+		ModelEditPart part = new ModelEditPart();
+		part.activate();
+		parts.add(part);
+		viewer.setContents(parts);
 		new EditPartCreateCommand();
 	}
 
@@ -41,13 +46,10 @@ public class ModelEditorView extends GraphicalEditorWithFlyoutPalette {
 	@Override
 	protected PaletteRoot getPaletteRoot() {
 		if (palette == null) {
-			palette = new DiagramEditorPalette(getModel());
+			palette = new DiagramEditorPalette(
+					((EditorInput) this.getEditorInput()).element);
 		}
 		return palette;
-	}
-
-	private BridiElement getModel() {
-		return bridiElementService.root();
 	}
 
 	@Override

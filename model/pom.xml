@@ -56,31 +56,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot</artifactId>
-			<version>${spring-boot-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-autoconfigure</artifactId>
-			<version>${spring-boot-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-keyvalue</artifactId>
-			<version>3.5.1</version>
-		</dependency>
-		<dependency>
-			<groupId>io.github.magwas</groupId>
-			<artifactId>inez-parser</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>io.github.magwas</groupId>
 			<artifactId>inez-parser</artifactId>
 			<version>${project.version}</version>
@@ -91,20 +66,8 @@
 			<groupId>io.github.magwas</groupId>
 			<artifactId>konveyor-base</artifactId>
 			<version>${konveyor-version}</version>
-			<classifier>runtime</classifier>
-		</dependency>
-		<dependency>
-			<groupId>io.github.magwas</groupId>
-			<artifactId>konveyor-base</artifactId>
-			<version>${konveyor-version}</version>
 			<classifier>testing</classifier>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>${osgi.version}</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -127,7 +90,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-
+							<stripVersion>true</stripVersion>
 						</configuration>
 					</execution>
 				</executions>

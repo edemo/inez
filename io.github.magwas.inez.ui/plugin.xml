@@ -70,5 +70,30 @@
             name="EditorView">
       </editor>
    </extension>
+   <extension
+         id="inezproducts"
+         name="Inez Product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="io.github.magwas.inez.ui.product1"
+            name="inezproduct">
+         <property
+               name="appName"
+               value="inezAppName">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="inezproduct"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="io.github.magwas.inez.ui.application"
+            name="Inez">
+         <property
+               name="appName"
+               value="Inez">
+         </property>
+      </product>
+   </extension>
 
 </plugin>

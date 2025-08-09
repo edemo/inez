@@ -2,11 +2,11 @@
 <?pde version="3.8"?>
 <target includeMode="feature" name="inez">
 	<locations>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="https://download.eclipse.org/releases/2025-03"/>
 			<unit id="org.eclipse.equinox.sdk.feature.group" version="3.23.1600.v20250228-0640"/>
 		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="https://download.eclipse.org/tools/gef/classic/release/latest"/>
 			<unit id="org.eclipse.draw2d.feature.group" version="3.24.0.202505280821"/>
 			<unit id="org.eclipse.draw2d.sdk.feature.group" version="3.24.0.202505280821"/>
@@ -18,21 +18,110 @@
 			<unit id="org.eclipse.zest.sdk.feature.group" version="3.24.0.202505280821"/>
 			<unit id="org.eclipse.zest.source.feature.group" version="3.24.0.202505280821"/>
 		</location>
-		<location includeDependencyDepth="infinite" includeDependencyScopes="compile" includeSource="true" missingManifest="generate" type="Maven">
+		<location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="generate" type="Maven">
 			<dependencies>
 				<dependency>
 					<groupId>io.github.magwas</groupId>
-					<artifactId>inez-model</artifactId>
-					<version>0.4.1</version>
+					<artifactId>konveyor-base</artifactId>
+					<version>0.2.7</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
-					<groupId>io.github.magwas</groupId>
-					<artifactId>io.github.magwas.inez.ui</artifactId>
-					<version>0.4.1</version>
+					<groupId>io.micrometer</groupId>
+					<artifactId>micrometer-commons</artifactId>
+					<version>1.14.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>io.micrometer</groupId>
+					<artifactId>micrometer-observation</artifactId>
+					<version>1.14.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.antlr</groupId>
+					<artifactId>antlr4-runtime</artifactId>
+					<version>4.13.2</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+					<version>2.0.2</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-autoconfigure</artifactId>
+					<version>3.5.3</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot</artifactId>
+					<version>3.5.3</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-commons</artifactId>
+					<version>3.5.1</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-keyvalue</artifactId>
+					<version>3.5.1</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+					<version>6.2.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+					<version>6.2.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+					<version>6.2.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+					<version>6.2.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-expression</artifactId>
+					<version>6.2.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-jcl</artifactId>
+					<version>6.2.8</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+					<version>6.2.8</version>
 					<type>jar</type>
 				</dependency>
 			</dependencies>
 		</location>
 	</locations>
+	<environment>
+		<os>linux</os>
+		<arch>x86_64</arch>
+		<ws>gtk</ws>
+	</environment>
 </target>

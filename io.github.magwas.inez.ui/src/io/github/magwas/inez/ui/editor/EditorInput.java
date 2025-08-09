@@ -4,11 +4,18 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
+import io.github.magwas.inez.element.BridiElement;
+
 public class EditorInput implements IEditorInput {
+
+	public BridiElement element;
+
+	public EditorInput(BridiElement element) {
+		this.element = element;
+	}
 
 	@Override
 	public <T> T getAdapter(Class<T> adapter) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

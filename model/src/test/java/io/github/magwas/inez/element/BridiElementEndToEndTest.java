@@ -1,6 +1,7 @@
 package io.github.magwas.inez.element;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,6 +65,9 @@ public class BridiElementEndToEndTest implements BridiElementTestData {
 		assertEquals(ROOT_ID, element.getParent().id);
 		String xml = loadResourceAsString("mymodel.xml");
 		assertEquals(xml, element.toXml());
+		assertTrue(element.isInstance(CONTAINER_ID));
+		assertTrue(element.isInstance(FOLDER_ID));
+		assertTrue(element.isInstance(THING_ID));
 	}
 
 	private List<String> ancestry(String x) {

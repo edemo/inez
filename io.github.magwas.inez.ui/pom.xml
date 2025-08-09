@@ -70,23 +70,6 @@
 				<artifactId>tycho-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-versions-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-						<id>versions</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>set-version</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<newVersion>${project.version}</newVersion>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.5.0</version>
@@ -101,5 +84,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>0.4.1</version>
 </project>

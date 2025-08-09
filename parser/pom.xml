@@ -52,11 +52,16 @@
 	</distributionManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
+<dependency>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr4-maven-plugin</artifactId>
+				<version>4.13.2</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-autoconfigure</artifactId>
+    <version>3.5.3</version>
+</dependency>
 		<dependency>
 			<groupId>io.github.magwas</groupId>
 			<artifactId>konveyor-base</artifactId>
@@ -70,11 +75,12 @@
 			<classifier>testing</classifier>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>antlr4-runtime</artifactId>
-			<version>4.13.2</version>
-		</dependency>
+<dependency>
+    <groupId>org.osgi</groupId>
+    <artifactId>osgi.core</artifactId>
+    <version>6.0.0</version>
+    <scope>provided</scope>
+</dependency>
 	</dependencies>
 
 	<build>
@@ -82,6 +88,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<stripVersion>true</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -118,7 +135,6 @@
 						</configuration>
 					</execution>
 				</executions>
-
 			</plugin>
 		</plugins>
 	</build>

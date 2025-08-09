@@ -38,6 +38,10 @@ public class BridiElement implements ElementConstants {
 	BridiReferenceRepository bridiReferenceRepository;
 	@Autowired
 	AddReferencesService addReferences;
+	@Autowired
+	IsInstanceService isInstance;
+	@Autowired
+	CreateDiagramModelService createDiagramModel;
 
 	public static BridiElement byId(String id) {
 		BridiElement element = (BridiElement) ContextUtils.getInstance()
@@ -90,4 +94,13 @@ public class BridiElement implements ElementConstants {
 	public String toString() {
 		return "BridiElement(" + id + "," + getRepresentation() + ")";
 	}
+
+	public boolean isInstance(String typeId) {
+		return isInstance.apply(id, typeId);
+	}
+
+	public BridiElement createDiagramModel() {
+		return createDiagramModel.apply(id);
+	}
+
 }
