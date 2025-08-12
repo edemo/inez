@@ -11,13 +11,12 @@ import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
 import io.github.magwas.kodekonveyorannotations.Delegate;
-import io.github.magwas.runtime.ContextUtils;
 import io.github.magwas.runtime.LogUtil;
 
 @Delegate
 public class BridiElement implements ElementConstants {
 	@Id
-	String id;
+	public String id;
 	@Autowired
 	GetBridiElementRepresentationService getBridiElementRepresentation;
 	@Autowired
@@ -41,14 +40,9 @@ public class BridiElement implements ElementConstants {
 	@Autowired
 	IsInstanceService isInstance;
 	@Autowired
-	CreateDiagramModelService createDiagramModel;
-
-	public static BridiElement byId(String id) {
-		BridiElement element = (BridiElement) ContextUtils.getInstance()
-				.wireAndCache(new BridiElement(id));
-		element.fixParent();
-		return element;
-	}
+	CreateBridiElementService createBridiElement;
+	@Autowired
+	BridiElementFactory bridiElementFactory;
 
 	void fixParent() {
 		if (id.equals(ROOT_ID))
@@ -62,7 +56,7 @@ public class BridiElement implements ElementConstants {
 		addReferences.apply(unplacedId, List.of(CONTAINS_ID, UNPLACED_ID, id));
 	}
 
-	private BridiElement(String id) {
+	BridiElement(String id) {
 		this.id = id;
 	}
 
@@ -83,7 +77,7 @@ public class BridiElement implements ElementConstants {
 	}
 
 	public BridiElement getParent() {
-		return byId(getBridiElementParent.apply(id));
+		return bridiElementFactory.apply(getBridiElementParent.apply(id));
 	}
 
 	public String toXml() {
@@ -99,8 +93,10 @@ public class BridiElement implements ElementConstants {
 		return isInstance.apply(id, typeId);
 	}
 
-	public BridiElement createDiagramModel() {
-		return createDiagramModel.apply(id);
+	public BridiElement create(String containerId, String typeId,
+			String representation, String... references) {
+		return createBridiElement.apply(containerId, typeId, representation,
+				references);
 	}
 
 }

@@ -5,7 +5,7 @@
 		<references>
 		</references>
 	</element>
-	<element id='id:Alice' type='id:human' name='Alice'>
+	<element id='id:alice' type='id:human' name='alice'>
 		<references>
 		</references>
 	</element>

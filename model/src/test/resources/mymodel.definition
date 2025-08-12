@@ -1,9 +1,9 @@
 {ROOT} contains {my model}
 {my model} is a {folder}
-{my model} contains {Alice}
+{my model} contains {alice}
 {my model} contains {human}
 {human} is a {animal}
-{Alice} is a {human}
+{alice} is a {human}
 {my model} contains {[{0} is a {1}]}
-{my model} contains {[{my model} contains {Alice}]}
+{my model} contains {[{my model} contains {alice}]}
 {dog} is a {animal}

@@ -15,7 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.BridiTestData;
+import io.github.magwas.inez.InezImpl;
 import io.github.magwas.inez.TestConfig;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
@@ -23,7 +24,7 @@ import io.github.magwas.inez.storage.repository.SumtiRepository;
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-public class BridiElementEndToEndTest implements BridiElementTestData {
+public class BridiElementEndToEndTest implements BridiTestData {
 
 	@Autowired
 	SumtiRepository sumtiRepository;
@@ -34,16 +35,24 @@ public class BridiElementEndToEndTest implements BridiElementTestData {
 	@Autowired
 	BridiElementSystemInitializationService bridiElementSystemInitialization;
 
+	@Autowired
+	InezImpl inez;
+
+	@Autowired
+	BridiElementFactory bridiElementFactory;
+
 	@Test
 	void test() throws IOException {
-		Inez inez = Inez.getInstance();
-
-		BridiElement root = BridiElement.byId(ROOT_ID);
+		assertTrue(inez.getBridiReferenceRepository() == bridiReferenceRepository);
+		assertTrue(bridiElementSystemInitialization.inez == inez);
+		bridiElementSystemInitialization.apply();
+		BridiElement root = bridiElementFactory.apply(ROOT_ID);
 		String rootXml = loadResourceAsString("root.xml");
-		assertEquals(rootXml, root.toXml());
+		String theXml = root.toXml();
+		assertEquals(rootXml, theXml);
 		inez.createFromdefinitions("mymodel.definition").toArray();
 
-		BridiElement element = BridiElement.byId(CONTAINS_ELEMENT_ID);
+		BridiElement element = bridiElementFactory.apply(CONTAINS_ELEMENT_ID);
 
 		assertEquals(CONTAINS_ELEMENT_ID, element.id);
 		assertEquals(CONTAINS_ELEMENT_REPR, element.getRepresentation());
@@ -54,7 +63,7 @@ public class BridiElementEndToEndTest implements BridiElementTestData {
 		assertEquals(List.of(), element.getChildren().toList());
 		assertEquals(MY_MODEL_ID, element.getParent().id);
 
-		element = BridiElement.byId(MY_MODEL_ID);
+		element = bridiElementFactory.apply(MY_MODEL_ID);
 
 		assertEquals(MY_MODEL_ID, element.id);
 		assertEquals(MY_MODEL_REPR, element.getRepresentation());
@@ -77,7 +86,7 @@ public class BridiElementEndToEndTest implements BridiElementTestData {
 			return List.of(THING_ID);
 		if (x.equals(ROOT_ID))
 			return List.of(ROOT_ID);
-		BridiElement element = BridiElement.byId(x);
+		BridiElement element = bridiElementFactory.apply(x);
 		List<String> ancestry = new ArrayList<>(ancestry(element.getParent().id));
 		ancestry.add(0, x);
 		return ancestry;

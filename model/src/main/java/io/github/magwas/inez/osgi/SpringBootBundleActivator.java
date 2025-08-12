@@ -1,10 +1,8 @@
 package io.github.magwas.inez.osgi;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +12,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.map.repository.config.EnableMapRepositories;
 
-import io.github.magwas.runtime.ContextUtils;
+import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.InezImpl;
+import io.github.magwas.inez.query.BridiFunction;
 
 @SpringBootApplication
 @EnableMapRepositories("io.github.magwas.inez.storage")
@@ -26,7 +26,7 @@ public class SpringBootBundleActivator implements BundleActivator {
 	ConfigurableApplicationContext appContext;
 
 	@Autowired
-	BridiElementService bridiElementService;
+	InezImpl inez;
 
 	@Autowired
 	AutowireCapableBeanFactory autowireCapableBeanFactory;
@@ -38,27 +38,11 @@ public class SpringBootBundleActivator implements BundleActivator {
 				.setContextClassLoader(this.getClass().getClassLoader());
 		appContext = new AnnotationConfigApplicationContext(
 				SpringBootBundleActivator.class, MyBeanRegistrar.class);
-		ContextUtils.setContext(appContext);
-		ContextUtils contextUtils = ContextUtils.getInstance();
-		appContext.getAutowireCapableBeanFactory().autowireBean(contextUtils);
-		BridiElementService bean0 = contextUtils.getBean(BridiElementService.class);
-		bridiElementService = appContext.getBean(BridiElementService.class);
-		System.out.println("bean0:" + bean0);
-		System.out.println("bean1:" + bridiElementService);
+		inez = appContext.getBean(InezImpl.class);
+		inez.initialize();
 
-		Dictionary<String, String> props = new Hashtable<String, String>();
-		bridiElementService.initialize();
-		bundleContext.registerService(BridiElementService.class,
-				bridiElementService, props);
+		bundleContext.registerService(Inez.class, inez, null);
 		System.err.println("registered service");
-	}
-
-	public void displayAllBeans() {
-		System.out.println("beans:");
-		String[] allBeanNames = appContext.getBeanDefinitionNames();
-		for (String beanName : allBeanNames) {
-			System.out.println(beanName);
-		}
 	}
 
 	@Override
@@ -69,4 +53,13 @@ public class SpringBootBundleActivator implements BundleActivator {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootBundleActivator.class);
 	}
+
+	public BridiFunction obtainAndWireOSGIService(String relname) {
+		ServiceReference<BridiFunction> ref = (ServiceReference<BridiFunction>) bundleContext
+				.getServiceReference(relname);
+		BridiFunction fun = bundleContext.getService(ref);
+		autowireCapableBeanFactory.autowireBean(fun);
+		return fun;
+	}
+
 }

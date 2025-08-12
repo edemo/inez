@@ -2,6 +2,7 @@ package io.github.magwas.inez;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -9,6 +10,10 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import io.github.magwas.inez.element.BridiElement;
+import io.github.magwas.inez.element.BridiElementFactory;
+import io.github.magwas.inez.element.BridiElementSystemInitializationService;
+import io.github.magwas.inez.element.ElementConstants;
 import io.github.magwas.inez.parse.ParseTextService;
 import io.github.magwas.inez.query.CreateBridisFromParserOutputService;
 import io.github.magwas.inez.query.QueryProcessorService;
@@ -58,8 +63,20 @@ public class InezImpl implements Inez {
 	FindAllIdByRepresentationService findAllIdByRepresentation;
 	@Autowired
 	FindAllByRepresentationService findAllByRepresentation;
+	@Autowired
+	BridiElementSystemInitializationService bridiElementSystemInitialization;
+	@Autowired
+	BridiElementFactory bridiElementFactory;
 
 	private InezImpl() {
+	}
+
+	public void initialize() {
+		try {
+			bridiElementSystemInitialization.apply();
+		} catch (IOException e) {
+			throw new Error(e);
+		}
 	}
 
 	public void registerListener(BridiStoreChangeListener listener) {
@@ -76,8 +93,11 @@ public class InezImpl implements Inez {
 
 	public Stream<Bridi> create(String query) {
 		LogUtil.debug("create(" + query);
-		return parseText.apply(query).map(createBridisFromParserOutput)
-				.flatMap(x -> x).peek(x -> LogUtil.debug("saving" + x)).map(saveBridi);
+		List<Bridi> toSave = parseText.apply(query)
+				.map(createBridisFromParserOutput).flatMap(x -> x)
+				.peek(x -> LogUtil.debug("saving", x)).toList();
+		saveBridi.apply(toSave);
+		return toSave.stream();
 	}
 
 	public Set<Bridi> save(Collection<Bridi> values) {
@@ -121,6 +141,14 @@ public class InezImpl implements Inez {
 		String elementDefinition = new String(
 				classloader.getResourceAsStream(definitionName).readAllBytes());
 		return elementDefinition;
+	}
+
+	public BridiElement root() {
+		return bridiElementFactory.apply(ElementConstants.ROOT_ID);
+	}
+
+	public BridiElement byId(String id) {
+		return bridiElementFactory.apply(id);
 	}
 
 }

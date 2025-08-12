@@ -9,12 +9,13 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
-import io.github.magwas.inez.Inez;
+import io.github.magwas.inez.InezImpl;
 import io.github.magwas.inez.TestConfig;
 import io.github.magwas.runtime.LogUtil;
 import io.github.magwas.testing.TestUtil;
@@ -24,9 +25,11 @@ import io.github.magwas.testing.TestUtil;
 @ContextConfiguration(classes = TestConfig.class)
 public class BridiStoreEndToEndTest implements BridiTestData {
 
+	@Autowired
+	InezImpl inez;
+
 	@Test
 	void test() {
-		Inez inez = Inez.getInstance();
 		inez.create(TEST_TEXT).toArray();
 		assertEquals(List.of(ALICE),
 				inez.findAllByRepresentation("alice").toList());

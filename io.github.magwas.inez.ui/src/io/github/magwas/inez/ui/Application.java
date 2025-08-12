@@ -6,10 +6,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import io.github.magwas.inez.Inez;
 
 public class Application implements IApplication, BundleActivator {
 
 	public static BundleContext bundleContext;
+	public static Inez inez;
 
 	@Override
 	public Object start(IApplicationContext context) {
@@ -35,6 +39,9 @@ public class Application implements IApplication, BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		bundleContext = context;
+		ServiceReference<Inez> ref = context.getServiceReference(Inez.class);
+		inez = context.getService(ref);
+
 		System.out.println("bundle start. context: " + bundleContext);
 	}
 

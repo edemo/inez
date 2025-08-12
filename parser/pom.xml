@@ -10,13 +10,14 @@
 		<version>0.0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<packaging>eclipse-plugin</packaging>
 	<artifactId>inez-parser</artifactId>
 	<name>inez-parser</name>
 	<properties>
 		<skipSurefireReport>true</skipSurefireReport>
 	</properties>
 	<description>
-	Parser for Inez
+		Parser for Inez
 	</description>
 
 	<url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -52,16 +53,16 @@
 	</distributionManagement>
 
 	<dependencies>
-<dependency>
-				<groupId>org.antlr</groupId>
-				<artifactId>antlr4-maven-plugin</artifactId>
-				<version>4.13.2</version>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-autoconfigure</artifactId>
-    <version>3.5.3</version>
-</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-maven-plugin</artifactId>
+			<version>4.13.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<version>3.5.3</version>
+		</dependency>
 		<dependency>
 			<groupId>io.github.magwas</groupId>
 			<artifactId>konveyor-base</artifactId>
@@ -75,16 +76,24 @@
 			<classifier>testing</classifier>
 			<scope>test</scope>
 		</dependency>
-<dependency>
-    <groupId>org.osgi</groupId>
-    <artifactId>osgi.core</artifactId>
-    <version>6.0.0</version>
-    <scope>provided</scope>
-</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>

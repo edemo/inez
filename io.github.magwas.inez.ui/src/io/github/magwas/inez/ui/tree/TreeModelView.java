@@ -16,6 +16,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import io.github.magwas.inez.element.BridiElement;
+import io.github.magwas.inez.element.ElementConstants;
+import io.github.magwas.inez.ui.Application;
 import io.github.magwas.inez.ui.editor.EditorInput;
 import io.github.magwas.inez.ui.editor.ModelEditorView;
 import jakarta.inject.Inject;
@@ -53,8 +55,11 @@ public class TreeModelView extends ViewPart {
 						.getFirstElement();
 				if (!selectedElement.isInstance(BridiElement.CONTAINER_ID))
 					selectedElement = selectedElement.getParent();
-				BridiElement model = selectedElement.createDiagramModel();
+				BridiElement model = selectedElement.create(selectedElement.id,
+						ElementConstants.DIAGRAM_ID,
+						"DiagramModel of " + selectedElement.getRepresentation());
 				System.out.println("action on " + selectedElement);
+				System.out.println("model:" + model);
 			}
 
 		});
@@ -64,7 +69,8 @@ public class TreeModelView extends ViewPart {
 			try {
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 						.openEditor(
-								new EditorInput(BridiElement.byId(BridiElement.CONTAINER_ID)),
+								new EditorInput(
+										Application.inez.byId(BridiElement.CONTAINER_ID)),
 								ModelEditorView.ID);
 			} catch (PartInitException e) {
 				// TODO Auto-generated catch block

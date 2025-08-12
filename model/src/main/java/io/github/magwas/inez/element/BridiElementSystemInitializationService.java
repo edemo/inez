@@ -1,10 +1,12 @@
 package io.github.magwas.inez.element;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.InezImpl;
 
 @Service
@@ -23,6 +25,17 @@ public class BridiElementSystemInitializationService
 		inez.createSumti(UNPLACED_ID, UNPLACED_REPR);
 		String definitions = "element.definition";
 		inez.createFromdefinitions(definitions).toArray();
+		inez.save(List.of(
+				new Bridi(ElementConstants.IS_FUNCTION_FOR, "{0} is function for {1}",
+						null),
+				new Bridi("io.github.magwas.inez.functions.Save",
+						"io.github.magwas.inez.functions.Save", null),
+				new Bridi("doSave", "doSave {0}", null),
+				new Bridi("savefunctiondef",
+						"{io.github.magwas.inez.functions.Save} is function for {doSave}",
+						List.of(ElementConstants.IS_FUNCTION_FOR,
+								"io.github.magwas.inez.functions.Save", "doSave"))));
+		System.err.println("BridiElementSystemInitializationService");
 	}
 
 }

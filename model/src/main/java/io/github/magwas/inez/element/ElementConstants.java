@@ -12,5 +12,7 @@ public interface ElementConstants {
 	String RULE_ID = "RULE";
 	String UNPLACED_ID = "UNPLACED";
 	String UNPLACED_REPR = "UNPLACED";
+	String DIAGRAM_ID = "DIAGRAM";
+	String IS_FUNCTION_FOR = "IS_FUNCTION_FOR";
 
 }

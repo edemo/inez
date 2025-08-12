@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
-import org.osgi.service.component.annotations.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.Bridi;
+import io.github.magwas.inez.element.ElementConstants;
+import io.github.magwas.inez.element.GetRelativeForBridiElementService;
+import io.github.magwas.inez.osgi.SpringBootBundleActivator;
 import io.github.magwas.inez.parse.ParseTextService;
 import io.github.magwas.inez.parse.ParserConstants;
 import io.github.magwas.inez.parse.ParserOutput;
@@ -41,6 +43,10 @@ public class QueryProcessorService
 	GetBridiIdBySelbriAndSumtiIdsService getBridiIdBySelbriAndSumtiIds;
 	@Autowired
 	FindBridiByIdService findBridiById;
+	@Autowired
+	GetRelativeForBridiElementService getRelativeForBridiElement;
+	@Autowired
+	SpringBootBundleActivator springBootBundleActivator;
 
 	public Stream<Bridi> apply(String query) {
 		return parseText.apply(query).map(x -> apply(x)).flatMap(x -> x);
@@ -91,11 +97,41 @@ public class QueryProcessorService
 			Set<String> sumtiIds = sumtiIdStream.collect(Collectors.toSet());
 			foundIds.add(sumtiIds);
 		}
-		Stream<Bridi> candidates = findCandidates(top, partList, notAnyIndex,
-				foundIds);
-		candidates = filterCandidates(partList, foundIds, candidates);
+		debug("partList", partList);
+		BridiFunction fun = functionFor(partList);
+		Stream<Bridi> candidates;
+		if (fun != null)
+			candidates = fun.apply(top, partList, notAnyIndex, foundIds);
+		else {
+			candidates = findCandidates(top, partList, notAnyIndex, foundIds);
+			candidates = filterCandidates(partList, foundIds, candidates);
+		}
 		return candidates;
 
+	}
+
+	private BridiFunction functionFor(List<String> partList) {
+		debug("functionFor(", partList);
+		String top = partList.get(0);
+		List<String> ids = findAllIdByRepresentation.apply(top).toList();
+		if (ids.size() != 1) {
+			LogUtil.debug("ambigous representation:", top, ids);// FIXME: should be
+																													// warning
+			return null;
+		}
+		debug("getRelativeForBridiElement.apply(", ids.get(0),
+				ElementConstants.IS_FUNCTION_FOR, 2, 1);
+		List<String> rels = getRelativeForBridiElement
+				.apply(ids.get(0), ElementConstants.IS_FUNCTION_FOR, 2, 1).toList();
+		debug("rels", rels);
+		if (rels.isEmpty())
+			return null;
+		if (rels.size() != 1)
+			throw new Error("multiple functions for " + partList);
+		String relname = rels.get(0);
+		BridiFunction fun = springBootBundleActivator
+				.obtainAndWireOSGIService(relname);
+		return fun;
 	}
 
 	private Stream<Bridi> findCandidates(String top, List<String> partList,

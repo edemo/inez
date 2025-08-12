@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Inez" uid="Inez" id="io.github.magwas.inez.ui.inezproduct" application="io.github.magwas.inez.ui.application" version="0.4.2" type="bundles" includeLaunchers="true" autoIncludeRequirements="true">
+<product name="Inez" uid="Inez" id="io.github.magwas.inez.ui.inezproduct" application="io.github.magwas.inez.ui.application" version="0.4.3" type="bundles" includeLaunchers="true" autoIncludeRequirements="true">
 
    <configIni use="default">
    </configIni>

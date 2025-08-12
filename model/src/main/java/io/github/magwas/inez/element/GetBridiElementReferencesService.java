@@ -11,12 +11,14 @@ import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 public class GetBridiElementReferencesService {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
+	@Autowired
+	BridiElementFactory bridiElementFactory;
 
 	public Stream<BridiElement> apply(String id) {
-		return bridiReferenceRepository
-				.findAllByBridiId(id).stream().sorted((arg0, arg1) -> Integer
-						.valueOf(arg0.position()).compareTo(arg1.position()))
-				.map(x -> BridiElement.byId(x.sumtiId()));
+		return bridiReferenceRepository.findAllByBridiId(id).stream()
+				.sorted((arg0, arg1) -> Integer.valueOf(arg0.position())
+						.compareTo(arg1.position()))
+				.map(x -> bridiElementFactory.apply(x.sumtiId()));
 	}
 
 }

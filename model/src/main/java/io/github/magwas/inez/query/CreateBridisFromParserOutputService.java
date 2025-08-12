@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.Bridi;
-import io.github.magwas.inez.parse.ParserConstants;
+import io.github.magwas.inez.parse.IdUtil;
 import io.github.magwas.inez.parse.ParserOutput;
 import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
@@ -51,7 +51,7 @@ public class CreateBridisFromParserOutputService
 	private String getIdOrRepr(String top) {
 		Set<Sumti> candidates = sumtiRepository.findAllByRepresentation(top);
 		if (candidates.isEmpty())
-			return ParserConstants.createID(top);
+			return IdUtil.createID(top);
 		if (candidates.size() > 1)
 			System.err.println("multiple candidates for " + top + ":" + candidates);
 		return candidates.iterator().next().id();

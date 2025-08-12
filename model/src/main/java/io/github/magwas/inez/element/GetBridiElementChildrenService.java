@@ -15,6 +15,8 @@ public class GetBridiElementChildrenService implements ElementConstants {
 	GetRelativeForBridiElementService getRelativeForBridiElement;
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
+	@Autowired
+	BridiElementFactory bridiElementFactory;
 
 	public Stream<BridiElement> apply(String id) {
 		final Stream<String> contained = getRelativeForBridiElement
@@ -27,7 +29,7 @@ public class GetBridiElementChildrenService implements ElementConstants {
 						return false;
 					return true;
 				});
-		return contained.sorted().map(x -> BridiElement.byId((x)));
+		return contained.sorted().map(x -> bridiElementFactory.apply((x)));
 	}
 
 }

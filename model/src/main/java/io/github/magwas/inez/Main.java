@@ -11,8 +11,8 @@ public class Main {
 		Thread.currentThread().setContextClassLoader(Main.class.getClassLoader());
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
 				Config.class);
-		Inez.getInstance().create("{osgi} is a {bitch}")
-				.forEach(x -> System.out.println(x));
+//		Inez.getInstance().create("{osgi} is a {bitch}")
+//				.forEach(x -> System.out.println(x));
 	}
 
 }

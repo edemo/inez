@@ -1,27 +1,16 @@
 package io.github.magwas.inez;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import io.github.magwas.inez.element.BridiElementSystemInitializationService;
+import io.github.magwas.inez.element.BridiElement;
 import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.kodekonveyorannotations.Glue;
-import io.github.magwas.runtime.ContextUtils;
 
 @Glue
 public interface Inez {
-	static Inez getInstance() {
-		ContextUtils instance = ContextUtils.getInstance();
-		try {
-			instance.getBean(BridiElementSystemInitializationService.class).apply();
-		} catch (IOException e) {
-			throw new Error(e);
-		}
-		return instance.getBean(InezImpl.class);
-	}
 
 	void registerListener(BridiStoreChangeListener listener);
 
@@ -40,5 +29,9 @@ public interface Inez {
 	Optional<Bridi> findById(String string);
 
 	Stream<Bridi> createFromdefinitions(String string);
+
+	BridiElement root();
+
+	BridiElement byId(String id);
 
 }
