@@ -5,7 +5,7 @@ Bundle-Name: inez-parser
 Bundle-SymbolicName: inez-parser;singleton:=true
 Spring-Context: *;create-asynchronously:=false 
 Bundle-Activator: io.github.magwas.inez.parse.ParserBundleActivator
-Bundle-Version: 0.4.3
+Bundle-Version: 0.4.4
 Bundle-Vendor: Árpád Magosányi
 Export-Package: io.github.magwas.inez.parse
 Require-Bundle: wrapped.io.github.magwas.konveyor-base;bundle-version="0.3.0",
@@ -22,8 +22,8 @@ Require-Bundle: wrapped.io.github.magwas.konveyor-base;bundle-version="0.3.0",
  wrapped.org.springframework.spring-core.source;bundle-version="6.2.8",
  wrapped.org.springframework.spring-beans;bundle-version="6.2.8",
  wrapped.org.springframework.spring-beans.source;bundle-version="6.2.8",
- org.eclipse.core.runtime;bundle-version="3.33.0",
- org.eclipse.core.runtime.source;bundle-version="3.33.0"
+ org.eclipse.core.runtime;bundle-version="3.12.0",
+ org.eclipse.core.runtime.source;bundle-version="3.12.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: io.github.magwas.inez.parser
 Bundle-ClassPath: .,

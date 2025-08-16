@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.InezImpl;
+import io.github.magwas.runtime.LogUtil;
 
 @Service
 public class BridiElementSystemInitializationService
@@ -35,7 +36,9 @@ public class BridiElementSystemInitializationService
 						"{io.github.magwas.inez.functions.Save} is function for {doSave}",
 						List.of(ElementConstants.IS_FUNCTION_FOR,
 								"io.github.magwas.inez.functions.Save", "doSave"))));
-		System.err.println("BridiElementSystemInitializationService");
+		inez.save(List.of(new Bridi(ElementConstants.DIAGRAM_ID, "diagram", null),
+				new Bridi("diagElement", "shows {0} at {1},{2}", null)));
+		LogUtil.info("BridiElement system initialized");
 	}
 
 }

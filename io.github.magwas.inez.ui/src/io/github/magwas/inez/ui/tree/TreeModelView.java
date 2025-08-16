@@ -1,6 +1,5 @@
 package io.github.magwas.inez.ui.tree;
 
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -9,17 +8,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import io.github.magwas.inez.element.BridiElement;
-import io.github.magwas.inez.element.ElementConstants;
-import io.github.magwas.inez.ui.Application;
-import io.github.magwas.inez.ui.editor.EditorInput;
-import io.github.magwas.inez.ui.editor.ModelEditorView;
+import io.github.magwas.inez.Inez;
 import jakarta.inject.Inject;
 
 public class TreeModelView extends ViewPart {
@@ -27,15 +21,22 @@ public class TreeModelView extends ViewPart {
 
 	@Inject
 	IWorkbench workbench;
+	@Inject
+	Inez inez;
+	@Inject
+	ModelTreeContentProvider modelTreeContentProvider;
+	@Inject
+	ModelTreeLabelProvider modelTreeLabelProvider;
+	@Inject
+	NewDiagramAction newDiagramAction;
 
 	private TreeViewer viewer;
 
 	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-
-		viewer.setContentProvider(new ModelTreeContentProvider());
-		viewer.setLabelProvider(new ModelTreeLabelProvider(workbench));
+		viewer.setContentProvider(modelTreeContentProvider);
+		viewer.setLabelProvider(modelTreeLabelProvider);
 		viewer.setInput("parent");
 		Transfer[] transfertypes = new Transfer[] {
 				LocalSelectionTransfer.getTransfer() };
@@ -45,38 +46,19 @@ public class TreeModelView extends ViewPart {
 				new TreeModelDragSourceLIstener(viewer));
 		viewer.addDropSupport(allDrops, transfertypes,
 				new TreeModelDropTargetListener(viewer));
+
 		MenuManager menuManager = new MenuManager();
-		menuManager.add(new Action("New view") {
-			@Override
-			public void run() {
-				IStructuredSelection selection = (IStructuredSelection) viewer
-						.getSelection();
-				BridiElement selectedElement = (BridiElement) selection
-						.getFirstElement();
-				if (!selectedElement.isInstance(BridiElement.CONTAINER_ID))
-					selectedElement = selectedElement.getParent();
-				BridiElement model = selectedElement.create(selectedElement.id,
-						ElementConstants.DIAGRAM_ID,
-						"DiagramModel of " + selectedElement.getRepresentation());
-				System.out.println("action on " + selectedElement);
-				System.out.println("model:" + model);
-			}
+		menuManager.setRemoveAllWhenShown(true);
+		menuManager.addMenuListener(manager -> {
+			IStructuredSelection selection = viewer.getStructuredSelection();
+			newDiagramAction.setSelection(selection);
+			menuManager.add(newDiagramAction);
 
 		});
-		Menu menu = menuManager.createContextMenu(viewer.getControl());
-		viewer.getControl().setMenu(menu);
-		if (false) {
-			try {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-						.openEditor(
-								new EditorInput(
-										Application.inez.byId(BridiElement.CONTAINER_ID)),
-								ModelEditorView.ID);
-			} catch (PartInitException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+
+		Control control = viewer.getControl();
+		Menu menu = menuManager.createContextMenu(control);
+		control.setMenu(menu);
 	}
 
 	@Override

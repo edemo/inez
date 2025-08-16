@@ -7,14 +7,12 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 
 import io.github.magwas.inez.element.BridiElement;
+import jakarta.inject.Inject;
 
 public class ModelTreeLabelProvider implements ILabelProvider {
 
-	private IWorkbench workbench;
-
-	public ModelTreeLabelProvider(IWorkbench workbench) {
-		this.workbench = workbench;
-	}
+	@Inject
+	IWorkbench workbench;
 
 	@Override
 	public void addListener(ILabelProviderListener listener) {

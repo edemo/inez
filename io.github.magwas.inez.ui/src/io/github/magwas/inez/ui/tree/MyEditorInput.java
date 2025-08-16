@@ -1,4 +1,4 @@
-package io.github.magwas.inez.ui.editor;
+package io.github.magwas.inez.ui.tree;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
@@ -6,22 +6,22 @@ import org.eclipse.ui.IPersistableElement;
 
 import io.github.magwas.inez.element.BridiElement;
 
-public class EditorInput implements IEditorInput {
+public class MyEditorInput implements IEditorInput {
 
-	public BridiElement element;
+	private BridiElement model;
 
-	public EditorInput(BridiElement element) {
-		this.element = element;
+	MyEditorInput(BridiElement model) {
+		this.model = model;
 	}
 
 	@Override
 	public <T> T getAdapter(Class<T> adapter) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean exists() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -33,20 +33,17 @@ public class EditorInput implements IEditorInput {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return "name";
+		return model.getRepresentation();
 	}
 
 	@Override
 	public IPersistableElement getPersistable() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getToolTipText() {
-		// TODO Auto-generated method stub
-		return "Editor Tooltip";
+		return model.getRepresentation();
 	}
 
 }

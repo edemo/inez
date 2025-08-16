@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+	<classpathentry kind="src" output="inez-model/target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="test" value="true"/>
 		</attributes>
@@ -12,15 +12,14 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="target/classes" sourcepath="target/classes"/>
+	<classpathentry kind="lib" path="target/dependency/mockito-core.jar"/>
 	<classpathentry kind="lib" path="target/dependency/junit-jupiter-api.jar"/>
 	<classpathentry kind="lib" path="target/dependency/junit-jupiter-engine.jar"/>
 	<classpathentry kind="lib" path="target/dependency/junit-platform-commons.jar"/>
 	<classpathentry kind="lib" path="target/dependency/junit-platform-engine.jar"/>
 	<classpathentry kind="lib" path="target/dependency/junit-platform-launcher.jar"/>
-	<classpathentry kind="lib" path="target/dependency/konveyor-base-annotations.jar"/>
 	<classpathentry kind="lib" path="target/dependency/konveyor-base-testing.jar"/>
-	<classpathentry kind="lib" path="target/dependency/mockito-core.jar"/>
-	<classpathentry kind="lib" path="target/dependency/inez-parser-testing.jar"/>
 	<classpathentry kind="lib" path="target/dependency/spring-test.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

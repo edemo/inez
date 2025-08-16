@@ -30,7 +30,9 @@ public class FindBridiByIdServiceStub implements BridiTestData {
 		when(mock.apply(THING_IS_A_SUMTI_ID))
 				.thenReturn(Optional.of(THING_IS_A_SUMTI));
 		when(mock.apply(GOD_ID)).thenReturn(Optional.of(GOD));
-
+		when(mock.apply(HUMAN_ID)).thenReturn(Optional.of(HUMAN));
+		when(mock.apply(MY_MODEL_ID)).thenReturn(Optional.of(MY_MODEL));
+		when(mock.apply(ALICE_ID)).thenReturn(Optional.of(ALICE));
 		return mock;
 	}
 }

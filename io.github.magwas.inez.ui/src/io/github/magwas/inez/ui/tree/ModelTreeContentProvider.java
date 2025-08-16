@@ -2,15 +2,21 @@ package io.github.magwas.inez.ui.tree;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
+import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.element.BridiElement;
-import io.github.magwas.inez.ui.Application;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class ModelTreeContentProvider implements ITreeContentProvider {
+
+	@Inject
+	Inez inez;
 
 	@Override
 	public Object[] getElements(Object inputElement) {
 		System.out.println("getElements " + inputElement);
-		return Application.inez.root().getChildren().toArray();
+		return inez.root().getChildren().toArray();
 	}
 
 	@Override

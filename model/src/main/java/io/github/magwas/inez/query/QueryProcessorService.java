@@ -115,8 +115,7 @@ public class QueryProcessorService
 		String top = partList.get(0);
 		List<String> ids = findAllIdByRepresentation.apply(top).toList();
 		if (ids.size() != 1) {
-			LogUtil.debug("ambigous representation:", top, ids);// FIXME: should be
-																													// warning
+			LogUtil.warning("ambigous representation:", top, ids);
 			return null;
 		}
 		debug("getRelativeForBridiElement.apply(", ids.get(0),

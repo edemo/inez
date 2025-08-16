@@ -28,6 +28,13 @@
             id="io.github.magwas.inez.ui.treeModelView"
             inject="true">
       </view>
+      <view
+            class="io.github.magwas.inez.ui.editor.ModelEditorView"
+            id="io.github.magwas.inez.ui.editor"
+            inject="true"
+            name="ModelEditor"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -62,15 +69,6 @@
       </product>
    </extension>
    <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            class="io.github.magwas.inez.ui.editor.ModelEditorView"
-            default="true"
-            id="io.github.magwas.inez.ui.EditorView"
-            name="EditorView">
-      </editor>
-   </extension>
-   <extension
          id="inezproducts"
          name="Inez Product"
          point="org.eclipse.core.runtime.products">
@@ -94,6 +92,15 @@
                value="Inez">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="io.github.magwas.inez.ui.editor.ModelEditorView"
+            default="false"
+            id="io.github.magwas.inez.ui.editor"
+            name="editor">
+      </editor>
    </extension>
 
 </plugin>
