@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Inez" uid="Inez" id="io.github.magwas.inez.ui.inezproduct" application="io.github.magwas.inez.ui.application" version="0.4.5" type="bundles" includeLaunchers="true" autoIncludeRequirements="true">
+<product name="Inez" uid="Inez" id="io.github.magwas.inez.ui.inezproduct" application="io.github.magwas.inez.ui.application" version="0.4.6" type="bundles" includeLaunchers="true" autoIncludeRequirements="true">
 
    <configIni use="default">
    </configIni>
@@ -37,9 +37,9 @@
       <plugin id="com.ibm.icu"/>
       <plugin id="com.sun.jna"/>
       <plugin id="com.sun.jna.platform"/>
-      <plugin id="inez-model" version="0.4.5"/>
-      <plugin id="inez-parser" version="0.4.5"/>
-      <plugin id="io.github.magwas.inez.ui" version="0.4.5"/>
+      <plugin id="inez-model" version="0.4.6"/>
+      <plugin id="inez-parser" version="0.4.6"/>
+      <plugin id="io.github.magwas.inez.ui" version="0.4.6"/>
       <plugin id="jakarta.annotation-api"/>
       <plugin id="jakarta.annotation-api.source"/>
       <plugin id="jakarta.inject.jakarta.inject-api"/>

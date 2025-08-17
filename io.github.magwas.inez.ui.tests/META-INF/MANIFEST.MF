@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: io.github.magwas.inez.ui.tests
+Bundle-Version: 0.4.6
+Fragment-Host: io.github.magwas.inez.ui;bundle-version="0.4.6"
+Require-Bundle: junit-jupiter-api;bundle-version="5.12.2",
+ org.mockito.mockito-core;bundle-version="5.18.0"
+Automatic-Module-Name: io.github.magwas.inez.ui.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-21

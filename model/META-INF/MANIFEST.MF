@@ -5,7 +5,7 @@ Bundle-Name: inez-model
 Bundle-SymbolicName: inez-model;singleton:=true
 Spring-Context: *;create-asynchronously:=false 
 Bundle-Activator: io.github.magwas.inez.osgi.SpringBootBundleActivator
-Bundle-Version: 0.4.5
+Bundle-Version: 0.4.6
 Bundle-Vendor: Árpád Magosányi
 Export-Package: io.github.magwas.inez,
  io.github.magwas.inez.element,
