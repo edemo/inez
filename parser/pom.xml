@@ -71,9 +71,8 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.magwas</groupId>
-			<artifactId>konveyor-base</artifactId>
+			<artifactId>konveyor-base-testing</artifactId>
 			<version>${konveyor-version}</version>
-			<classifier>testing</classifier>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

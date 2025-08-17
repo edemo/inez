@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -5,22 +6,15 @@
 
 	<parent>
 		<groupId>io.github.magwas</groupId>
-		<artifactId>konveyor-parent</artifactId>
-		<version>0.4.0</version>
+		<artifactId>inez</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<properties>
-		<konveyor-version>0.4.0</konveyor-version>
-		<jdk.full.version>JavaSE-21</jdk.full.version>
-	</properties>
-
-	<artifactId>inez</artifactId>
-	<version>0.0.1</version>
-	<packaging>pom</packaging>
-	<name>inez</name>
+	<packaging>jar</packaging>
+	<artifactId>inez-parser-testing</artifactId>
+	<name>inez-parser-testing</name>
 	<description>
-		Inez is Not Even Zenta
-
-		Metamodel based modeling using the ideas of lojban language
+		Parser for Inez
 	</description>
 
 	<url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -55,16 +49,27 @@
 		</site>
 	</distributionManagement>
 
-	<modules>
-		<module>inez-target</module>
-		<module>parser</module>
-		<module>parser-testing</module>
-		<module>model</module>
-		<module>model-testing</module>
-		<module>io.github.magwas.inez.ui</module>
-		<module>io.github.magwas.inez.ui.product</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>io.github.magwas</groupId>
+			<artifactId>inez-parser</artifactId>
+			<version>0.4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.magwas</groupId>
+			<artifactId>konveyor-base-testing</artifactId>
+			<version>0.4.0</version>
+		</dependency>
+	</dependencies>
+
 	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -73,28 +78,6 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<target>
-						<artifact>
-							<groupId>io.github.magwas</groupId>
-							<artifactId>inez-target</artifactId>
-							<version>${project.version}</version>
-						</artifact>
-					</target>
-				</configuration>
-			</plugin>
 		</plugins>
-	</build>
+	</reporting>
 </project>

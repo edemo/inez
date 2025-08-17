@@ -28,13 +28,6 @@
             id="io.github.magwas.inez.ui.treeModelView"
             inject="true">
       </view>
-      <view
-            class="io.github.magwas.inez.ui.editor.ModelEditorView"
-            id="io.github.magwas.inez.ui.editor"
-            inject="true"
-            name="ModelEditor"
-            restorable="true">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
