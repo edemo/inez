@@ -14,7 +14,7 @@
 	</properties>
 
 	<artifactId>inez</artifactId>
-	<version>0.0.1</version>
+	<version>0.4.8</version>
 	<packaging>pom</packaging>
 	<name>inez</name>
 	<description>

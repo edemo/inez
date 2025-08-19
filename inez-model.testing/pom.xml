@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>io.github.magwas</groupId>
 		<artifactId>inez</artifactId>
-		<version>0.0.1</version>
+		<version>0.4.8</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 

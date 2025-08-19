@@ -78,7 +78,7 @@
          id="inezproduct"
          point="org.eclipse.core.runtime.products">
       <product
-            application="io.github.magwas.inez.ui.application"
+            application="org.eclipse.ant.core.antRunner"
             name="Inez">
          <property
                name="appName"

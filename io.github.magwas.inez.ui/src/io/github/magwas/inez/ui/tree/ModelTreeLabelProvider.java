@@ -1,5 +1,6 @@
 package io.github.magwas.inez.ui.tree;
 
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
@@ -12,6 +13,7 @@ import jakarta.inject.Inject;
 public class ModelTreeLabelProvider implements ILabelProvider {
 
 	@Inject
+	@Optional
 	IWorkbench workbench;
 
 	@Override
