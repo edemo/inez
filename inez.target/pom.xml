@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -5,22 +6,15 @@
 
 	<parent>
 		<groupId>io.github.magwas</groupId>
-		<artifactId>konveyor-parent</artifactId>
-		<version>0.4.0</version>
+		<artifactId>inez</artifactId>
+		<version>0.4.8</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<properties>
-		<konveyor-version>0.4.0</konveyor-version>
-		<jdk.full.version>JavaSE-21</jdk.full.version>
-	</properties>
 
-	<artifactId>inez</artifactId>
-	<version>0.4.8</version>
-	<packaging>pom</packaging>
-	<name>${project.artifactId}</name>
+	<artifactId>io.github.magwas.inez.target</artifactId>
+	<packaging>eclipse-target-definition</packaging>
 	<description>
-		Inez is Not Even Zenta
-
-		Metamodel based modeling using the ideas of lojban language
+		Eclipse target description for Inez
 	</description>
 
 	<url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -54,33 +48,13 @@
 			<url>https://repo.kodekonveyor.com/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
-
-	<modules>
-		<module>inez.target</module>
-		<module>inez.parser</module>
-		<module>inez.parser.tests</module>
-		<module>inez.model</module>
-		<module>inez.model.tests</module>
-		<module>inez.ui</module>
-		<module>inez.ui.tests</module>
-		<module>inez.ui.product</module>
-	</modules>
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -88,11 +62,7 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<target>
-						<artifact>
-							<groupId>io.github.magwas</groupId>
-							<artifactId>inez.target</artifactId>
-							<version>${project.version}</version>
-						</artifact>
+						<file>inez.target</file>
 					</target>
 				</configuration>
 			</plugin>
