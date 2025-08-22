@@ -7,8 +7,4 @@ else
 	VERSION=$1
 fi
 mvn org.eclipse.tycho:tycho-versions-plugin:4.0.12:set-version -DnewVersion=$VERSION
-#sed -i "s/Bundle-Version:.*/Bundle-Version: $VERSION/" io.github.magwas.inez.ui/META-INF/MANIFEST.MF
-#sed -i "s/Bundle-Version:.*/Bundle-Version: $VERSION/" model/META-INF/MANIFEST.MF
-#sed -i 's/inez-parser;bundle-version=".*"/inez-parser;bundle-version="'$VERSION'"/' model/META-INF/MANIFEST.MF
-#sed -i "s/Bundle-Version:.*/Bundle-Version: $VERSION/" parser/META-INF/MANIFEST.MF
-#sed -i 's/application="io.github.magwas.inez.ui.application" version="[^"]*"/application="io.github.magwas.inez.ui.application" version="'$VERSION'"/' io.github.magwas.inez.ui.product/Inez.product
+
