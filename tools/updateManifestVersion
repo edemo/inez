@@ -2,7 +2,7 @@
 set -xe
 if [ x$1 = x ]
 then
-	VERSION=$(git describe |sed 's/-/./;s/-.*//')
+	VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 else
 	VERSION=$1
 fi

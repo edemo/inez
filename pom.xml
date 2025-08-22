@@ -90,7 +90,7 @@
 					<target>
 						<artifact>
 							<groupId>io.github.magwas</groupId>
-							<artifactId>inez.target</artifactId>
+							<artifactId>io.github.magwas.inez.target</artifactId>
 							<version>${project.version}</version>
 						</artifact>
 					</target>
