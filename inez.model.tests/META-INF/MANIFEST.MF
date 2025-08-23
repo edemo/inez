@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Testing
 Bundle-SymbolicName: io.github.magwas.inez.model.tests
-Bundle-Version: 0.4.18
+Bundle-Version: 0.0.1
 Export-Package: io.github.magwas.inez,
  io.github.magwas.inez.element,
  io.github.magwas.inez.osgi,

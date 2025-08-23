@@ -4,8 +4,12 @@
 
     <refs>
         <ref type="branch">
-            <pattern>.+</pattern>
+            <pattern>develop</pattern>
             <version>${describe.tag}.${describe.distance}</version>
+        </ref>
+        <ref type="branch">
+            <pattern>.+</pattern>
+            <version>0.0.1</version>
         </ref>
         <ref type="tag">
             <pattern>.+</pattern>
