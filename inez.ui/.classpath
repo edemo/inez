@@ -7,13 +7,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx-swt.jar"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx.controls.jar"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx.fxml.jar"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx.media.jar"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx.web.jar"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx.base.jar"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx.graphics.jar"/>
-	<classpathentry kind="lib" path="/usr/local/lib/javafx-sdk-21.0.8/lib/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx-base.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx-base-linux.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx-graphics.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx-graphics-linux.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx-swt.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
