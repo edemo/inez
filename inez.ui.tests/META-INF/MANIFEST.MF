@@ -5,6 +5,8 @@ Bundle-SymbolicName: io.github.magwas.inez.ui.tests
 Bundle-Version: 0.4.8
 Fragment-Host: io.github.magwas.inez.ui;bundle-version="0.0.1"
 Require-Bundle: org.mockito.mockito-core;bundle-version="5.18.0",
- junit-jupiter-api;bundle-version="5.11.4"
+ junit-jupiter-api;bundle-version="5.11.4",
+ io.github.magwas.inez.parser,
+ io.github.magwas.inez.model
 Automatic-Module-Name: io.github.magwas.inez.ui.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-21
