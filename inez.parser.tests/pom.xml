@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>io.github.magwas</groupId>
 		<artifactId>inez</artifactId>
-		<version>0.4.8</version>
+		<version>0.4.18</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<packaging>eclipse-plugin</packaging>
