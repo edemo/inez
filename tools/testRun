@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xe
 rm -rf ~/tmp/Inez
-tar -C ~/tmp -xzf inez.ui.product/target/products/Inez-linux.gtk.x86_64.tar.gz
+tar -C ~/tmp --warning=no-unknown-keyword -xzf inez.ui.product/target/products/Inez-linux.gtk.x86_64.tar.gz
 export GDK_BACKEND=x11
 ~/tmp/Inez/Inez
 
