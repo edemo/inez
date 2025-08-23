@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Testing
+Bundle-SymbolicName: io.github.magwas.inez.parser.tests
+Bundle-Version: 0.4.18
+Export-Package: io.github.magwas.inez.parse
+Require-Bundle: org.mockito.mockito-core;bundle-version="5.18.0",
+ wrapped.io.github.magwas.konveyor-base-testing;bundle-version="0.4.0",
+ junit-jupiter-api;bundle-version="5.11.4",
+ io.github.magwas.inez.parser;bundle-version="0.4.18",
+ org.antlr.antlr4-runtime;bundle-version="4.13.2",
+ wrapped.io.github.magwas.konveyor-base;bundle-version="0.4.0"
+Automatic-Module-Name: io.github.magwas.inez.parser.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-21

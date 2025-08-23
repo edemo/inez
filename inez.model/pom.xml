@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -5,22 +6,15 @@
 
 	<parent>
 		<groupId>io.github.magwas</groupId>
-		<artifactId>konveyor-parent</artifactId>
-		<version>0.4.0</version>
+		<artifactId>inez</artifactId>
+		<version>0.4.18</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<properties>
-		<konveyor-version>0.4.0</konveyor-version>
-		<jdk.full.version>JavaSE-21</jdk.full.version>
-	</properties>
 
-	<artifactId>inez</artifactId>
-	<version>0.4.18</version>
-	<packaging>pom</packaging>
-	<name>${project.artifactId}</name>
+	<packaging>eclipse-plugin</packaging>
+	<artifactId>io.github.magwas.inez.model</artifactId>
 	<description>
-		Inez is Not Even Zenta
-
-		Metamodel based modeling using the ideas of lojban language
+		model layer for Inez
 	</description>
 
 	<url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -55,46 +49,34 @@
 		</site>
 	</distributionManagement>
 
-	<modules>
-		<module>inez.target</module>
-		<module>inez.parser</module>
-		<module>inez.parser.tests</module>
-		<module>inez.model</module>
-		<module>inez.model.tests</module>
-		<module>inez.ui</module>
-		<module>inez.ui.tests</module>
-		<module>inez.ui.product</module>
-	</modules>
+	<properties>
+		<osgi.version>6.0.0</osgi.version>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<target>
-						<artifact>
-							<groupId>io.github.magwas</groupId>
-							<artifactId>io.github.magwas.inez.target</artifactId>
-							<version>${project.version}</version>
-						</artifact>
-					</target>
-				</configuration>
+				<artifactId>tycho-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<stripVersion>true</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -xe
+pwd
+unzip -o target/dependency/javafx-graphics-linux.jar  -d target/dependency javafx-swt.jar
+mkdir -p ../inez.ui/target/
+mv target/dependency ../inez.ui/target
+

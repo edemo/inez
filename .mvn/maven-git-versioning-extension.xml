@@ -14,7 +14,7 @@
     </refs>
 
     <rev>
-        <version>${describe.tag}.${describe.distance}</version>
+        <version>0.0.1</version>
     </rev>
 
 </configuration>
