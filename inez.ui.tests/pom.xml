@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<groupId>io.github.magwas</groupId>
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -12,7 +11,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<packaging>eclipse-plugin</packaging>
+	<packaging>eclipse-test-plugin</packaging>
 	<artifactId>io.github.magwas.inez.ui.tests</artifactId>
 	<description>
 		model layer for Inez
@@ -49,5 +48,32 @@
 			<url>https://repo.kodekonveyor.com/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+				<skip>true</skip>
+					<bundleStartLevel>
+						<bundle>
+							<id>io.github.magwas.inez.parser</id>
+							<level>1</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						<bundle>
+							<id>io.github.magwas.inez.model</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						<bundle>
+							<id>io.github.magwas.inez.ui</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

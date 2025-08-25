@@ -1,7 +1,21 @@
 #!/bin/bash
 set -xe
 pwd
-unzip -o target/dependency/javafx-graphics-linux.jar  -d target/dependency javafx-swt.jar
-mkdir -p ../inez.ui/target/
-mv target/dependency ../inez.ui/target
-
+if [ ! -e ~/.m2/repository/openjfx/openjfx-linux_x64.zip ]
+then
+	mkdir -p ~/.m2/repository/openjfx
+	wget -q https://download2.gluonhq.com/openjfx/21.0.8/openjfx-21.0.8_linux-x64_bin-sdk.zip -O ~/.m2/repository/openjfx/openjfx-linux_x64.zip
+	wget -q https://download2.gluonhq.com/openjfx/21.0.8/openjfx-21.0.8_osx-x64_bin-sdk.zip -O ~/.m2/repository/openjfx/openjfx-osx_x64.zip
+	wget -q https://download2.gluonhq.com/openjfx/21.0.8/openjfx-21.0.8_windows-x64_bin-sdk.zip -O ~/.m2/repository/openjfx/openjfx-windows_x64.zip
+fi
+if [ ! -e target/javafx/windows_x64 ]
+then
+	mkdir -p target/javafx/linux_x64
+	mkdir -p target/javafx/osx_x64
+	mkdir -p target/javafx/windows_x64
+	unzip -d target/javafx/linux_x64 ~/.m2/repository/openjfx/openjfx-linux_x64.zip
+	unzip -d target/javafx/osx_x64 ~/.m2/repository/openjfx/openjfx-osx_x64.zip
+	unzip -d target/javafx/windows_x64 ~/.m2/repository/openjfx/openjfx-windows_x64.zip
+fi
+mkdir -p ../inez.ui/target/dependency
+cp target/javafx/linux_x64/javafx-sdk-21.0.8//lib/*.jar ../inez.ui/target/dependency

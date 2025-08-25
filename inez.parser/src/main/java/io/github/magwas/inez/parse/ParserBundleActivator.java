@@ -2,9 +2,11 @@ package io.github.magwas.inez.parse;
 
 import java.util.Hashtable;
 
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+import org.osgi.framework.wiring.BundleWiring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,10 +26,12 @@ public class ParserBundleActivator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext bundleContext) {
+		Bundle bundle = bundleContext.getBundle();
+		BundleWiring bundleWiring = bundle.adapt(BundleWiring.class);
+		ClassLoader classLoader = bundleWiring.getClassLoader();
 		Thread.currentThread()
-				.setContextClassLoader(this.getClass().getClassLoader());
-		appContext = new AnnotationConfigApplicationContext(
-				ParserBundleActivator.class);
+		.setContextClassLoader(classLoader);
+		appContext = new AnnotationConfigApplicationContext(ParserBundleActivator.class);
 		parseText = appContext.getBean(ParseTextService.class);
 		Assert.notNull(parseText, "parseText is null");
 		ServiceRegistration<ParseTextService> registration = bundleContext.registerService(ParseTextService.class,
