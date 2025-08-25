@@ -7,10 +7,13 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="target/dependency/javafx-base.jar"/>
-	<classpathentry kind="lib" path="target/dependency/javafx-base-linux.jar"/>
-	<classpathentry kind="lib" path="target/dependency/javafx-graphics.jar"/>
-	<classpathentry kind="lib" path="target/dependency/javafx-graphics-linux.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx.base.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx.media.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="target/dependency/javafx.web.jar"/>
 	<classpathentry kind="lib" path="target/dependency/javafx-swt.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -6,10 +6,10 @@
 	<parent>
 		<groupId>io.github.magwas</groupId>
 		<artifactId>konveyor-parent</artifactId>
-		<version>0.4.0</version>
+		<version>0.4.1</version>
 	</parent>
 	<properties>
-		<konveyor-version>0.4.0</konveyor-version>
+		<konveyor-version>0.4.1</konveyor-version>
 		<jdk.full.version>JavaSE-21</jdk.full.version>
 	</properties>
 

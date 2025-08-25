@@ -11,7 +11,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<packaging>eclipse-plugin</packaging>
+	<packaging>eclipse-test-plugin</packaging>
 	<artifactId>io.github.magwas.inez.model.tests</artifactId>
 	<description>
 		model layer for Inez
@@ -48,5 +48,28 @@
 			<url>https://repo.kodekonveyor.com/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+				<skip>true</skip>
+					<bundleStartLevel>
+						<bundle>
+							<id>io.github.magwas.inez.parser</id>
+							<level>1</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						<bundle>
+							<id>io.github.magwas.inez.model</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
