@@ -2,7 +2,6 @@ package io.github.magwas.inez.ui.tree;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -45,9 +44,8 @@ public class NewDiagramAction extends Action {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getActivePage();
 		MyEditorInput input = new MyEditorInput(model);
-		IEditorPart editor;
 		try {
-			editor = page.openEditor(input, ModelEditorView.ID);
+			page.openEditor(input, ModelEditorView.ID);
 		} catch (PartInitException e) {
 			throw new Error(e);
 		}

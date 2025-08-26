@@ -15,10 +15,12 @@ import org.springframework.data.map.repository.config.EnableMapRepositories;
 import io.github.magwas.inez.Inez;
 import io.github.magwas.inez.InezImpl;
 import io.github.magwas.inez.query.BridiFunction;
+import io.github.magwas.kodekonveyorannotations.Glue;
 
 @SpringBootApplication
 @EnableMapRepositories("io.github.magwas.inez.storage")
 @ComponentScan(basePackages = { "io.github.magwas" })
+@Glue
 public class SpringBootBundleActivator implements BundleActivator {
 
 	public static BundleContext bundleContext;

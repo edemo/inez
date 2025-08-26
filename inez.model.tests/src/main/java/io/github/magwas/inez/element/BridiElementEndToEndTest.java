@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,19 +76,6 @@ public class BridiElementEndToEndTest implements BridiTestData {
 		assertTrue(element.isInstance(CONTAINER_ID));
 		assertTrue(element.isInstance(FOLDER_ID));
 		assertTrue(element.isInstance(THING_ID));
-	}
-
-	private List<String> ancestry(String x) {
-		if (x == null)
-			return List.of("<none>");
-		if (x.equals(THING_ID))
-			return List.of(THING_ID);
-		if (x.equals(ROOT_ID))
-			return List.of(ROOT_ID);
-		BridiElement element = bridiElementFactory.apply(x);
-		List<String> ancestry = new ArrayList<>(ancestry(element.getParent().id));
-		ancestry.add(0, x);
-		return ancestry;
 	}
 
 	private String loadResourceAsString(String definitionName)

@@ -51,16 +51,4 @@ public class Perspective implements IPerspectiveFactory {
 
 	}
 
-	private void addFolderLayouts(IPageLayout layout) {
-		// The declared order of these matters
-		folderLayoutLeftTop = layout.createFolder(LEFT_TOP, IPageLayout.LEFT, .23f,
-				IPageLayout.ID_EDITOR_AREA);
-		folderLayoutLeftBottom = layout.createFolder("Left bottom",
-				IPageLayout.BOTTOM, .6f, LEFT_TOP);
-		folderLayoutRight = layout.createPlaceholderFolder("right",
-				IPageLayout.RIGHT, .85f, IPageLayout.ID_EDITOR_AREA);
-		folderLayoutBottom = layout.createFolder("bottom", IPageLayout.BOTTOM, .7f,
-				IPageLayout.ID_EDITOR_AREA);
-	}
-
 }

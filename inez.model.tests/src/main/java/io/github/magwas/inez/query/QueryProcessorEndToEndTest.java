@@ -36,17 +36,15 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 	@Autowired
 	InezImpl inez;
 
-	@Autowired
-	SpringBootBundleActivator springBootBundleActivator;
 
 	@BeforeEach
-	private void setUp() {
-		ServiceReference sr = mock(ServiceReference.class);
+	 void setUp() {
+		ServiceReference<Save> sr = mock(ServiceReference.class);
 		BundleContext ctx = mock(BundleContext.class);
-		when(ctx.getServiceReference("io.github.magwas.inez.functions.Save"))
+		when((ServiceReference<Save>)ctx.getServiceReference("io.github.magwas.inez.functions.Save"))
 				.thenReturn(sr);
 		when(ctx.getService(sr)).thenReturn(new Save());
-		springBootBundleActivator.bundleContext = ctx;
+		SpringBootBundleActivator.bundleContext = ctx;
 		inez.initialize();
 	}
 
