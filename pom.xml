@@ -11,6 +11,7 @@
 	<properties>
 		<konveyor-version>0.4.1</konveyor-version>
 		<jdk.full.version>JavaSE-21</jdk.full.version>
+		<tycho.localArtifacts>ignore</tycho.localArtifacts>
 	</properties>
 
 	<artifactId>inez</artifactId>

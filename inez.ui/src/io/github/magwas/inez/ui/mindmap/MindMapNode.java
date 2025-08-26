@@ -41,8 +41,8 @@ public class MindMapNode extends AbstractMindMapItem implements Serializable {
 	 */
 	private Rectangle bounds;
 
-	private List<MindMapConnection> incomingConnections = new ArrayList();
-	private List<MindMapConnection> outgoingConnections = new ArrayList();
+	private List<MindMapConnection> incomingConnections = new ArrayList<>();
+	private List<MindMapConnection> outgoingConnections = new ArrayList<>();
 
 	public void addIncomingConnection(MindMapConnection conn) {
 		incomingConnections.add(conn);
@@ -90,19 +90,19 @@ public class MindMapNode extends AbstractMindMapItem implements Serializable {
 
 	public void setBounds(Rectangle bounds) {
 		pcs.firePropertyChange(PROP_BOUNDS, this.bounds,
-				(this.bounds = bounds.getCopy()));
+				this.bounds = bounds.getCopy());
 	}
 
 	public void setColor(Color color) {
-		pcs.firePropertyChange(PROP_COLOR, this.color, (this.color = color));
+		pcs.firePropertyChange(PROP_COLOR, this.color, this.color = color);
 	}
 
 	public void setDescription(String description) {
 		pcs.firePropertyChange(PROP_DESCRIPTION, this.description,
-				(this.description = description));
+				this.description = description);
 	}
 
 	public void setTitle(String title) {
-		pcs.firePropertyChange(PROP_TITLE, this.title, (this.title = title));
+		pcs.firePropertyChange(PROP_TITLE, this.title, this.title = title);
 	}
 }

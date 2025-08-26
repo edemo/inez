@@ -29,7 +29,8 @@ public class CreateBridiElementServiceTest extends TestBase
 	@Override
 	public void setUp() {
 		super.setUp();
-		element = createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR, null);
+		element = createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR);
+		@SuppressWarnings("unchecked")
 		ArgumentCaptor<List<Bridi>> argument = ArgumentCaptor.forClass(List.class);
 		verify(createBridiElement.saveBridi).apply(argument.capture());
 		saved = argument.getValue();
@@ -94,6 +95,7 @@ public class CreateBridiElementServiceTest extends TestBase
 	void test6() {
 		createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR, IS_A_ID,
 				ALICE_ID, GOD_ID);
+		@SuppressWarnings("unchecked")
 		ArgumentCaptor<List<Bridi>> argument = ArgumentCaptor.forClass(List.class);
 		verify(createBridiElement.saveBridi, times(2)).apply(argument.capture());
 		List<Bridi> saved = argument.getValue();
