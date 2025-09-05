@@ -12,6 +12,7 @@
 	</parent>
 	<packaging>eclipse-plugin</packaging>
 	<artifactId>io.github.magwas.inez.parser</artifactId>
+	<name>${project.artifactId}</name>
 	<properties>
 		<skipSurefireReport>true</skipSurefireReport>
 	</properties>

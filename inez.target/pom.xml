@@ -12,6 +12,7 @@
 	</parent>
 
 	<artifactId>io.github.magwas.inez.target</artifactId>
+	<name>${project.artifactId}</name>
 	<packaging>eclipse-target-definition</packaging>
 	<description>
 		Eclipse target description for Inez

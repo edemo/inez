@@ -12,6 +12,7 @@
 	</parent>
 
 	<artifactId>io.github.magwas.inez.ui</artifactId>
+	<name>${project.artifactId}</name>
 	<packaging>eclipse-plugin</packaging>
 	<description>
 		Inez GUI

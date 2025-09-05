@@ -13,6 +13,7 @@
 
 	<packaging>eclipse-plugin</packaging>
 	<artifactId>io.github.magwas.inez.model</artifactId>
+	<name>${project.artifactId}</name>
 	<description>
 		model layer for Inez
 	</description>
