@@ -13,6 +13,7 @@
 
 	<packaging>eclipse-test-plugin</packaging>
 	<artifactId>io.github.magwas.inez.ui.tests</artifactId>
+	<name>${project.artifactId}</name>
 	<description>
 		model layer for Inez
 	</description>
