@@ -13,13 +13,13 @@ import io.github.magwas.inez.storage.model.Sumti;
 @ExtendWith(ServiceExtension.class)
 @Tag("plugin")
 public class InezPluginTest {
-	
+
 	@InjectService
 	Inez inez;
-	
+
 	@Test
 	void test() {
 		Sumti actual = inez.createSumti("hello", "world");
 		assertEquals(new Sumti("hello", "world"), actual);
-		}
+	}
 }

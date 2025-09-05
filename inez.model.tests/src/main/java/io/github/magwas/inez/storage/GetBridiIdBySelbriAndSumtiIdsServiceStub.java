@@ -7,7 +7,8 @@ import java.util.stream.Stream;
 
 import io.github.magwas.inez.parse.BridiFieldTestData;
 
-public class GetBridiIdBySelbriAndSumtiIdsServiceStub implements BridiFieldTestData {
+public class GetBridiIdBySelbriAndSumtiIdsServiceStub
+		implements BridiFieldTestData {
 	public static GetBridiIdBySelbriAndSumtiIdsService stub() {
 		GetBridiIdBySelbriAndSumtiIdsService mock = mock(
 				GetBridiIdBySelbriAndSumtiIdsService.class);

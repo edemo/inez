@@ -20,7 +20,8 @@ import io.github.magwas.inez.parser.BridiParser.TextReferenceContext;
 import io.github.magwas.runtime.LogUtil;
 
 @Service
-public class ParseTextService implements Function<String, Stream<ParserOutput>> {
+public class ParseTextService
+		implements Function<String, Stream<ParserOutput>> {
 	@Autowired
 	CreateParserFromTokensService createParserFromTokens;
 
@@ -28,9 +29,8 @@ public class ParseTextService implements Function<String, Stream<ParserOutput>> 
 		LogUtil.debug("input:" + input);
 		BridiParser parser = createParserFromTokens.apply(input);
 		ParagraphContext text = parser.paragraph();
-		return text.children.stream()
-				.filter(x-> x instanceof BridiContext )
-				.map(x->compileBridiFromTree((BridiContext)x));
+		return text.children.stream().filter(x -> x instanceof BridiContext)
+				.map(x -> compileBridiFromTree((BridiContext) x));
 	}
 
 	private ParserOutput compileBridiFromTree(final BridiContext bridi) {

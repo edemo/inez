@@ -22,10 +22,10 @@ public class ThrowingErrorListener extends BaseErrorListener {
 			RecognitionException e) {
 		String[] splat = input.split("\n");
 		String theline = null;
-		if(splat.length>=line)
-		theline = splat[line-1];
-		String message = line + ":" + charPositionInLine + " " + msg+
-				"\n"+theline+"\n"+" ".repeat(charPositionInLine)+"^";
+		if (splat.length >= line)
+			theline = splat[line - 1];
+		String message = line + ":" + charPositionInLine + " " + msg + "\n"
+				+ theline + "\n" + " ".repeat(charPositionInLine) + "^";
 		System.err.println(message);
 		throw new ParseCancellationException(message);
 	}

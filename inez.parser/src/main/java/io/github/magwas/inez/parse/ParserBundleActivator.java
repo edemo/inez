@@ -29,14 +29,15 @@ public class ParserBundleActivator implements BundleActivator {
 		Bundle bundle = bundleContext.getBundle();
 		BundleWiring bundleWiring = bundle.adapt(BundleWiring.class);
 		ClassLoader classLoader = bundleWiring.getClassLoader();
-		Thread.currentThread()
-		.setContextClassLoader(classLoader);
-		appContext = new AnnotationConfigApplicationContext(ParserBundleActivator.class);
+		Thread.currentThread().setContextClassLoader(classLoader);
+		appContext = new AnnotationConfigApplicationContext(
+				ParserBundleActivator.class);
 		parseText = appContext.getBean(ParseTextService.class);
 		Assert.notNull(parseText, "parseText is null");
-		ServiceRegistration<ParseTextService> registration = bundleContext.registerService(ParseTextService.class,
-				parseText, new Hashtable<String, String>());
-		System.err.println("registered ParseTextService:"+registration);
+		ServiceRegistration<ParseTextService> registration = bundleContext
+				.registerService(ParseTextService.class, parseText,
+						new Hashtable<String, String>());
+		System.err.println("registered ParseTextService:" + registration);
 	}
 
 	@Override

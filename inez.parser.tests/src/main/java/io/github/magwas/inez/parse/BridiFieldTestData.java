@@ -46,15 +46,10 @@ public interface BridiFieldTestData {
 	String ALICE_EATS_CHIPS = "{alice} {{eats} {chips}}";
 	String ALICE_EATS_BANANA = "{alice} {{eats} {banana}}";
 
-	String TEST_TEXT = ALICE_EATS_BANANA + "\n"
-			+ ALICE_EATS_CHIPS + "\n" 
-			+ BOB_EATS_BANANA+ "\n"
-			+ BOB_EATS_CHIPS+ "\n" 
-			+ CECILE_EATS_BANANA+ "\n"
-			+ CECILE_LOOKS_AT_BANANA+ "\n"
-			+ SUMTI_IS_A_THING_REPR + "\n"
-			+ THING_IS_A_SUMTI_REPR + "\n"
-			+ TAUTOLOGY_GENERATED_REPR + "\n"
+	String TEST_TEXT = ALICE_EATS_BANANA + "\n" + ALICE_EATS_CHIPS + "\n"
+			+ BOB_EATS_BANANA + "\n" + BOB_EATS_CHIPS + "\n" + CECILE_EATS_BANANA
+			+ "\n" + CECILE_LOOKS_AT_BANANA + "\n" + SUMTI_IS_A_THING_REPR + "\n"
+			+ THING_IS_A_SUMTI_REPR + "\n" + TAUTOLOGY_GENERATED_REPR + "\n"
 			+ SUMTI_IS_A_THING_IS_A_THING_REPR + "\n"
 			+ SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE + "\n"
 			+ TAUTOLOGY_IS_A_THING_REPR;
@@ -83,12 +78,12 @@ public interface BridiFieldTestData {
 			THING_ID);
 	List<String> SUMTI_IS_A_THING_REFERENCES = List.of(IS_A_ID, SUMTI_ID,
 			THING_ID);
-	List<String> SUMTI_IS_A_THING_GENERATED_REFERENCES = List.of(IdUtil.createID(IS_A_REPR),
-			SUMTI_ID, IdUtil.createID(THING_REPR));
+	List<String> SUMTI_IS_A_THING_GENERATED_REFERENCES = List
+			.of(IdUtil.createID(IS_A_REPR), SUMTI_ID, IdUtil.createID(THING_REPR));
 	List<String> THING_IS_A_SUMTI_REFERENCES = List.of(IS_A_ID, THING_ID,
 			SUMTI_ID);
 	String INPUT_WITH_LITERAL = "{My folder} contains {[{0} is a {1}]}";
-	List<String> INPUT_WITH_LITERAL_REFS = List.of("{0} contains {1}", "My folder", "{0} is a {1}");
+	List<String> INPUT_WITH_LITERAL_REFS = List.of("{0} contains {1}",
+			"My folder", "{0} is a {1}");
 
-	
 }
