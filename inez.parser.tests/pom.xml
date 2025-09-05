@@ -12,6 +12,7 @@
 	</parent>
 	<packaging>eclipse-test-plugin</packaging>
 	<artifactId>io.github.magwas.inez.parser.tests</artifactId>
+	<name>${project.artifactId}</name>
 	<description>
 		Parser for Inez
 	</description>

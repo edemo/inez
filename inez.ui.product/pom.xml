@@ -12,6 +12,7 @@
 	</parent>
 
 	<artifactId>io.github.magwas.inez.ui.product</artifactId>
+	<name>${project.artifactId}</name>
 	<packaging>eclipse-repository</packaging>
 	<properties>
 		<skipSurefireReport>true</skipSurefireReport>
