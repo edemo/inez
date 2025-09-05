@@ -17,7 +17,6 @@ import io.github.magwas.inez.query.CreateBridisFromDefinitionService;
 import io.github.magwas.inez.query.CreateBridisFromQueryService;
 import io.github.magwas.inez.query.QueryProcessorService;
 import io.github.magwas.inez.storage.BridiStoreChangeListenersService;
-import io.github.magwas.inez.storage.BridiStoreHistoryRepository;
 import io.github.magwas.inez.storage.CreateBridiFromSumtiService;
 import io.github.magwas.inez.storage.CreateSumtiService;
 import io.github.magwas.inez.storage.DeleteBridiService;
@@ -28,6 +27,8 @@ import io.github.magwas.inez.storage.GetBridiIdBySelbriAndSumtiIdsService;
 import io.github.magwas.inez.storage.SaveBridiService;
 import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
+import io.github.magwas.inez.storage.repository.BridiStoreHistoryRepository;
+import io.github.magwas.inez.storage.repository.ProblemRepository;
 import io.github.magwas.kodekonveyorannotations.Delegate;
 
 @Component
@@ -63,6 +64,8 @@ public class InezImpl implements Inez {
 	CreateBridisFromQueryService createBridisFromQuery;
 	@Autowired
 	CreateSumtiService createSumti;
+	@Autowired
+	ProblemRepository problemRepository;
 
 	private InezImpl() {
 	}
@@ -124,6 +127,10 @@ public class InezImpl implements Inez {
 
 	public BridiElement byId(String id) {
 		return bridiElementFactory.apply(id);
+	}
+
+	public ProblemRepository getProblems() {
+		return problemRepository;
 	}
 
 }
