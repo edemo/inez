@@ -54,7 +54,6 @@
 	</distributionManagement>
 
 	<build>
-		<outputDirectory>bin</outputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>

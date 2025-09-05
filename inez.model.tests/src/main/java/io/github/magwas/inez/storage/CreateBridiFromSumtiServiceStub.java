@@ -6,7 +6,8 @@ import static org.mockito.Mockito.when;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
 
-public class CreateBridiFromSumtiServiceStub implements BridiTestData, SumtiTestData {
+public class CreateBridiFromSumtiServiceStub
+		implements BridiTestData, SumtiTestData {
 	public static CreateBridiFromSumtiService stub() {
 		CreateBridiFromSumtiService mock = mock(CreateBridiFromSumtiService.class);
 		when(mock.apply(THING_SUMTI)).thenReturn(THING);

@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 
 import io.github.magwas.testing.TestBase;
 
-
 class ParseTextTest extends TestBase implements ParserOutputTestData {
 
 	@InjectMocks
@@ -48,7 +47,8 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	@DisplayName("a bridi with two sumties is parsed to the bridi representation and a map containing"
 			+ "- from the representation to the list of its selbrified version and the sumties")
 	void test4() {
-		ParserOutput actual = parseText.apply(TAUTOLOGY_GENERATED_REPR).toList().get(0);
+		ParserOutput actual = parseText.apply(TAUTOLOGY_GENERATED_REPR).toList()
+				.get(0);
 		assertEquals(OUTPUT_TAUTOLOGY, actual);
 	}
 
@@ -76,8 +76,8 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	@Test
 	@DisplayName("multiline is working")
 	void test7() {
-		assertEquals(List.of(OUTPOUT_WITH_LITERAL,OUTPUT_TAUTOLOGY),
-				parseText.apply(INPUT_WITH_LITERAL+"\n"+TAUTOLOGY_GENERATED_REPR).toList());
+		assertEquals(List.of(OUTPOUT_WITH_LITERAL, OUTPUT_TAUTOLOGY), parseText
+				.apply(INPUT_WITH_LITERAL + "\n" + TAUTOLOGY_GENERATED_REPR).toList());
 	}
 
 }

@@ -13,12 +13,13 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @ExtendWith(ServiceExtension.class)
 @Tag("plugin")
 public class ParseTextPluginTest {
-	
+
 	@InjectService
 	ParseTextService parseText;
-	
+
 	@Test
 	void test() {
 		ParserOutput actual = parseText.apply("alice").toList().get(0);
-		assertEquals(new ParserOutput("alice", Map.of()), actual);	}
+		assertEquals(new ParserOutput("alice", Map.of()), actual);
+	}
 }

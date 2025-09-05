@@ -6,12 +6,11 @@
 	<parent>
 		<groupId>io.github.magwas</groupId>
 		<artifactId>konveyor-parent</artifactId>
-		<version>0.4.1</version>
+		<version>0.4.7</version>
 	</parent>
 	<properties>
-		<konveyor-version>0.4.1</konveyor-version>
-		<jdk.full.version>JavaSE-21</jdk.full.version>
-		<tycho.localArtifacts>ignore</tycho.localArtifacts>
+		<konveyor-version>0.4.7</konveyor-version>
+		<mpir.skip>true</mpir.skip>
 	</properties>
 
 	<artifactId>inez</artifactId>
@@ -69,13 +68,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.sonatype.central</groupId>
 				<artifactId>central-publishing-maven-plugin</artifactId>
 			</plugin>
@@ -99,4 +91,14 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>
+					maven-jxr-plugin</artifactId>
+				<version>3.6.0</version>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

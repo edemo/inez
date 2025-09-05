@@ -4,7 +4,8 @@ import static org.mockito.Mockito.mock;
 
 public class BridiStoreChangeListenersServiceStub {
 	public static BridiStoreChangeListenersService stub() {
-		BridiStoreChangeListenersService mock = mock(BridiStoreChangeListenersService.class);
+		BridiStoreChangeListenersService mock = mock(
+				BridiStoreChangeListenersService.class);
 		return mock;
 	}
 
