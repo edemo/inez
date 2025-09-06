@@ -1,5 +1,7 @@
 package io.github.magwas.inez.osgi;
 
+import java.io.IOException;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -34,7 +36,7 @@ public class SpringBootBundleActivator implements BundleActivator {
 	AutowireCapableBeanFactory autowireCapableBeanFactory;
 
 	@Override
-	public void start(BundleContext bundleContext) {
+	public void start(BundleContext bundleContext) throws IOException {
 		SpringBootBundleActivator.bundleContext = bundleContext;
 		Thread.currentThread()
 				.setContextClassLoader(this.getClass().getClassLoader());

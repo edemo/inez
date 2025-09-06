@@ -1,6 +1,6 @@
 grammar Bridi;
 
-fragment LETTER : [_a-zA-Z0-9$?: ];
+fragment LETTER : [_a-zA-Z0-9$?: .,];
 
 PRE : '{';
 POST: '}';

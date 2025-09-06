@@ -27,7 +27,7 @@ public class CreateBridiElementServiceTest extends TestBase
 
 	@BeforeEach
 	@Override
-	public void setUp() {
+	public void setUp() throws Throwable {
 		super.setUp();
 		element = createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR);
 		@SuppressWarnings("unchecked")

@@ -1,6 +1,7 @@
 package io.github.magwas.inez.query;
 
 import static io.github.magwas.runtime.LogUtil.debug;
+import static io.github.magwas.runtime.LogUtil.warning;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ import io.github.magwas.inez.storage.FindAllByRepresentationService;
 import io.github.magwas.inez.storage.FindAllIdByRepresentationService;
 import io.github.magwas.inez.storage.FindBridiByIdService;
 import io.github.magwas.inez.storage.GetBridiIdBySelbriAndSumtiIdsService;
-import io.github.magwas.runtime.LogUtil;
 
 @Service
 public class QueryProcessorService
@@ -54,7 +54,7 @@ public class QueryProcessorService
 
 	public Stream<Bridi> apply(ParserOutput parserOutput) {
 		String top = parserOutput.top();
-		LogUtil.debug("top:" + top);
+		debug("top:" + top);
 		return query(top, parserOutput.referenceMap());
 	}
 
@@ -115,13 +115,13 @@ public class QueryProcessorService
 		String top = partList.get(0);
 		List<String> ids = findAllIdByRepresentation.apply(top).toList();
 		if (ids.size() != 1) {
-			LogUtil.warning("ambigous representation:", top, ids);
+			warning("ambigous representation:", top, ids);
 			return null;
 		}
 		debug("getRelativeForBridiElement.apply(", ids.get(0),
-				ElementConstants.IS_FUNCTION_FOR, 2, 1);
+				ElementConstants.IS_FUNCTION_FOR_ID, 2, 1);
 		List<String> rels = getRelativeForBridiElement
-				.apply(ids.get(0), ElementConstants.IS_FUNCTION_FOR, 2, 1).toList();
+				.apply(ids.get(0), ElementConstants.IS_FUNCTION_FOR_ID, 2, 1).toList();
 		debug("rels", rels);
 		if (rels.isEmpty())
 			return null;

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,11 +41,22 @@ public class BridiElementEndToEndTest implements BridiTestData {
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
+	@BeforeEach
+	void setUp() {
+		sumtiRepository.findAll().forEach(x -> sumtiRepository.delete(x));
+		bridiReferenceRepository.findAll()
+				.forEach(x -> bridiReferenceRepository.delete(x));
+	}
+
 	@Test
 	void test() throws IOException {
 		assertTrue(inez.getBridiReferenceRepository() == bridiReferenceRepository);
 		assertTrue(bridiElementSystemInitialization.inez == inez);
 		bridiElementSystemInitialization.apply();
+		BridiElement elementModel = bridiElementFactory.apply(ELEMENT_MODEL_ID);
+		assertTrue(elementModel.getChildren()
+				.anyMatch(x -> x.getReferences().map(y -> y.id).toList()
+						.contains(ElementConstants.IS_FUNCTION_FOR_ID)));
 		BridiElement root = bridiElementFactory.apply(ROOT_ID);
 		String rootXml = loadResourceAsString("root.xml");
 		String theXml = root.toXml();

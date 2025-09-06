@@ -5,20 +5,20 @@ import java.util.List;
 public interface BridiFieldTestData {
 	String ALICE_REPR = "alice";
 	String ALICE_ID = IdUtil.createID(ALICE_REPR);
-	String THING_REPR = "thing";
+	String THING_REPR = "THING";
 	String THING_ID = "THING";
 	String THING_REFERENCE = "@" + THING_ID;
 	String SUMTI_REPR = "sumti";
 	String BRIDI_REPR = "bridi";
 	String IS_A_REPR = "{0} is a {1}";
-	String SUMTI_IS_A_THING_REPR = "{sumti} is a {thing}";
+	String SUMTI_IS_A_THING_REPR = "{sumti} is a {THING}";
 	String SUMTI_IS_A_THING_CHANGED_REPR = SUMTI_IS_A_THING_REPR + " changed";
-	String THING_IS_A_SUMTI_REPR = "{thing} is a {sumti}";
+	String THING_IS_A_SUMTI_REPR = "{THING} is a {sumti}";
 	String TAUTOLOGY_REPR = "the most basic tautology";
-	String TAUTOLOGY_GENERATED_REPR = "{thing} is a {thing}";
-	String SUMTI_IS_A_THING_IS_A_THING_REPR = "{{sumti} is a {thing}} is a {@thing}";
-	String SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE = "{{sumti} is a {thing}} is a {thing}";
-	String TAUTOLOGY_IS_A_THING_REPR = "{{thing} is a {thing}} is a {thing}";
+	String TAUTOLOGY_GENERATED_REPR = "{THING} is a {THING}";
+	String SUMTI_IS_A_THING_IS_A_THING_REPR = "{{sumti} is a {THING}} is a {@THING}";
+	String SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE = "{{sumti} is a {THING}} is a {THING}";
+	String TAUTOLOGY_IS_A_THING_REPR = "{{THING} is a {THING}} is a {THING}";
 	String STUFF_ID = "stuff";
 	String COULDBE_ID = "ID:could be";
 
@@ -28,15 +28,15 @@ public interface BridiFieldTestData {
 	String GO1_REFERENCE = "@go1";
 	String NONEXISTENT_REFERENCE = "@nonexistent";
 	String NONEXISTENT_REPR = "nonexistent";
-	String INPUT_BAD = "{bridi is a {thing}";
+	String INPUT_BAD = "{bridi is a {THING}";
 	String INPUT_FROM_UNKNOWN_PARSER = "INPUT_FROM_UNKNOWN_PARSER";
 	String QUERY_NONEXISTING = "nonexisting";
-	String QUERY_STRING_SIMPLE = "{$?} is a {thing}";
+	String QUERY_STRING_SIMPLE = "{$?} is a {THING}";
 	String QUERY_STRING_ALL_ANY = "{$?} is a {$?}";
 	String QUERY_STRING_NONMATCHING = "{$?} is a {god}";
-	String RECURSIVE_QUERY = "{{$?} is a {thing}} is a {thing}";
+	String RECURSIVE_QUERY = "{{$?} is a {THING}} is a {THING}";
 
-	String DESCRIPTION_SUMTI_IS_A_THING_STRING = "sumti is a thing";
+	String DESCRIPTION_SUMTI_IS_A_THING_STRING = "sumti is a THING";
 	String GOD_REPR = "god";
 	String TWO_SUMTI_BRIDI_REPR = "{0} {1}";
 	String CECILE_LOOKS_AT_BANANA = "{cecile} {{looks at} {banana}}";
@@ -46,22 +46,20 @@ public interface BridiFieldTestData {
 	String ALICE_EATS_CHIPS = "{alice} {{eats} {chips}}";
 	String ALICE_EATS_BANANA = "{alice} {{eats} {banana}}";
 
-	String TEST_TEXT = ALICE_EATS_BANANA + "\n" + ALICE_EATS_CHIPS + "\n"
-			+ BOB_EATS_BANANA + "\n" + BOB_EATS_CHIPS + "\n" + CECILE_EATS_BANANA
-			+ "\n" + CECILE_LOOKS_AT_BANANA + "\n" + SUMTI_IS_A_THING_REPR + "\n"
-			+ THING_IS_A_SUMTI_REPR + "\n" + TAUTOLOGY_GENERATED_REPR + "\n"
-			+ SUMTI_IS_A_THING_IS_A_THING_REPR + "\n"
-			+ SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE + "\n"
-			+ TAUTOLOGY_IS_A_THING_REPR;
+	String TEST_TEXT = SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE + "\n"
+			+ TAUTOLOGY_IS_A_THING_REPR + "\n" + ALICE_EATS_BANANA + "\n"
+			+ ALICE_EATS_CHIPS + "\n" + BOB_EATS_BANANA + "\n" + BOB_EATS_CHIPS + "\n"
+			+ CECILE_EATS_BANANA + "\n" + CECILE_LOOKS_AT_BANANA + "\n"
+			+ SUMTI_IS_A_THING_REPR + "\n" + TAUTOLOGY_GENERATED_REPR;
 
 	String SUMTI_ID = IdUtil.createID("sumti");
 	String BRIDI_ID = IdUtil.createID("bridi");
 	String IS_A_ID = "IS_A";
-	String SUMTI_IS_A_THING_ID = IdUtil.createID("{sumti} is a {thing}");
+	String SUMTI_IS_A_THING_ID = IdUtil.createID("{sumti} is a {THING}");
 	String SUMTI_IS_A_THING_IS_A_THING_ID = IdUtil
-			.createID("{{sumti} is a {thing}} is a {thing}");
+			.createID("{{sumti} is a {THING}} is a {THING}");
 	String TAUTOLOGY_IS_A_THING_ID = IdUtil
-			.createID("{{thing} is a {thing}} is a {thing}");
+			.createID("{{THING} is a {THING}} is a {THING}");
 	String THING_IS_A_SUMTI_ID = "not tautology";
 	String TAUTOLOGY_ID = "tautology";
 

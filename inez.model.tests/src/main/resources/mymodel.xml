@@ -1,16 +1,36 @@
 <element id='id:my model' type='id:folder' name='my model'>
-	<references>
-	</references>
-	<element id='IS_A' type='THING' name='{0} is a {1}'>
-		<references>
-		</references>
-	</element>
 	<element id='id:alice' type='id:human' name='alice'>
-		<references>
-		</references>
+	</element>
+	<element id='id:dog' type='id:animal' name='dog'>
 	</element>
 	<element id='id:human' type='id:animal' name='human'>
+	</element>
+	<element id='id:{alice} is a {human}' type='THING' name='{alice} is a {human}'>
 		<references>
+			<reference>IS_A</reference>
+			<reference>id:alice</reference>
+			<reference>id:human</reference>
+		</references>
+	</element>
+	<element id='id:{dog} is a {animal}' type='THING' name='{dog} is a {animal}'>
+		<references>
+			<reference>IS_A</reference>
+			<reference>id:dog</reference>
+			<reference>id:animal</reference>
+		</references>
+	</element>
+	<element id='id:{human} is a {animal}' type='THING' name='{human} is a {animal}'>
+		<references>
+			<reference>IS_A</reference>
+			<reference>id:human</reference>
+			<reference>id:animal</reference>
+		</references>
+	</element>
+	<element id='id:{my model} is a {folder}' type='THING' name='{my model} is a {folder}'>
+		<references>
+			<reference>IS_A</reference>
+			<reference>id:my model</reference>
+			<reference>id:folder</reference>
 		</references>
 	</element>
 </element>
