@@ -5,20 +5,16 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
-
 @Service
 public class GetBridiElementReferencesService {
 	@Autowired
-	BridiReferenceRepository bridiReferenceRepository;
+	GetBridiElementReferenceIdsService getBridiElementReferenceIds;
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
 	public Stream<BridiElement> apply(String id) {
-		return bridiReferenceRepository.findAllByBridiId(id).stream()
-				.sorted((arg0, arg1) -> Integer.valueOf(arg0.position())
-						.compareTo(arg1.position()))
-				.map(x -> bridiElementFactory.apply(x.sumtiId()));
+		return getBridiElementReferenceIds.apply(id)
+				.map(x -> bridiElementFactory.apply(x));
 	}
 
 }

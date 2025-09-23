@@ -2,7 +2,6 @@ package io.github.magwas.inez;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -14,12 +13,13 @@ import io.github.magwas.inez.element.BridiElement;
 import io.github.magwas.inez.element.BridiElementFactory;
 import io.github.magwas.inez.element.BridiElementSystemInitializationService;
 import io.github.magwas.inez.element.ElementConstants;
-import io.github.magwas.inez.parse.ParseTextService;
-import io.github.magwas.inez.query.CreateBridisFromParserOutputService;
+import io.github.magwas.inez.query.CreateBridisFromDefinitionService;
+import io.github.magwas.inez.query.CreateBridisFromQueryService;
 import io.github.magwas.inez.query.QueryProcessorService;
 import io.github.magwas.inez.storage.BridiStoreChangeListenersService;
 import io.github.magwas.inez.storage.BridiStoreHistoryRepository;
 import io.github.magwas.inez.storage.CreateBridiFromSumtiService;
+import io.github.magwas.inez.storage.CreateSumtiService;
 import io.github.magwas.inez.storage.DeleteBridiService;
 import io.github.magwas.inez.storage.FindAllByRepresentationService;
 import io.github.magwas.inez.storage.FindAllIdByRepresentationService;
@@ -28,9 +28,7 @@ import io.github.magwas.inez.storage.GetBridiIdBySelbriAndSumtiIdsService;
 import io.github.magwas.inez.storage.SaveBridiService;
 import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
-import io.github.magwas.inez.storage.repository.SumtiRepository;
 import io.github.magwas.kodekonveyorannotations.Delegate;
-import io.github.magwas.runtime.LogUtil;
 
 @Component
 @Delegate
@@ -40,17 +38,11 @@ public class InezImpl implements Inez {
 	@Autowired
 	QueryProcessorService queryProcessor;
 	@Autowired
-	ParseTextService parseText;
-	@Autowired
-	CreateBridisFromParserOutputService createBridisFromParserOutput;
-	@Autowired
 	BridiStoreHistoryRepository bridiStoreHistoryRepository;
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 	@Autowired
 	CreateBridiFromSumtiService createBridiFromSumti;
-	@Autowired
-	SumtiRepository sumtiRepository;
 	@Autowired
 	SaveBridiService saveBridi;
 	@Autowired
@@ -67,16 +59,16 @@ public class InezImpl implements Inez {
 	BridiElementSystemInitializationService bridiElementSystemInitialization;
 	@Autowired
 	BridiElementFactory bridiElementFactory;
+	@Autowired
+	CreateBridisFromQueryService createBridisFromQuery;
+	@Autowired
+	CreateSumtiService createSumti;
 
 	private InezImpl() {
 	}
 
-	public void initialize() {
-		try {
-			bridiElementSystemInitialization.apply();
-		} catch (IOException e) {
-			throw new Error(e);
-		}
+	public void initialize() throws IOException {
+		bridiElementSystemInitialization.apply();
 	}
 
 	public void registerListener(BridiStoreChangeListener listener) {
@@ -92,12 +84,7 @@ public class InezImpl implements Inez {
 	}
 
 	public Stream<Bridi> create(String query) {
-		LogUtil.debug("create(" + query);
-		List<Bridi> toSave = parseText.apply(query)
-				.map(createBridisFromParserOutput).flatMap(x -> x)
-				.peek(x -> LogUtil.debug("saving", x)).toList();
-		saveBridi.apply(toSave);
-		return toSave.stream();
+		return createBridisFromQuery.apply(query);
 	}
 
 	public Set<Bridi> save(Collection<Bridi> values) {
@@ -116,31 +103,19 @@ public class InezImpl implements Inez {
 
 	@Override
 	public Sumti createSumti(String id, String representation) {
-		Sumti sumti = new Sumti(id, representation);
-		sumtiRepository.save(sumti);
-		return sumti;
+		return createSumti.apply(id, representation);
 	}
 
 	public BridiReferenceRepository getBridiReferenceRepository() {
 		return bridiReferenceRepository;
 	}
 
+	@Autowired
+	CreateBridisFromDefinitionService createBridisFromDefinition;
+
 	@Override
 	public Stream<Bridi> createFromdefinitions(String definitionName) {
-		String elementDefinition;
-		try {
-			elementDefinition = loadResource(definitionName);
-		} catch (IOException e) {
-			throw new Error(e);
-		}
-		return create(elementDefinition);
-	}
-
-	private String loadResource(String definitionName) throws IOException {
-		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		String elementDefinition = new String(
-				classloader.getResourceAsStream(definitionName).readAllBytes());
-		return elementDefinition;
+		return createBridisFromDefinition.apply(definitionName);
 	}
 
 	public BridiElement root() {

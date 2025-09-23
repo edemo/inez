@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,7 +23,6 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.InezImpl;
 import io.github.magwas.inez.TestConfig;
-import io.github.magwas.inez.element.ElementConstants;
 import io.github.magwas.inez.functions.Save;
 import io.github.magwas.inez.osgi.SpringBootBundleActivator;
 import io.github.magwas.runtime.LogUtil;
@@ -37,7 +37,7 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 	InezImpl inez;
 
 	@BeforeEach
-	void setUp() {
+	void setUp() throws IOException {
 		ServiceReference<Save> sr = mock(ServiceReference.class);
 		BundleContext ctx = mock(BundleContext.class);
 		when((ServiceReference<Save>) ctx
@@ -50,7 +50,6 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 
 	@Test
 	void test1() {
-
 		inez.create(TEST_TEXT).peek(x -> LogUtil.debug("created:" + x)).toList();
 		assertEquals(List.of(ALICE),
 				inez.findAllByRepresentation(ALICE_REPR).toList());
@@ -62,8 +61,6 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 				"{cecile} {{$?} {banana}}");
 		assertQuery(Set.of(ALICE_EATS_BANANA, ALICE_EATS_CHIPS),
 				"{alice} {{eats} {$?}}");
-		inez.createSumti(ElementConstants.IS_FUNCTION_FOR,
-				"{0} is function for {1}");
 		assertQuery(Set.of("putty"), "doSave {" + "putty" + "}");
 		assertEquals(1, inez.findAllByRepresentation("putty").count());
 		List<Bridi> putty = inez.findAllByRepresentation("putty").toList();

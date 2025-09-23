@@ -30,7 +30,7 @@ public class BridiElement implements ElementConstants {
 	@Autowired
 	GetBridiElementReferencesService getBridiElementReferences;
 	@Autowired
-	RepresentBridiElementService representBridiElementService;
+	RepresentBridiElementService representBridiElement;
 	@Autowired
 	SumtiRepository sumtiRepository;
 	@Autowired
@@ -43,6 +43,13 @@ public class BridiElement implements ElementConstants {
 	CreateBridiElementService createBridiElement;
 	@Autowired
 	BridiElementFactory bridiElementFactory;
+	@Autowired
+	IsOfTypeService isOfType;
+
+	@Autowired
+	GetBridiElementReferenceIdsService getBridiElementReferenceIds;
+	@Autowired
+	GetBridiElementTypeIdService getBridiElementTypeId;
 
 	void fixParent() {
 		if (id.equals(ROOT_ID))
@@ -51,9 +58,21 @@ public class BridiElement implements ElementConstants {
 		if (parent != null)
 			return;
 		LogUtil.debug("fixing", id);
+		List<String> references = getBridiElementReferenceIds.apply(id).toList();
+		if (references.size() > 1) {
+			String firstSumtiID = references.get(1);
+			if (isOfType.apply(firstSumtiID, CONTAINER_ID))
+				parent = firstSumtiID;
+			else
+				parent = getBridiElementParent.apply(firstSumtiID);
+		}
+		if (parent == null) {
+			parent = UNPLACED_ID;
+		}
 		String unplacedId = "unplaced:" + id;
 		sumtiRepository.save(new Sumti(unplacedId, unplacedId));
-		addReferences.apply(unplacedId, List.of(CONTAINS_ID, UNPLACED_ID, id));
+		LogUtil.debug("reparenting", id, parent);
+		addReferences.apply(unplacedId, List.of(CONTAINS_ID, parent, id));
 	}
 
 	BridiElement(String id) {
@@ -81,7 +100,7 @@ public class BridiElement implements ElementConstants {
 	}
 
 	public String toXml() {
-		return representBridiElementService.apply(id);
+		return representBridiElement.apply(id);
 	}
 
 	@Override
