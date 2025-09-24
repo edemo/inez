@@ -18,7 +18,8 @@ public class IsOfTypeService implements ElementConstants {
 				return true;
 			if (THING_ID.equals(id))
 				return false;
-			LogUtil.debug("id:", getBridiElementTypeId.apply(id));
+			id = getBridiElementTypeId.apply(id);
+			LogUtil.debug("id:", id);
 		}
 		throw new Error("Probable type loop");
 	}
