@@ -30,7 +30,7 @@ public class RepresentBridiElementService implements ElementConstants {
 	private String toString(String id, int indentLevel) {
 		LogUtil.debug(id, indentLevel);
 		List<String> references = getBridiElementReferenceIds.apply(id).toList();
-		StringBuilder builder = new StringBuilder()
+		StringBuilder builder = new StringBuilder(128)
 				.append(INDENT.repeat(indentLevel))
 				.append("<element id='")
 				.append(id)
