@@ -20,23 +20,20 @@ public class GetBridiElementParentService implements ElementConstants {
 	BridiReferenceRepository bridiReferenceRepository;
 
 	public String apply(final String id) {
-		List<String> parents = getRelativeForBridiElement
-				.apply(id, CONTAINS_ID, 2, 1).toList();
-		String parent = UNPLACED_ID;
-        if (parents.isEmpty()) {
-            parent = null;
-            Set<BridiReference> selbriref = bridiReferenceRepository
-                    .findAllByBridiIdAndPosition(id, 1);
-            if (!selbriref.isEmpty()) {
-                BridiReference ref = selbriref.iterator().next();
-                if (ref.selbriId().equals(CONTAINS_ID))
-                    return ref.sumtiId();
-            }
-            return null;
+		List<String> parents = getRelativeForBridiElement.apply(id, CONTAINS_ID, 2, 1).toList();
+        if (!parents.isEmpty()) {
+            return parents.getFirst();
         }
 
-		parent = parents.get(0);
-        return parent;
-	}
+        Set<BridiReference> selbriref = bridiReferenceRepository.findAllByBridiIdAndPosition(id, 1);
+        if (!selbriref.isEmpty()) {
+            BridiReference ref = selbriref.iterator().next();
+            if (ref.selbriId().equals(CONTAINS_ID)) {
+                return ref.sumtiId();
+            }
+        }
+
+        return null;
+    }
 
 }

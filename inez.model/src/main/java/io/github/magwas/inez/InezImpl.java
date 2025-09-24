@@ -64,6 +64,9 @@ public final class InezImpl implements Inez {
 	@Autowired
 	CreateSumtiService createSumti;
 
+	@Autowired
+	CreateBridisFromDefinitionService createBridisFromDefinition;
+
 	private InezImpl() {
 	}
 
@@ -114,9 +117,6 @@ public final class InezImpl implements Inez {
 	public BridiReferenceRepository getBridiReferenceRepository() {
 		return bridiReferenceRepository;
 	}
-
-	@Autowired
-	CreateBridisFromDefinitionService createBridisFromDefinition;
 
 	@Override
 	public Stream<Bridi> createFromdefinitions(final String definitionName) {
