@@ -21,11 +21,11 @@ public class RepresentBridiElementService implements ElementConstants {
 	@Autowired
 	GetBridiElementReferenceIdsService getBridiElementReferenceIds;
 
-	public String apply(String id) {
+	public String apply(final String id) {
 		return toString(id, 0);
 	}
 
-	private String toString(String id, int indentLevel) {
+	private String toString(final String id, final int indentLevel) {
 		LogUtil.debug(id, indentLevel);
 		List<String> references = getBridiElementReferenceIds.apply(id).toList();
 		StringBuilder builder = new StringBuilder(ELEMENT_REPRESENTATION_STRINGBUILDER_INITIAL_CAPACITY)
