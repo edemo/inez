@@ -1,21 +1,45 @@
 #!/bin/bash
+
 set -xe
 pwd
-if [ ! -e ~/.m2/repository/openjfx/openjfx-linux_x64.zip ]
-then
-	mkdir -p ~/.m2/repository/openjfx
-	wget -q https://download2.gluonhq.com/openjfx/21.0.8/openjfx-21.0.8_linux-x64_bin-sdk.zip -O ~/.m2/repository/openjfx/openjfx-linux_x64.zip
-	wget -q https://download2.gluonhq.com/openjfx/21.0.8/openjfx-21.0.8_osx-x64_bin-sdk.zip -O ~/.m2/repository/openjfx/openjfx-osx_x64.zip
-	wget -q https://download2.gluonhq.com/openjfx/21.0.8/openjfx-21.0.8_windows-x64_bin-sdk.zip -O ~/.m2/repository/openjfx/openjfx-windows_x64.zip
+
+JFX_VERSION=21.0.8
+JFX_BASE=https://download2.gluonhq.com/openjfx/${JFX_VERSION}/openjfx-${JFX_VERSION}
+JFX_CACHE=~/.m2/repository/openjfx
+
+ZIP_LINUX=${JFX_CACHE}/openjfx-linux_x64.zip
+ZIP_MAC_X64=${JFX_CACHE}/openjfx-osx_x64.zip
+ZIP_WIN=${JFX_CACHE}/openjfx-windows_x64.zip
+
+TARGET_BASE=target/javafx
+TARGET_LINUX=${TARGET_BASE}/linux_x64
+TARGET_MAC_X64=${TARGET_BASE}/osx_x64
+TARGET_WIN=${TARGET_BASE}/windows_x64
+
+mkdir -p ${JFX_CACHE}
+
+if [ ! -e ${ZIP_LINUX} ]; then
+    wget -q ${JFX_BASE}_linux-x64_bin-sdk.zip -O ${ZIP_LINUX}
 fi
-if [ ! -e target/javafx/windows_x64 ]
-then
-	mkdir -p target/javafx/linux_x64
-	mkdir -p target/javafx/osx_x64
-	mkdir -p target/javafx/windows_x64
-	unzip -d target/javafx/linux_x64 ~/.m2/repository/openjfx/openjfx-linux_x64.zip
-	unzip -d target/javafx/osx_x64 ~/.m2/repository/openjfx/openjfx-osx_x64.zip
-	unzip -d target/javafx/windows_x64 ~/.m2/repository/openjfx/openjfx-windows_x64.zip
+
+if [ ! -e ${ZIP_MAC_X64} ]; then
+    wget -q ${JFX_BASE}_osx-x64_bin-sdk.zip -O ${ZIP_MAC_X64}
 fi
+
+if [ ! -e ${ZIP_WIN} ]; then
+    wget -q ${JFX_BASE}_windows-x64_bin-sdk.zip -O ${ZIP_WIN}
+fi
+
+if [ ! -e ${TARGET_WIN} ]
+then
+	mkdir -p ${TARGET_LINUX}
+	mkdir -p ${TARGET_MAC_X64}
+	mkdir -p ${TARGET_WIN}
+
+	unzip -d ${TARGET_LINUX} ${ZIP_LINUX}
+	unzip -d ${TARGET_MAC_X64} ${ZIP_MAC_X64}
+	unzip -d ${TARGET_WIN} ${ZIP_WIN}
+fi
+
 mkdir -p ../inez.ui/target/dependency
-cp target/javafx/linux_x64/javafx-sdk-21.0.8//lib/*.jar ../inez.ui/target/dependency
+cp ${TARGET_LINUX}/javafx-sdk-${JFX_VERSION}/lib/*.jar ../inez.ui/target/dependency
