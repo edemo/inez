@@ -1,4 +1,4 @@
-package io.github.magwas.inez.storage;
+package io.github.magwas.inez.storage.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
