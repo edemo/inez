@@ -35,6 +35,7 @@ public class SaveBridiService implements Function<Bridi, Bridi> {
 		return ret;
 	}
 
+	@Override
 	public Bridi apply(final Bridi bridi) {
 		Sumti old = sumtiRepository.findById(bridi.id()).orElse(null);
 		Bridi oldBridi = null;

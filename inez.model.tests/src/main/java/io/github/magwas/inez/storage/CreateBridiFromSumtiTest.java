@@ -10,7 +10,7 @@ import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
 import io.github.magwas.testing.TestBase;
 
-public class CreateBridiFromSumtiTest extends TestBase
+class CreateBridiFromSumtiTest extends TestBase
 		implements BridiTestData, SumtiTestData {
 
 	@InjectMocks

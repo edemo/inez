@@ -12,7 +12,7 @@ import io.github.magwas.inez.storage.model.Sumti;
 
 @ExtendWith(ServiceExtension.class)
 @Tag("plugin")
-public class InezPluginTest {
+class InezPluginTest {
 
 	@InjectService
 	Inez inez;

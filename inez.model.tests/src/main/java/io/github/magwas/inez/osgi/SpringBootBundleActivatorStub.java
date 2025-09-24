@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 
 public class SpringBootBundleActivatorStub {
 	public static SpringBootBundleActivator stub() {
-		SpringBootBundleActivator mock = mock(SpringBootBundleActivator.class);
-		return mock;
+        return mock(SpringBootBundleActivator.class);
 	}
 }

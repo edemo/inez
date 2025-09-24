@@ -23,7 +23,7 @@ import io.github.magwas.testing.TestUtil;
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-public class BridiStoreEndToEndTest implements BridiTestData {
+class BridiStoreEndToEndTest implements BridiTestData {
 
 	@Autowired
 	InezImpl inez;

@@ -19,9 +19,8 @@ public class IsInstanceService implements ElementConstants {
 		if (relatives.contains(typeId))
 			return true;
 		for (String relative : relatives) {
-			if (!relative.equals(THING_ID))
-				if (apply(relative, typeId))
-					return true;
+			if (!THING_ID.equals(relative) && apply(relative, typeId))
+				return true;
 		}
 		return false;
 	}

@@ -4,8 +4,7 @@ import static org.mockito.Mockito.mock;
 
 public class BridiStoreHistoryServiceStub {
 	public static BridiStoreHistoryRepository stub() {
-		BridiStoreHistoryRepository mock = mock(BridiStoreHistoryRepository.class);
-		return mock;
+        return mock(BridiStoreHistoryRepository.class);
 	}
 
 }

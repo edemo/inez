@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.testing.TestBase;
 
-public class GetBridiIdBySelbriAndSumtiIdsTest extends TestBase
+class GetBridiIdBySelbriAndSumtiIdsTest extends TestBase
 		implements BridiTestData {
 
 	@InjectMocks

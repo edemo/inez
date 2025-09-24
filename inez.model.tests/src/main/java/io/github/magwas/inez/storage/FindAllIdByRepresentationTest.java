@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.parse.BridiFieldTestData;
 import io.github.magwas.testing.TestBase;
 
-public class FindAllIdByRepresentationTest extends TestBase
+class FindAllIdByRepresentationTest extends TestBase
 		implements BridiFieldTestData {
 	@InjectMocks
 	FindAllIdByRepresentationService findAllIdByRepresentation;

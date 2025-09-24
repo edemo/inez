@@ -52,7 +52,7 @@ public class BridiElement implements ElementConstants {
 	GetBridiElementTypeIdService getBridiElementTypeId;
 
 	void fixParent() {
-		if (id.equals(ROOT_ID))
+		if (ROOT_ID.equals(id))
 			return;
 		String parent = getBridiElementParent.apply(id);
 		if (parent != null)

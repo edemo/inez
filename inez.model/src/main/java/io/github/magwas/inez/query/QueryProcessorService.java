@@ -52,6 +52,7 @@ public class QueryProcessorService
 		return parseText.apply(query).map(x -> apply(x)).flatMap(x -> x);
 	}
 
+	@Override
 	public Stream<Bridi> apply(ParserOutput parserOutput) {
 		String top = parserOutput.top();
 		debug("top:" + top);
@@ -128,9 +129,8 @@ public class QueryProcessorService
 		if (rels.size() != 1)
 			throw new Error("multiple functions for " + partList);
 		String relname = rels.get(0);
-		BridiFunction fun = springBootBundleActivator
-				.obtainAndWireOSGIService(relname);
-		return fun;
+        return springBootBundleActivator
+                .obtainAndWireOSGIService(relname);
 	}
 
 	private Stream<Bridi> findCandidates(String top, List<String> partList,

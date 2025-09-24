@@ -24,6 +24,7 @@ public class CreateBridisFromParserOutputService
 	@Autowired
 	SumtiRepository sumtiRepository;
 
+	@Override
 	public Stream<Bridi> apply(ParserOutput parserOutput) {
 		String top = parserOutput.top();
 		Map<String, List<String>> refMap = parserOutput.referenceMap();

@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.storage.model.BridiReferenceTestData;
 import io.github.magwas.testing.TestBase;
 
-public class AddReferencesTest extends TestBase
+class AddReferencesTest extends TestBase
 		implements BridiReferenceTestData {
 	@InjectMocks
 	AddReferencesService addReferences;

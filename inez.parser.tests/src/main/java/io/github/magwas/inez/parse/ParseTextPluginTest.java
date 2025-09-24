@@ -12,7 +12,7 @@ import org.osgi.test.junit5.service.ServiceExtension;
 
 @ExtendWith(ServiceExtension.class)
 @Tag("plugin")
-public class ParseTextPluginTest {
+class ParseTextPluginTest {
 
 	@InjectService
 	ParseTextService parseText;

@@ -11,13 +11,14 @@ import org.mockito.InjectMocks;
 
 import io.github.magwas.testing.TestBase;
 
-public class BridiElementSystemInitializationServiceTest extends TestBase
+class BridiElementSystemInitializationServiceTest extends TestBase
 		implements ElementConstants {
 
 	@InjectMocks
 	public BridiElementSystemInitializationService bridiElementSystemInitialization;
 
 	@BeforeEach
+	@Override
 	public void setUp() throws Throwable {
 		super.setUp();
 		bridiElementSystemInitialization.apply();

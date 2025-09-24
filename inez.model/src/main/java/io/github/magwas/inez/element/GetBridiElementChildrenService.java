@@ -23,13 +23,9 @@ public class GetBridiElementChildrenService implements ElementConstants {
 				.apply(id, CONTAINS_ID, 1, 2).filter(x -> {
 					Optional<BridiReference> refP = bridiReferenceRepository
 							.findByBridiIdAndPosition(x, 0);
-					if (refP.isEmpty())
-						return true;
-					if (refP.get().selbriId().equals(CONTAINS_ID))
-						return false;
-					return true;
-				});
-		return contained.sorted().map(x -> bridiElementFactory.apply((x)));
+					return refP.isEmpty() || !CONTAINS_ID.equals(refP.get().selbriId());
+                });
+		return contained.sorted().map(x -> bridiElementFactory.apply(x));
 	}
 
 }

@@ -32,7 +32,7 @@ import io.github.magwas.kodekonveyorannotations.Delegate;
 
 @Component
 @Delegate
-public class InezImpl implements Inez {
+public final class InezImpl implements Inez {
 	@Autowired
 	BridiStoreChangeListenersService bridiStoreChangeListeners;
 	@Autowired
@@ -71,22 +71,27 @@ public class InezImpl implements Inez {
 		bridiElementSystemInitialization.apply();
 	}
 
+	@Override
 	public void registerListener(BridiStoreChangeListener listener) {
 		bridiStoreChangeListeners.listeners.add(listener);
 	}
 
+	@Override
 	public void unregisterListener(BridiStoreChangeListener listener) {
 		bridiStoreChangeListeners.listeners.remove(listener);
 	}
 
+	@Override
 	public Stream<Bridi> query(String query) {
 		return queryProcessor.apply(query);
 	}
 
+	@Override
 	public Stream<Bridi> create(String query) {
 		return createBridisFromQuery.apply(query);
 	}
 
+	@Override
 	public Set<Bridi> save(Collection<Bridi> values) {
 		return saveBridi.apply(values);
 	}
@@ -118,10 +123,12 @@ public class InezImpl implements Inez {
 		return createBridisFromDefinition.apply(definitionName);
 	}
 
+	@Override
 	public BridiElement root() {
 		return bridiElementFactory.apply(ElementConstants.ROOT_ID);
 	}
 
+	@Override
 	public BridiElement byId(String id) {
 		return bridiElementFactory.apply(id);
 	}
