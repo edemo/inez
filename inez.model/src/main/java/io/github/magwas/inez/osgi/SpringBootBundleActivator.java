@@ -36,7 +36,7 @@ public class SpringBootBundleActivator implements BundleActivator {
 	AutowireCapableBeanFactory autowireCapableBeanFactory;
 
 	@Override
-	public void start(BundleContext bundleContext) throws IOException {
+	public void start(final BundleContext bundleContext) throws IOException {
 		SpringBootBundleActivator.bundleContext = bundleContext;
 		Thread.currentThread()
 				.setContextClassLoader(this.getClass().getClassLoader());
@@ -50,15 +50,15 @@ public class SpringBootBundleActivator implements BundleActivator {
 	}
 
 	@Override
-	public void stop(BundleContext bundleContext) {
+	public void stop(final BundleContext bundleContext) {
 		SpringApplication.exit(appContext, () -> 0);
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(SpringBootBundleActivator.class);
 	}
 
-	public BridiFunction obtainAndWireOSGIService(String relname) {
+	public BridiFunction obtainAndWireOSGIService(final String relname) {
 		ServiceReference<BridiFunction> ref = (ServiceReference<BridiFunction>) bundleContext
 				.getServiceReference(relname);
 		BridiFunction fun = bundleContext.getService(ref);

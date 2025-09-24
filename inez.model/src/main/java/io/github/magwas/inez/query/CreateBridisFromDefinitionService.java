@@ -1,6 +1,7 @@
 package io.github.magwas.inez.query;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class CreateBridisFromDefinitionService {
 	@Autowired
 	CreateBridisFromQueryService createBridisFromQuery;
 
-	public Stream<Bridi> apply(String definitionName) throws Error {
+	public Stream<Bridi> apply(final String definitionName) throws Error {
 		String elementDefinition;
 		try {
 			elementDefinition = loadResource(definitionName);
@@ -24,11 +25,11 @@ public class CreateBridisFromDefinitionService {
 		return createBridisFromQuery.apply(elementDefinition);
 	}
 
-	private String loadResource(String definitionName) throws IOException {
+	private String loadResource(final String definitionName) throws IOException {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		String elementDefinition = new String(
-				classloader.getResourceAsStream(definitionName).readAllBytes());
-		return elementDefinition;
+		try (InputStream inputStream = classloader.getResourceAsStream(definitionName)) {
+			return new String(inputStream.readAllBytes());
+		}
 	}
 
 }

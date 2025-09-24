@@ -8,7 +8,7 @@ import io.github.magwas.inez.BridiStoreOperation;
 @Service
 public class NotifyStoreChangeService {
 
-	public void apply(BridiStoreOperation save, Object object, Bridi thing) {
+	public void apply(final BridiStoreOperation save, final Object object, final Bridi thing) {
 		// TODO Auto-generated method stub
 
 	}

@@ -8,6 +8,5 @@ import io.github.magwas.inez.Bridi;
 
 public interface BridiFunction {
 
-	public Stream<Bridi> apply(String top, List<String> partList, int notAnyIndex,
-			List<Set<String>> foundIds);
+	Stream<Bridi> apply(String top, List<String> partList, int notAnyIndex, List<Set<String>> foundIds);
 }

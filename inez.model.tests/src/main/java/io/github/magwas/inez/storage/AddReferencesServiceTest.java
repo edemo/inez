@@ -16,7 +16,7 @@ import io.github.magwas.inez.parse.BridiFieldTestData;
 import io.github.magwas.inez.storage.model.BridiReference;
 import io.github.magwas.testing.TestBase;
 
-public class AddReferencesServiceTest extends TestBase
+class AddReferencesServiceTest extends TestBase
 		implements BridiFieldTestData {
 
 	@InjectMocks

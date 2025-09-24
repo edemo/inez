@@ -1,9 +1,11 @@
 package io.github.magwas.inez.element;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +26,7 @@ import io.github.magwas.inez.storage.repository.SumtiRepository;
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-public class BridiElementEndToEndTest implements BridiTestData {
+class BridiElementEndToEndTest implements BridiTestData {
 
 	@Autowired
 	SumtiRepository sumtiRepository;
@@ -50,8 +52,8 @@ public class BridiElementEndToEndTest implements BridiTestData {
 
 	@Test
 	void test() throws IOException {
-		assertTrue(inez.getBridiReferenceRepository() == bridiReferenceRepository);
-		assertTrue(bridiElementSystemInitialization.inez == inez);
+        assertSame(inez.getBridiReferenceRepository(), bridiReferenceRepository);
+        assertSame(bridiElementSystemInitialization.inez, inez);
 		bridiElementSystemInitialization.apply();
 		BridiElement elementModel = bridiElementFactory.apply(ELEMENT_MODEL_ID);
 		assertTrue(elementModel.getChildren()
@@ -90,12 +92,12 @@ public class BridiElementEndToEndTest implements BridiTestData {
 		assertTrue(element.isInstance(THING_ID));
 	}
 
-	private String loadResourceAsString(String definitionName)
+	private String loadResourceAsString(final String definitionName)
 			throws IOException {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		String elementDefinition = new String(
-				classloader.getResourceAsStream(definitionName).readAllBytes());
-		return elementDefinition;
+		try (InputStream inputStream = classloader.getResourceAsStream(definitionName)) {
+			return new String(inputStream.readAllBytes());
+		}
 	}
 
 }

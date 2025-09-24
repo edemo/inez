@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 
 public class SaveBridiServiceStub {
 	static SaveBridiService stub() {
-		SaveBridiService mock = mock(SaveBridiService.class);
-		return mock;
+        return mock(SaveBridiService.class);
 	}
 }

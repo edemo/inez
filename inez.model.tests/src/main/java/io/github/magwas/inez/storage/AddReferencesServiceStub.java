@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 
 public class AddReferencesServiceStub {
 	public static AddReferencesService stub() {
-		AddReferencesService mock = mock(AddReferencesService.class);
-		return mock;
+        return mock(AddReferencesService.class);
 	}
 }

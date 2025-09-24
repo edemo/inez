@@ -13,7 +13,7 @@ public class GetBridiElementRepresentationService {
 	@Autowired
 	SumtiRepository sumtiRepository;
 
-	public String apply(String id) throws Error {
+	public String apply(final String id) throws Error {
 		Optional<Sumti> sumtiP = sumtiRepository.findById(id);
 		if (sumtiP.isEmpty()) {
 			sumtiRepository.findAll().forEach(x -> System.err.println("s:" + x));

@@ -2,6 +2,7 @@ package io.github.magwas.inez.storage;
 
 import java.util.stream.Stream;
 
+import io.github.magwas.inez.storage.model.BridiReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,10 @@ public class GetBridiIdBySelbriAndSumtiIdsService {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
-	public Stream<String> apply(String selbriId, String sumtiId, int position) {
+	public Stream<String> apply(final String selbriId, final String sumtiId, final int position) {
 		return bridiReferenceRepository
 				.findAllBySelbriIdAndSumtiIdAndPosition(selbriId, sumtiId, position)
-				.stream().map(x -> x.bridiId());
+				.stream().map(BridiReference::bridiId);
 	}
 
 }

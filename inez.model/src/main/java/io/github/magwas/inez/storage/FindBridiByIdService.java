@@ -18,7 +18,7 @@ public class FindBridiByIdService {
 	@Autowired
 	SumtiRepository sumtiRepository;
 
-	public Optional<Bridi> apply(String id) {
+	public Optional<Bridi> apply(final String id) {
 		Optional<Sumti> sumtiP = sumtiRepository.findById(id);
 		if (sumtiP.isEmpty())
 			return Optional.empty();

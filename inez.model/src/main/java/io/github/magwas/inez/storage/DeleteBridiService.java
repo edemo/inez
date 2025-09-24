@@ -21,7 +21,7 @@ public class DeleteBridiService {
 	@Autowired
 	NotifyStoreChangeService notifyStoreChange;
 
-	public Bridi apply(Bridi bridi) {
+	public Bridi apply(final Bridi bridi) {
 		Optional<Sumti> oldP = sumtiRepository.findById(bridi.id());
 		if (oldP.isEmpty())
 			throw new NoSuchElementException();

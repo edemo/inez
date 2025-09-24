@@ -12,7 +12,7 @@ import io.github.magwas.kodekonveyorannotations.Glue;
 @Service
 public class CreateParserFromTokensService {
 
-	BridiParser apply(String input) {
+	BridiParser apply(final String input) {
 		BridiLexer lexer = new BridiLexer(CharStreams.fromString(input));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		BridiParser parser = new BridiParser(tokens);

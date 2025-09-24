@@ -12,9 +12,9 @@ public class GetBridiElementReferencesService {
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
-	public Stream<BridiElement> apply(String id) {
+	public Stream<BridiElement> apply(final String id) {
 		return getBridiElementReferenceIds.apply(id)
-				.map(x -> bridiElementFactory.apply(x));
+				.map(bridiElementFactory::apply);
 	}
 
 }

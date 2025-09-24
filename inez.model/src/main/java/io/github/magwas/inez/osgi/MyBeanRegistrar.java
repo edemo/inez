@@ -12,13 +12,13 @@ import io.github.magwas.runtime.ObjectCache;
 
 public class MyBeanRegistrar implements BeanDefinitionRegistryPostProcessor {
 	@Override
-	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)
+	public void postProcessBeanDefinitionRegistry(final BeanDefinitionRegistry registry)
 			throws BeansException {
 	}
 
 	@Override
 	public void postProcessBeanFactory(
-			ConfigurableListableBeanFactory beanFactory) throws BeansException {
+            final ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		BundleContext bundleContext = SpringBootBundleActivator.bundleContext;
 		ServiceReference<ParseTextService> ref = bundleContext
 				.getServiceReference(ParseTextService.class);

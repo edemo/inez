@@ -18,18 +18,14 @@ public class GetBridiElementChildrenService implements ElementConstants {
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
-	public Stream<BridiElement> apply(String id) {
+	public Stream<BridiElement> apply(final String id) {
 		final Stream<String> contained = getRelativeForBridiElement
 				.apply(id, CONTAINS_ID, 1, 2).filter(x -> {
 					Optional<BridiReference> refP = bridiReferenceRepository
 							.findByBridiIdAndPosition(x, 0);
-					if (refP.isEmpty())
-						return true;
-					if (refP.get().selbriId().equals(CONTAINS_ID))
-						return false;
-					return true;
-				});
-		return contained.sorted().map(x -> bridiElementFactory.apply((x)));
+					return refP.isEmpty() || !CONTAINS_ID.equals(refP.get().selbriId());
+                });
+		return contained.sorted().map(bridiElementFactory::apply);
 	}
 
 }

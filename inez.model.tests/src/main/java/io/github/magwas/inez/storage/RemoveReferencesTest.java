@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.testing.TestBase;
 
-public class RemoveReferencesTest extends TestBase implements BridiTestData {
+class RemoveReferencesTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
 	RemoveReferencesService removeReferences;

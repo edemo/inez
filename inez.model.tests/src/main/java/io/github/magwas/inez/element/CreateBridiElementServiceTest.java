@@ -17,7 +17,7 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.testing.TestBase;
 
-public class CreateBridiElementServiceTest extends TestBase
+class CreateBridiElementServiceTest extends TestBase
 		implements BridiElementTestData {
 
 	@InjectMocks

@@ -25,6 +25,7 @@ public class ParseTextService
 	@Autowired
 	CreateParserFromTokensService createParserFromTokens;
 
+	@Override
 	public Stream<ParserOutput> apply(final String input) {
 		LogUtil.debug("input:" + input);
 		BridiParser parser = createParserFromTokens.apply(input);

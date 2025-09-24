@@ -48,18 +48,19 @@ public class QueryProcessorService
 	@Autowired
 	SpringBootBundleActivator springBootBundleActivator;
 
-	public Stream<Bridi> apply(String query) {
+	public Stream<Bridi> apply(final String query) {
 		return parseText.apply(query).map(x -> apply(x)).flatMap(x -> x);
 	}
 
-	public Stream<Bridi> apply(ParserOutput parserOutput) {
+	@Override
+	public Stream<Bridi> apply(final ParserOutput parserOutput) {
 		String top = parserOutput.top();
 		debug("top:" + top);
 		return query(top, parserOutput.referenceMap());
 	}
 
-	private Stream<Bridi> query(String top,
-			Map<String, List<String>> referenceMap) {
+	private Stream<Bridi> query(final String top,
+                                final Map<String, List<String>> referenceMap) {
 		debug("query(" + top);
 		if (!referenceMap.containsKey(top)) {
 			return resolveSumti(top);
@@ -67,7 +68,7 @@ public class QueryProcessorService
 		return resolveBridi(top, referenceMap);
 	}
 
-	private Stream<Bridi> resolveSumti(String top) {
+	private Stream<Bridi> resolveSumti(final String top) {
 		debug("resolveSumti(" + top);
 		if (top.startsWith("@")) {
 			debug("byRef");
@@ -78,8 +79,8 @@ public class QueryProcessorService
 		}
 	}
 
-	private Stream<Bridi> resolveBridi(String top,
-			Map<String, List<String>> referenceMap) {
+	private Stream<Bridi> resolveBridi(final String top,
+                                       final Map<String, List<String>> referenceMap) {
 		debug("resolveBridi(" + top);
 		List<Bridi> byRepresentation = findAllByRepresentation.apply(top).toList();
 		if (!byRepresentation.isEmpty()) {
@@ -93,7 +94,7 @@ public class QueryProcessorService
 			if (!sumti.equals(ParserConstants.QUERY_BRIDI_ID))
 				notAnyIndex = i;
 			Stream<Bridi> sumtiStream = query(sumti, referenceMap);
-			Stream<String> sumtiIdStream = sumtiStream.map(bridi -> bridi.id());
+			Stream<String> sumtiIdStream = sumtiStream.map(Bridi::id);
 			Set<String> sumtiIds = sumtiIdStream.collect(Collectors.toSet());
 			foundIds.add(sumtiIds);
 		}
@@ -110,7 +111,7 @@ public class QueryProcessorService
 
 	}
 
-	private BridiFunction functionFor(List<String> partList) {
+	private BridiFunction functionFor(final List<String> partList) {
 		debug("functionFor(", partList);
 		String top = partList.get(0);
 		List<String> ids = findAllIdByRepresentation.apply(top).toList();
@@ -128,13 +129,12 @@ public class QueryProcessorService
 		if (rels.size() != 1)
 			throw new Error("multiple functions for " + partList);
 		String relname = rels.get(0);
-		BridiFunction fun = springBootBundleActivator
-				.obtainAndWireOSGIService(relname);
-		return fun;
+        return springBootBundleActivator
+                .obtainAndWireOSGIService(relname);
 	}
 
-	private Stream<Bridi> findCandidates(String top, List<String> partList,
-			int notAnyIndex, List<Set<String>> foundIds) {
+	private Stream<Bridi> findCandidates(final String top, final List<String> partList,
+                                         final int notAnyIndex, final List<Set<String>> foundIds) {
 		debug("findCandidates(" + top, partList, notAnyIndex, foundIds);
 		if (notAnyIndex == 0)
 			throw new ParseCancellationException("only anys in bridi:" + top);
@@ -148,9 +148,9 @@ public class QueryProcessorService
 				.flatMap(c -> c).peek(x -> debug("-2>", x));
 	}
 
-	private void findCandidatesForOne(String selbriId,
-			Consumer<Stream<Bridi>> consumer, String top, List<String> partList,
-			int notAnyIndex, List<Set<String>> foundIds) {
+	private void findCandidatesForOne(final String selbriId,
+                                      final Consumer<Stream<Bridi>> consumer, final String top, final List<String> partList,
+                                      final int notAnyIndex, final List<Set<String>> foundIds) {
 		Set<String> sumtiIdSet = foundIds.get(notAnyIndex - 1);
 		debug("findCandidatesForOne(" + top, notAnyIndex, partList);
 		for (String sumtiId : sumtiIdSet) {
@@ -167,8 +167,8 @@ public class QueryProcessorService
 		}
 	}
 
-	private Stream<Bridi> filterCandidates(List<String> partList,
-			List<Set<String>> foundForSelbries, Stream<Bridi> candidates) {
+	private Stream<Bridi> filterCandidates(final List<String> partList,
+                                           final List<Set<String>> foundForSelbries, Stream<Bridi> candidates) {
 		for (int j = 1; j < partList.size(); j++) {
 			final int sumtiIndex = j - 1;
 			final int referenceIndex = j;
@@ -191,7 +191,7 @@ public class QueryProcessorService
 		return candidates;
 	}
 
-	private Stream<Bridi> getBridiByReference(String top) {
+	private Stream<Bridi> getBridiByReference(final String top) {
 		Stream<Bridi> matchingBridis;
 		Optional<Bridi> bridiP = findBridiById.apply(top.substring(1));
 		if (bridiP.isEmpty())

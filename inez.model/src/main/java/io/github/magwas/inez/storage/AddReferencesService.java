@@ -14,7 +14,7 @@ public class AddReferencesService {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
-	public void apply(String id, List<String> references) {
+	public void apply(final String id, final List<String> references) {
 		if (null == references || references.isEmpty())
 			return;
 		String selbriId = references.get(0);

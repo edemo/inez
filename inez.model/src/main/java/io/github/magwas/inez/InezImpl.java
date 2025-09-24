@@ -32,7 +32,7 @@ import io.github.magwas.kodekonveyorannotations.Delegate;
 
 @Component
 @Delegate
-public class InezImpl implements Inez {
+public final class InezImpl implements Inez {
 	@Autowired
 	BridiStoreChangeListenersService bridiStoreChangeListeners;
 	@Autowired
@@ -64,6 +64,9 @@ public class InezImpl implements Inez {
 	@Autowired
 	CreateSumtiService createSumti;
 
+	@Autowired
+	CreateBridisFromDefinitionService createBridisFromDefinition;
+
 	private InezImpl() {
 	}
 
@@ -71,38 +74,43 @@ public class InezImpl implements Inez {
 		bridiElementSystemInitialization.apply();
 	}
 
-	public void registerListener(BridiStoreChangeListener listener) {
+	@Override
+	public void registerListener(final BridiStoreChangeListener listener) {
 		bridiStoreChangeListeners.listeners.add(listener);
 	}
 
-	public void unregisterListener(BridiStoreChangeListener listener) {
+	@Override
+	public void unregisterListener(final BridiStoreChangeListener listener) {
 		bridiStoreChangeListeners.listeners.remove(listener);
 	}
 
-	public Stream<Bridi> query(String query) {
+	@Override
+	public Stream<Bridi> query(final String query) {
 		return queryProcessor.apply(query);
 	}
 
-	public Stream<Bridi> create(String query) {
+	@Override
+	public Stream<Bridi> create(final String query) {
 		return createBridisFromQuery.apply(query);
 	}
 
-	public Set<Bridi> save(Collection<Bridi> values) {
+	@Override
+	public Set<Bridi> save(final Collection<Bridi> values) {
 		return saveBridi.apply(values);
 	}
 
 	@Override
-	public Stream<Bridi> findAllByRepresentation(String representation) {
+	public Stream<Bridi> findAllByRepresentation(final String representation) {
 		return findAllByRepresentation.apply(representation);
 	}
 
 	@Override
-	public Optional<Bridi> findById(String id) {
+	public Optional<Bridi> findById(final String id) {
 		return findBridiById.apply(id);
 	}
 
 	@Override
-	public Sumti createSumti(String id, String representation) {
+	public Sumti createSumti(final String id, final String representation) {
 		return createSumti.apply(id, representation);
 	}
 
@@ -110,19 +118,18 @@ public class InezImpl implements Inez {
 		return bridiReferenceRepository;
 	}
 
-	@Autowired
-	CreateBridisFromDefinitionService createBridisFromDefinition;
-
 	@Override
-	public Stream<Bridi> createFromdefinitions(String definitionName) {
+	public Stream<Bridi> createFromdefinitions(final String definitionName) {
 		return createBridisFromDefinition.apply(definitionName);
 	}
 
+	@Override
 	public BridiElement root() {
 		return bridiElementFactory.apply(ElementConstants.ROOT_ID);
 	}
 
-	public BridiElement byId(String id) {
+	@Override
+	public BridiElement byId(final String id) {
 		return bridiElementFactory.apply(id);
 	}
 

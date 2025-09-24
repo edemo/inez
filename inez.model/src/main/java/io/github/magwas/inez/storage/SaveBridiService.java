@@ -27,7 +27,7 @@ public class SaveBridiService implements Function<Bridi, Bridi> {
 	@Autowired
 	AddReferencesService addReferences;
 
-	public Set<Bridi> apply(Collection<Bridi> values) {
+	public Set<Bridi> apply(final Collection<Bridi> values) {
 		Set<Bridi> ret = new HashSet<>();
 		for (Bridi bridi : values) {
 			ret.add(apply(bridi));
@@ -35,6 +35,7 @@ public class SaveBridiService implements Function<Bridi, Bridi> {
 		return ret;
 	}
 
+	@Override
 	public Bridi apply(final Bridi bridi) {
 		Sumti old = sumtiRepository.findById(bridi.id()).orElse(null);
 		Bridi oldBridi = null;

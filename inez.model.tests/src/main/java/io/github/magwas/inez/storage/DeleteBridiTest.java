@@ -15,7 +15,7 @@ import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
 import io.github.magwas.testing.TestBase;
 
-public class DeleteBridiTest extends TestBase
+class DeleteBridiTest extends TestBase
 		implements BridiTestData, SumtiTestData {
 
 	@InjectMocks

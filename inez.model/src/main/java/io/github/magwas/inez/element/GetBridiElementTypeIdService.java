@@ -13,7 +13,7 @@ public class GetBridiElementTypeIdService implements ElementConstants {
 	@Autowired
 	GetRelativeForBridiElementService getRelativeForBridiElement;
 
-	public String apply(String id) {
+	public String apply(final String id) {
 		List<String> types = getRelativeForBridiElement.apply(id, IS_A_ID, 1, 2)
 				.toList();
 		if (types.size() > 1) {

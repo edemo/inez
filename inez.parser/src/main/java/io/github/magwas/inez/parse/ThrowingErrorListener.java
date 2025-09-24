@@ -12,14 +12,14 @@ public class ThrowingErrorListener extends BaseErrorListener {
 
 	private String input;
 
-	public ThrowingErrorListener(String input) {
+	public ThrowingErrorListener(final String input) {
 		this.input = input;
 	}
 
 	@Override
-	public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
-			final int line, final int charPositionInLine, final String msg,
-			RecognitionException e) {
+	public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol,
+                            final int line, final int charPositionInLine, final String msg,
+                            final RecognitionException e) {
 		String[] splat = input.split("\n");
 		String theline = null;
 		if (splat.length >= line)

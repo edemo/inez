@@ -22,8 +22,8 @@ public class Save implements BridiFunction {
 	ParseTextService parseText;
 
 	@Override
-	public Stream<Bridi> apply(String top, List<String> partList, int notAnyIndex,
-			List<Set<String>> foundIds) {
+	public Stream<Bridi> apply(final String top, final List<String> partList, final int notAnyIndex,
+                               final List<Set<String>> foundIds) {
 		LogUtil.debug("SAVE ", partList, foundIds);
 		return inez.create(partList.get(1));
 	}
