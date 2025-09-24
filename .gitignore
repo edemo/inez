@@ -1,5 +1,6 @@
 target/
-.git-versioned-pom.xml
-xslt
-.konveyor
 workspace
+xslt
+.git-versioned-pom.xml
+.idea
+.konveyor
