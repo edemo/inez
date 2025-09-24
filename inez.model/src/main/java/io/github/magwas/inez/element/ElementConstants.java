@@ -23,6 +23,7 @@ public interface ElementConstants {
 	String DIAGRAM_ELEMENT_REPR = "shows {0} at {1},{2}";
 
 	String ELEMENT_DEFINITIONS_RESOURCE = "element.definition";
+	int ELEMENT_REPRESENTATION_STRINGBUILDER_INITIAL_CAPACITY = 128;
 
 	String INDENT = "\t";
 
