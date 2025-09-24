@@ -94,7 +94,7 @@ public class QueryProcessorService
 			if (!sumti.equals(ParserConstants.QUERY_BRIDI_ID))
 				notAnyIndex = i;
 			Stream<Bridi> sumtiStream = query(sumti, referenceMap);
-			Stream<String> sumtiIdStream = sumtiStream.map(bridi -> bridi.id());
+			Stream<String> sumtiIdStream = sumtiStream.map(Bridi::id);
 			Set<String> sumtiIds = sumtiIdStream.collect(Collectors.toSet());
 			foundIds.add(sumtiIds);
 		}

@@ -2,6 +2,7 @@ package io.github.magwas.inez.storage;
 
 import java.util.stream.Stream;
 
+import io.github.magwas.inez.storage.model.Sumti;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class FindAllIdByRepresentationService {
 
 	public Stream<String> apply(String representation) {
 		return sumtiRepository.findAllByRepresentation(representation).stream()
-				.map(x -> x.id());
+				.map(Sumti::id);
 	}
 
 }

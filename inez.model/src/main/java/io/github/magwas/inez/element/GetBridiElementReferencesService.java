@@ -14,7 +14,7 @@ public class GetBridiElementReferencesService {
 
 	public Stream<BridiElement> apply(String id) {
 		return getBridiElementReferenceIds.apply(id)
-				.map(x -> bridiElementFactory.apply(x));
+				.map(bridiElementFactory::apply);
 	}
 
 }

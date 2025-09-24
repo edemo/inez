@@ -41,11 +41,11 @@ public class CreateBridisFromParserOutputService
 		List<String> partList = refMap.get(top);
 		return Stream
 				.of(new Bridi(getIdOrRepr(top), top,
-						partList.stream().map(x -> getIdOrRepr(x)).toList()))
+						partList.stream().map(this::getIdOrRepr).toList()))
 				.mapMulti((topBridi, consumer) -> {
 					consumer.accept(topBridi);
 					partList.stream().map(x -> apply(x, refMap)).flatMap(x -> x)
-							.forEach(x -> consumer.accept(x));
+							.forEach(consumer::accept);
 				});
 	}
 

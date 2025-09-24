@@ -22,9 +22,9 @@ public class GetRelativeForBridiElementService {
 		Set<BridiReference> found = bridiReferenceRepository
 				.findAllBySelbriIdAndSumtiIdAndPosition(selbriId, id, fromPosition);
 		LogUtil.debug("found:", found);
-		return found.stream().map(x -> x.bridiId()).map(
+		return found.stream().map(BridiReference::bridiId).map(
 				x -> bridiReferenceRepository.findByBridiIdAndPosition(x, toPosition))
-				.filter(x -> !x.isEmpty()).map(x -> x.get().sumtiId());
+				.filter(x -> x.isPresent()).map(x -> x.get().sumtiId());
 	}
 
 }

@@ -17,7 +17,7 @@ public class FindAllByRepresentationService {
 
 	public Stream<Bridi> apply(String representation) {
 		return sumtiRepository.findAllByRepresentation(representation).stream()
-				.map(sumti -> createBridiFromSumti.apply(sumti));
+				.map(createBridiFromSumti::apply);
 	}
 
 }

@@ -25,7 +25,7 @@ public class GetBridiElementChildrenService implements ElementConstants {
 							.findByBridiIdAndPosition(x, 0);
 					return refP.isEmpty() || !CONTAINS_ID.equals(refP.get().selbriId());
                 });
-		return contained.sorted().map(x -> bridiElementFactory.apply(x));
+		return contained.sorted().map(bridiElementFactory::apply);
 	}
 
 }

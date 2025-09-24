@@ -77,9 +77,9 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 				.collect(Collectors.toSet());
 		if (!expected.equals(actual)) {
 			System.out.println("actual:");
-			actual.forEach((x) -> System.out.println(x));
+			actual.forEach(System.out::println);
 			System.out.println("expected:");
-			expected.forEach((x) -> System.out.println(x));
+			expected.forEach(System.out::println);
 			TestUtil.diffCollections(expected, actual);
 		}
 		assertEquals(expected, actual);
