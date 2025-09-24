@@ -5,8 +5,7 @@ import static org.mockito.Mockito.mock;
 public class CreateBridisFromDefinitionServiceStub {
 
 	static CreateBridisFromDefinitionService stub() {
-		CreateBridisFromDefinitionService mock = mock(
+		return mock(
 				CreateBridisFromDefinitionService.class);
-		return mock;
 	}
 }

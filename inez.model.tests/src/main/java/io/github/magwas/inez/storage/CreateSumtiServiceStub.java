@@ -5,7 +5,6 @@ import static org.mockito.Mockito.mock;
 public class CreateSumtiServiceStub {
 
 	static CreateSumtiService stub() {
-		CreateSumtiService mock = mock(CreateSumtiService.class);
-		return mock;
+		return mock(CreateSumtiService.class);
 	}
 }
