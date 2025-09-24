@@ -15,8 +15,8 @@ public class GetRelativeForBridiElementService {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
-	public Stream<String> apply(final String id, String selbriId,
-			final int fromPosition, final int toPosition) {
+	public Stream<String> apply(final String id, final String selbriId,
+                                final int fromPosition, final int toPosition) {
 		LogUtil.debug("findAllBySelbriIdAndSumtiIdAndPosition(", selbriId, id,
 				fromPosition);
 		Set<BridiReference> found = bridiReferenceRepository

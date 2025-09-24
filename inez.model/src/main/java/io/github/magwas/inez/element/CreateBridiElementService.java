@@ -22,8 +22,8 @@ public class CreateBridiElementService implements ElementConstants {
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
-	public BridiElement apply(String containerId, String typeId,
-			String representation, String... references) {
+	public BridiElement apply(final String containerId, final String typeId,
+                              final String representation, final String... references) {
 		String elementId = IdUtil.createID(representation);
 		List<String> refs = List.of();
 		if (references != null) {

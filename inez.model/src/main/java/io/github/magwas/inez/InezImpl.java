@@ -72,42 +72,42 @@ public final class InezImpl implements Inez {
 	}
 
 	@Override
-	public void registerListener(BridiStoreChangeListener listener) {
+	public void registerListener(final BridiStoreChangeListener listener) {
 		bridiStoreChangeListeners.listeners.add(listener);
 	}
 
 	@Override
-	public void unregisterListener(BridiStoreChangeListener listener) {
+	public void unregisterListener(final BridiStoreChangeListener listener) {
 		bridiStoreChangeListeners.listeners.remove(listener);
 	}
 
 	@Override
-	public Stream<Bridi> query(String query) {
+	public Stream<Bridi> query(final String query) {
 		return queryProcessor.apply(query);
 	}
 
 	@Override
-	public Stream<Bridi> create(String query) {
+	public Stream<Bridi> create(final String query) {
 		return createBridisFromQuery.apply(query);
 	}
 
 	@Override
-	public Set<Bridi> save(Collection<Bridi> values) {
+	public Set<Bridi> save(final Collection<Bridi> values) {
 		return saveBridi.apply(values);
 	}
 
 	@Override
-	public Stream<Bridi> findAllByRepresentation(String representation) {
+	public Stream<Bridi> findAllByRepresentation(final String representation) {
 		return findAllByRepresentation.apply(representation);
 	}
 
 	@Override
-	public Optional<Bridi> findById(String id) {
+	public Optional<Bridi> findById(final String id) {
 		return findBridiById.apply(id);
 	}
 
 	@Override
-	public Sumti createSumti(String id, String representation) {
+	public Sumti createSumti(final String id, final String representation) {
 		return createSumti.apply(id, representation);
 	}
 
@@ -119,7 +119,7 @@ public final class InezImpl implements Inez {
 	CreateBridisFromDefinitionService createBridisFromDefinition;
 
 	@Override
-	public Stream<Bridi> createFromdefinitions(String definitionName) {
+	public Stream<Bridi> createFromdefinitions(final String definitionName) {
 		return createBridisFromDefinition.apply(definitionName);
 	}
 
@@ -129,7 +129,7 @@ public final class InezImpl implements Inez {
 	}
 
 	@Override
-	public BridiElement byId(String id) {
+	public BridiElement byId(final String id) {
 		return bridiElementFactory.apply(id);
 	}
 

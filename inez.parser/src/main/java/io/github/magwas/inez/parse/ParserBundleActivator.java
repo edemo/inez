@@ -25,7 +25,7 @@ public class ParserBundleActivator implements BundleActivator {
 	ParseTextService parseText;
 
 	@Override
-	public void start(BundleContext bundleContext) {
+	public void start(final BundleContext bundleContext) {
 		Bundle bundle = bundleContext.getBundle();
 		BundleWiring bundleWiring = bundle.adapt(BundleWiring.class);
 		ClassLoader classLoader = bundleWiring.getClassLoader();
@@ -41,7 +41,7 @@ public class ParserBundleActivator implements BundleActivator {
 	}
 
 	@Override
-	public void stop(BundleContext bundleContext) {
+	public void stop(final BundleContext bundleContext) {
 		SpringApplication.exit(appContext, () -> 0);
 	}
 

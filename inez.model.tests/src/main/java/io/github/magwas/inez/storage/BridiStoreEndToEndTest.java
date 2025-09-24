@@ -54,7 +54,7 @@ class BridiStoreEndToEndTest implements BridiTestData {
 
 	}
 
-	private Bridi assertGotTheBridi(String expected, Stream<Bridi> actual) {
+	private Bridi assertGotTheBridi(final String expected, final Stream<Bridi> actual) {
 		List<Bridi> actualList = actual.toList();
 		assertEquals(1, actualList.size());
 		Bridi bridi = actualList.get(0);

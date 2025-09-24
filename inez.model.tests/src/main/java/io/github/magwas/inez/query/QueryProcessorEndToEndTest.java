@@ -71,7 +71,7 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 		assertEquals(1, putty.size());
 	}
 
-	private Set<Bridi> assertQuery(Set<String> expected, String query) {
+	private Set<Bridi> assertQuery(final Set<String> expected, final String query) {
 		Set<Bridi> result = inez.query(query).collect(Collectors.toSet());
 		Set<String> actual = result.stream().map(bridi -> bridi.representation())
 				.collect(Collectors.toSet());

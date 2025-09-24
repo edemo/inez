@@ -13,7 +13,7 @@ public class GetBridiIdBySelbriAndSumtiIdsService {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
-	public Stream<String> apply(String selbriId, String sumtiId, int position) {
+	public Stream<String> apply(final String selbriId, final String sumtiId, final int position) {
 		return bridiReferenceRepository
 				.findAllBySelbriIdAndSumtiIdAndPosition(selbriId, sumtiId, position)
 				.stream().map(BridiReference::bridiId);

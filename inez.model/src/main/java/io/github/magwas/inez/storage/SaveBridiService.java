@@ -27,7 +27,7 @@ public class SaveBridiService implements Function<Bridi, Bridi> {
 	@Autowired
 	AddReferencesService addReferences;
 
-	public Set<Bridi> apply(Collection<Bridi> values) {
+	public Set<Bridi> apply(final Collection<Bridi> values) {
 		Set<Bridi> ret = new HashSet<>();
 		for (Bridi bridi : values) {
 			ret.add(apply(bridi));

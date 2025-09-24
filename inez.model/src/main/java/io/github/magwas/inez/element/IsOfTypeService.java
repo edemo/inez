@@ -11,7 +11,7 @@ public class IsOfTypeService implements ElementConstants {
 	@Autowired
 	GetBridiElementTypeIdService getBridiElementTypeId;
 
-	boolean apply(String id, String typeId) {
+	boolean apply(String id, final String typeId) {
 		LogUtil.debug("IsOfTypeService", id, typeId);
 		for (int i = 0; i < MAX_TYPE_DEPTH; i++) {
 			if (id.equals(typeId))

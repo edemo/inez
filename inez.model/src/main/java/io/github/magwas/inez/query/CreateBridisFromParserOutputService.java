@@ -25,13 +25,13 @@ public class CreateBridisFromParserOutputService
 	SumtiRepository sumtiRepository;
 
 	@Override
-	public Stream<Bridi> apply(ParserOutput parserOutput) {
+	public Stream<Bridi> apply(final ParserOutput parserOutput) {
 		String top = parserOutput.top();
 		Map<String, List<String>> refMap = parserOutput.referenceMap();
 		return apply(top, refMap);
 	}
 
-	private Stream<Bridi> apply(String top, Map<String, List<String>> refMap) {
+	private Stream<Bridi> apply(final String top, final Map<String, List<String>> refMap) {
 		debug("apply(", top, refMap);
 		if (!refMap.containsKey(top)) {
 			Bridi bridi = new Bridi(getIdOrRepr(top), top, null);
@@ -49,7 +49,7 @@ public class CreateBridisFromParserOutputService
 				});
 	}
 
-	private String getIdOrRepr(String top) {
+	private String getIdOrRepr(final String top) {
 		Set<Sumti> candidates = sumtiRepository.findAllByRepresentation(top);
 		if (candidates.isEmpty())
 			return IdUtil.createID(top);

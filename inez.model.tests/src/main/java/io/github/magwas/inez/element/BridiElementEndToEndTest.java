@@ -92,7 +92,7 @@ class BridiElementEndToEndTest implements BridiTestData {
 		assertTrue(element.isInstance(THING_ID));
 	}
 
-	private String loadResourceAsString(String definitionName)
+	private String loadResourceAsString(final String definitionName)
 			throws IOException {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		try (InputStream inputStream = classloader.getResourceAsStream(definitionName)) {

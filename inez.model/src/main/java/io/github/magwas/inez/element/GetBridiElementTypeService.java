@@ -10,7 +10,7 @@ public class GetBridiElementTypeService {
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
-	public BridiElement apply(String id) {
+	public BridiElement apply(final String id) {
 		String type = getBridiElementTypeId.apply(id);
 		return bridiElementFactory.apply(type);
 	}

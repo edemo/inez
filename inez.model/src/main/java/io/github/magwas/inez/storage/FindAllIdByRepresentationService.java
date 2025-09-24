@@ -13,7 +13,7 @@ public class FindAllIdByRepresentationService {
 	@Autowired
 	SumtiRepository sumtiRepository;
 
-	public Stream<String> apply(String representation) {
+	public Stream<String> apply(final String representation) {
 		return sumtiRepository.findAllByRepresentation(representation).stream()
 				.map(Sumti::id);
 	}

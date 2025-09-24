@@ -19,7 +19,7 @@ public class GetBridiElementParentService implements ElementConstants {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
-	public String apply(String id) {
+	public String apply(final String id) {
 		List<String> parents = getRelativeForBridiElement
 				.apply(id, CONTAINS_ID, 2, 1).toList();
 		String parent = UNPLACED_ID;

@@ -11,7 +11,7 @@ public class CreateSumtiService {
 	@Autowired
 	SumtiRepository sumtiRepository;
 
-	public Sumti apply(String id, String representation) {
+	public Sumti apply(final String id, final String representation) {
 		Sumti sumti = new Sumti(id, representation);
 		sumtiRepository.save(sumti);
 		return sumti;

@@ -21,7 +21,7 @@ public class CreateBridiFromSumtiService {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
-	public Bridi apply(Sumti sumti) {
+	public Bridi apply(final Sumti sumti) {
 		final Map<Integer, BridiReference> map = new HashMap<>();
 		Set<BridiReference> refs = bridiReferenceRepository
 				.findAllByBridiId(sumti.id());

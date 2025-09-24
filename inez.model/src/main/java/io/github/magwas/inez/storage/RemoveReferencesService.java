@@ -13,7 +13,7 @@ public class RemoveReferencesService {
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
-	public void apply(String bridiId, List<String> references) {
+	public void apply(final String bridiId, final List<String> references) {
 		for (int i = 0; i < references.size(); i++) {
 			String ref = references.get(i);
 			bridiReferenceRepository.deleteBybridiIdAndPositionAndSumtiId(bridiId, i,

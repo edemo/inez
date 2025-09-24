@@ -23,7 +23,7 @@ public class CreateBridisFromQueryService {
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
-	public Stream<Bridi> apply(String query) {
+	public Stream<Bridi> apply(final String query) {
 		LogUtil.debug("create(" + query);
 		List<Bridi> toSave = parseText.apply(query)
 				.map(createBridisFromParserOutput).flatMap(x -> x)

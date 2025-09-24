@@ -10,7 +10,7 @@ public class BridiElementFactory {
 	@Autowired
 	AutowireCapableBeanFactory autowireCapableBeanFactory;
 
-	public BridiElement apply(String id) {
+	public BridiElement apply(final String id) {
 		BridiElement element = new BridiElement(id);
 		autowireCapableBeanFactory.autowireBean(element);
 		element.fixParent();

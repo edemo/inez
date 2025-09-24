@@ -15,7 +15,7 @@ public class FindAllByRepresentationService {
 	@Autowired
 	CreateBridiFromSumtiService createBridiFromSumti;
 
-	public Stream<Bridi> apply(String representation) {
+	public Stream<Bridi> apply(final String representation) {
 		return sumtiRepository.findAllByRepresentation(representation).stream()
 				.map(createBridiFromSumti::apply);
 	}

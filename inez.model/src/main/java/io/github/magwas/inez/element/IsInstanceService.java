@@ -11,7 +11,7 @@ public class IsInstanceService implements ElementConstants {
 	@Autowired
 	GetRelativeForBridiElementService getRelativeForBridiElement;
 
-	public boolean apply(String objectId, String typeId) {
+	public boolean apply(final String objectId, final String typeId) {
 		if (THING_ID.equals(typeId))
 			return true;
 		List<String> relatives = getRelativeForBridiElement

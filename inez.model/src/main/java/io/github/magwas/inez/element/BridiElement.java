@@ -75,7 +75,7 @@ public class BridiElement implements ElementConstants {
 		addReferences.apply(unplacedId, List.of(CONTAINS_ID, parent, id));
 	}
 
-	BridiElement(String id) {
+	BridiElement(final String id) {
 		this.id = id;
 	}
 
@@ -108,12 +108,12 @@ public class BridiElement implements ElementConstants {
 		return "BridiElement(" + id + "," + getRepresentation() + ")";
 	}
 
-	public boolean isInstance(String typeId) {
+	public boolean isInstance(final String typeId) {
 		return isInstance.apply(id, typeId);
 	}
 
-	public BridiElement create(String containerId, String typeId,
-			String representation, String... references) {
+	public BridiElement create(final String containerId, final String typeId,
+                               final String representation, final String... references) {
 		return createBridiElement.apply(containerId, typeId, representation,
 				references);
 	}

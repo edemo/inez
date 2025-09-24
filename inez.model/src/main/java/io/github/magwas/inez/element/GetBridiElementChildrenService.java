@@ -18,7 +18,7 @@ public class GetBridiElementChildrenService implements ElementConstants {
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
-	public Stream<BridiElement> apply(String id) {
+	public Stream<BridiElement> apply(final String id) {
 		final Stream<String> contained = getRelativeForBridiElement
 				.apply(id, CONTAINS_ID, 1, 2).filter(x -> {
 					Optional<BridiReference> refP = bridiReferenceRepository
