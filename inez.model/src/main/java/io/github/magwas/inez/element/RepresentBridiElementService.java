@@ -10,8 +10,6 @@ import io.github.magwas.runtime.LogUtil;
 @Service
 public class RepresentBridiElementService implements ElementConstants {
 
-	private static final String INDENT = "\t";
-
 	@Autowired
 	GetBridiElementRepresentationService getBridiElementRepresentation;
 	@Autowired

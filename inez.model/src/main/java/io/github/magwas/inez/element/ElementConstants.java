@@ -24,5 +24,7 @@ public interface ElementConstants {
 
 	String ELEMENT_DEFINITIONS_RESOURCE = "element.definition";
 
+	String INDENT = "\t";
+
 	Integer MAX_TYPE_DEPTH = 10;
 }
