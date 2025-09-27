@@ -1,0 +1,9 @@
+BAD,{bridi is a {THING}
+NONEXISTING,nonexisting
+SIMPLE,{$?} is a {THING}
+ALL_ANY,{$?} is a {$?}
+NONMATCHING,{$?} is a {god}
+QUERY,{{$?} is a {THING}} is a {THING}
+FROM_UNKNOWN_PARSER,INPUT_FROM_UNKNOWN_PARSER
+WITH_LITERAL,{My folder} contains {[{0} is a {1}]}
+RECURSIVE,{{$?} is a {THING}} is a {THING}

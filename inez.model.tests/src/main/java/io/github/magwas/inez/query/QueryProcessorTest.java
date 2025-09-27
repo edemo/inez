@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.parse.ParserConstants;
+import io.github.magwas.runtime.LogUtil;
 import io.github.magwas.testing.TestBase;
 import io.github.magwas.testing.TestUtil;
 
@@ -24,7 +25,7 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("for a nonexisting sumti returns the empty list")
 	void test() {
-		Stream<Bridi> actual = queryProcessor.apply(QUERY_NONEXISTING);
+		Stream<Bridi> actual = queryProcessor.apply(NONEXISTING_INPUT);
 		TestUtil.assertStreamEquals(Set.of(), actual);
 	}
 
@@ -37,12 +38,13 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("if more sumtis exist with the representation, return them all")
 	void test_2() {
-		TestUtil.assertStreamEquals(Set.of(GO1, GO2), queryProcessor.apply(GO_REPRESENTATION));
+		TestUtil.assertStreamEquals(Set.of(GO1, GO2), queryProcessor.apply(GO_REPR));
 	}
 
 	@Test
 	@DisplayName("for a reference, return the referenced bridi")
 	void test_3() {
+		LogUtil.addDebuggedClass(QueryProcessorService.class);
 		TestUtil.assertStreamEquals(Set.of(GO1), queryProcessor.apply(GO1_REFERENCE));
 	}
 
@@ -73,7 +75,7 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("for a bridi where one of the sumties is '$?', the matching bridies return")
 	void test1() {
-		TestUtil.assertStreamEquals(SIMPLE_QUERY_OUTPUT, queryProcessor.apply(QUERY_STRING_SIMPLE));
+		TestUtil.assertStreamEquals(SIMPLE_QUERY_OUTPUT, queryProcessor.apply(SIMPLE_INPUT));
 	}
 
 	@Test
@@ -81,19 +83,19 @@ class QueryProcessorTest extends TestBase implements BridiTestData {
 	void test1_1() {
 		assertThrows(
 				ParseCancellationException.class,
-				() -> queryProcessor.apply(QUERY_STRING_ALL_ANY).toArray());
+				() -> queryProcessor.apply(ALL_ANY_INPUT).toArray());
 	}
 
 	@Test
 	@DisplayName("if no stored bridi matches the query with '$?', and empty list is returned")
 	void test2() {
-		TestUtil.assertStreamEquals(Set.of(), queryProcessor.apply(QUERY_STRING_NONMATCHING));
+		TestUtil.assertStreamEquals(Set.of(), queryProcessor.apply(NONMATCHING_INPUT));
 	}
 
 	@Test
 	@DisplayName("query works with the '$?' being deep down in the query")
 	void test3() {
-		Stream<Bridi> actual = queryProcessor.apply(RECURSIVE_QUERY);
+		Stream<Bridi> actual = queryProcessor.apply(RECURSIVE_INPUT);
 		TestUtil.assertStreamEquals(Set.of(SUMTI_IS_A_THING_IS_A_THING, TAUTOLOGY_IS_A_THING), actual);
 	}
 }

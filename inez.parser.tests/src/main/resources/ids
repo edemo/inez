@@ -1,0 +1,7 @@
+THING,THING
+IS_A,IS_A
+STUFF,stuff
+GO,GO1
+GO2,go2
+THING_IS_A_SUMTI,not tautology
+TAUTOLOGY,tautology

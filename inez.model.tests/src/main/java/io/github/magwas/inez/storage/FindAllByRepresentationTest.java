@@ -20,8 +20,6 @@ class FindAllByRepresentationTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("finds all bridis based on a representation")
 	void test() {
-		assertEquals(
-				Set.of(GO1, GO2),
-				findAllByRepresentation.apply(GO_REPRESENTATION).collect(Collectors.toSet()));
+		assertEquals(Set.of(GO1, GO2), findAllByRepresentation.apply(GO_REPR).collect(Collectors.toSet()));
 	}
 }

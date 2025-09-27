@@ -13,9 +13,9 @@ public class SumtiRepositoryStub implements SumtiTestData {
 		SumtiRepository mock = mock(SumtiRepository.class);
 		when(mock.findById(THING_ID)).thenReturn(Optional.of(THING_SUMTI));
 		when(mock.findById(SUMTI_IS_A_THING_ID)).thenReturn(Optional.of(SUMTI_IS_A_THING_SUMTI));
-		when(mock.findById(NOT_SAVED_ID)).thenReturn(Optional.empty());
+		when(mock.findById(SUMTI_ID)).thenReturn(Optional.empty());
 
-		when(mock.findAllByRepresentation(GO_REPRESENTATION)).thenReturn(Set.of(GO1_SUMTI, GO2_SUMTI));
+		when(mock.findAllByRepresentation(GO_REPR)).thenReturn(Set.of(GO1_SUMTI, GO2_SUMTI));
 		return mock;
 	}
 }

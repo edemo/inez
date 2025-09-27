@@ -58,6 +58,11 @@
             <artifactId>javafx-controls</artifactId>
             <version>21.0.8</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>konveyor-base-testing</artifactId>
+            <version>${version.konveyor}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

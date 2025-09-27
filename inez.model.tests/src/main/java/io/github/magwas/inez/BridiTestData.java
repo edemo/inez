@@ -11,11 +11,11 @@ public interface BridiTestData extends BridiElementTestData {
 
 	Bridi ALICE = new Bridi(IdUtil.createID(ALICE_REPR), ALICE_REPR, List.of());
 
-	Bridi GO1 = new Bridi(GO1_ID, GO_REPRESENTATION, null);
-	Bridi GO2 = new Bridi(GO2_ID, GO_REPRESENTATION, null);
+	Bridi GO1 = new Bridi(GO_ID, GO_REPR, null);
+	Bridi GO2 = new Bridi(GO2_ID, GO_REPR, null);
 	Bridi SUMTI_IS_A_THING_IS_A_THING = new Bridi(
 			SUMTI_IS_A_THING_IS_A_THING_ID,
-			SUMTI_IS_A_THING_IS_A_THING_REPR_NOREFERENCE,
+			SUMTI_IS_A_THING_IS_A_THING_NOREFERENCE_REPR,
 			SUMTI_IS_A_THING_IS_A_THING_REFERENCES);
 	Bridi TAUTOLOGY_IS_A_THING =
 			new Bridi(TAUTOLOGY_IS_A_THING_ID, TAUTOLOGY_IS_A_THING_REPR, SUMTI_IS_A_THING_IS_A_THING_REFERENCES);

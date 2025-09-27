@@ -11,7 +11,7 @@ import io.github.magwas.inez.parse.ParserConstants;
 public class FindBridiByIdServiceStub implements BridiTestData {
 	public static FindBridiByIdService stub() {
 		FindBridiByIdService mock = mock(FindBridiByIdService.class);
-		when(mock.apply(GO1_ID)).thenReturn(Optional.of(GO1));
+		when(mock.apply(GO_ID)).thenReturn(Optional.of(GO1));
 		when(mock.apply(GO2_ID)).thenReturn(Optional.of(GO2));
 		when(mock.apply(SUMTI_IS_A_THING_IS_A_THING_ID)).thenReturn(Optional.of(SUMTI_IS_A_THING_IS_A_THING));
 		when(mock.apply(TAUTOLOGY_IS_A_THING_ID)).thenReturn(Optional.of(TAUTOLOGY_IS_A_THING));

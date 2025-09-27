@@ -34,7 +34,7 @@ class BridiStoreEndToEndTest implements BridiTestData {
 		assertEquals(List.of(ALICE), inez.findAllByRepresentation("alice").toList());
 
 		inez.save(Set.of(GO1, GO2));
-		inez.findAllByRepresentation(GO_REPRESENTATION).forEach(x -> LogUtil.debug("go", x));
+		inez.findAllByRepresentation(GO_REPR).forEach(x -> LogUtil.debug("go", x));
 		String CECILE_EATS_BANANA_REPR = "{cecile} {{eats} {banana}}";
 		String CECILE_LOOKS_AT_BANANA_REPR = "{cecile} {{looks at} {banana}}";
 		Bridi cecile_eats_banana = assertGotTheBridi(CECILE_EATS_BANANA_REPR, inez.query(CECILE_EATS_BANANA_REPR));

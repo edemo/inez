@@ -54,13 +54,13 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	void test5() {
 		assertThrows(
 				InternalError.class,
-				() -> parseText.apply(INPUT_FROM_UNKNOWN_PARSER).toList());
+				() -> parseText.apply(FROM_UNKNOWN_PARSER_INPUT).toList());
 	}
 
 	@Test
 	@DisplayName("if the text cannot be unambigously parsed, a ParseCancellationException is thrown")
 	void test1() {
-		assertThrows(ParseCancellationException.class, () -> parseText.apply(INPUT_BAD));
+		assertThrows(ParseCancellationException.class, () -> parseText.apply(BAD_INPUT));
 	}
 
 	@Test
@@ -68,7 +68,7 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	void test6() {
 		assertEquals(
 				OUTPOUT_WITH_LITERAL,
-				parseText.apply(INPUT_WITH_LITERAL).toList().get(0));
+				parseText.apply(WITH_LITERAL_INPUT).toList().get(0));
 	}
 
 	@Test
@@ -77,7 +77,7 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 		assertEquals(
 				List.of(OUTPOUT_WITH_LITERAL, OUTPUT_TAUTOLOGY),
 				parseText
-						.apply(INPUT_WITH_LITERAL + "\n" + TAUTOLOGY_GENERATED_REPR)
+						.apply(WITH_LITERAL_INPUT + "\n" + TAUTOLOGY_GENERATED_REPR)
 						.toList());
 	}
 }

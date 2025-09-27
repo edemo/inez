@@ -24,7 +24,7 @@ public class CreateParserFromTokensServiceStub implements ParserOutputTestData {
 		para.children = List.of(bridiContext);
 		when(bridiParsermock.paragraph()).thenReturn(para);
 		when(mock.apply(any())).thenCallRealMethod();
-		when(mock.apply(INPUT_FROM_UNKNOWN_PARSER)).thenReturn(bridiParsermock);
+		when(mock.apply(FROM_UNKNOWN_PARSER_INPUT)).thenReturn(bridiParsermock);
 		return mock;
 	}
 }

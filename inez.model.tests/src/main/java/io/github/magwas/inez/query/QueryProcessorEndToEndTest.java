@@ -52,10 +52,12 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 		inez.create(TEST_TEXT).peek(x -> LogUtil.debug("created:" + x)).toList();
 		assertEquals(List.of(ALICE), inez.findAllByRepresentation(ALICE_REPR).toList());
 		assertQuery(Set.of(ALICE_REPR), ALICE_REPR);
-		assertQuery(Set.of(ALICE_EATS_BANANA), ALICE_EATS_BANANA);
-		assertQuery(Set.of(ALICE_EATS_BANANA, BOB_EATS_BANANA, CECILE_EATS_BANANA), "{$?} {{eats} {banana}}");
-		assertQuery(Set.of(CECILE_EATS_BANANA, CECILE_LOOKS_AT_BANANA), "{cecile} {{$?} {banana}}");
-		assertQuery(Set.of(ALICE_EATS_BANANA, ALICE_EATS_CHIPS), "{alice} {{eats} {$?}}");
+		assertQuery(Set.of(ALICE_EATS_BANANA_REPR), ALICE_EATS_BANANA_REPR);
+		assertQuery(
+				Set.of(ALICE_EATS_BANANA_REPR, BOB_EATS_BANANA_REPR, CECILE_EATS_BANANA_REPR),
+				"{$?} {{eats} {banana}}");
+		assertQuery(Set.of(CECILE_EATS_BANANA_REPR, CECILE_LOOKS_AT_BANANA_REPR), "{cecile} {{$?} {banana}}");
+		assertQuery(Set.of(ALICE_EATS_BANANA_REPR, ALICE_EATS_CHIPS_REPR), "{alice} {{eats} {$?}}");
 		assertQuery(Set.of("putty"), "doSave {" + "putty" + "}");
 		assertEquals(1, inez.findAllByRepresentation("putty").count());
 		List<Bridi> putty = inez.findAllByRepresentation("putty").toList();
