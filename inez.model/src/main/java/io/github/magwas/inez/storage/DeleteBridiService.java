@@ -16,19 +16,19 @@ public class DeleteBridiService {
 
 	@Autowired
 	SumtiRepository sumtiRepository;
+
 	@Autowired
 	RemoveReferencesService removeReferences;
+
 	@Autowired
 	NotifyStoreChangeService notifyStoreChange;
 
 	public Bridi apply(final Bridi bridi) {
 		Optional<Sumti> oldP = sumtiRepository.findById(bridi.id());
-		if (oldP.isEmpty())
-			throw new NoSuchElementException();
+		if (oldP.isEmpty()) throw new NoSuchElementException();
 		removeReferences.apply(bridi.id(), bridi.references());
 		sumtiRepository.delete(new Sumti(bridi.id(), bridi.representation()));
 		notifyStoreChange.apply(BridiStoreOperation.DELETE, bridi, null);
 		return bridi;
 	}
-
 }

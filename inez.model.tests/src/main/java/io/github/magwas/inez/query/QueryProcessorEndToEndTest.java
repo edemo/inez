@@ -40,8 +40,7 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 	void setUp() throws IOException {
 		ServiceReference<Save> sr = mock(ServiceReference.class);
 		BundleContext ctx = mock(BundleContext.class);
-		when((ServiceReference<Save>) ctx
-				.getServiceReference("io.github.magwas.inez.functions.Save"))
+		when((ServiceReference<Save>) ctx.getServiceReference("io.github.magwas.inez.functions.Save"))
 				.thenReturn(sr);
 		when(ctx.getService(sr)).thenReturn(new Save());
 		SpringBootBundleActivator.bundleContext = ctx;
@@ -51,20 +50,17 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 	@Test
 	void test1() {
 		inez.create(TEST_TEXT).peek(x -> LogUtil.debug("created:" + x)).toList();
-		assertEquals(List.of(ALICE),
-				inez.findAllByRepresentation(ALICE_REPR).toList());
+		assertEquals(List.of(ALICE), inez.findAllByRepresentation(ALICE_REPR).toList());
 		assertQuery(Set.of(ALICE_REPR), ALICE_REPR);
 		assertQuery(Set.of(ALICE_EATS_BANANA), ALICE_EATS_BANANA);
-		assertQuery(Set.of(ALICE_EATS_BANANA, BOB_EATS_BANANA, CECILE_EATS_BANANA),
-				"{$?} {{eats} {banana}}");
-		assertQuery(Set.of(CECILE_EATS_BANANA, CECILE_LOOKS_AT_BANANA),
-				"{cecile} {{$?} {banana}}");
-		assertQuery(Set.of(ALICE_EATS_BANANA, ALICE_EATS_CHIPS),
-				"{alice} {{eats} {$?}}");
+		assertQuery(Set.of(ALICE_EATS_BANANA, BOB_EATS_BANANA, CECILE_EATS_BANANA), "{$?} {{eats} {banana}}");
+		assertQuery(Set.of(CECILE_EATS_BANANA, CECILE_LOOKS_AT_BANANA), "{cecile} {{$?} {banana}}");
+		assertQuery(Set.of(ALICE_EATS_BANANA, ALICE_EATS_CHIPS), "{alice} {{eats} {$?}}");
 		assertQuery(Set.of("putty"), "doSave {" + "putty" + "}");
 		assertEquals(1, inez.findAllByRepresentation("putty").count());
 		List<Bridi> putty = inez.findAllByRepresentation("putty").toList();
-		assertQuery(Set.of("osgi", "bitch", "{0} is a {1}", "{osgi} is a {bitch}"),
+		assertQuery(
+				Set.of("osgi", "bitch", "{0} is a {1}", "{osgi} is a {bitch}"),
 				"doSave {" + "{osgi} is a {bitch}" + "}");
 		assertEquals(1, inez.findAllByRepresentation("osgi").count());
 		assertEquals(1, inez.findAllByRepresentation("bitch").count());
@@ -73,8 +69,8 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 
 	private Set<Bridi> assertQuery(final Set<String> expected, final String query) {
 		Set<Bridi> result = inez.query(query).collect(Collectors.toSet());
-		Set<String> actual = result.stream().map(bridi -> bridi.representation())
-				.collect(Collectors.toSet());
+		Set<String> actual =
+				result.stream().map(bridi -> bridi.representation()).collect(Collectors.toSet());
 		if (!expected.equals(actual)) {
 			System.out.println("actual:");
 			actual.forEach(System.out::println);
@@ -85,5 +81,4 @@ class QueryProcessorEndToEndTest implements BridiTestData {
 		assertEquals(expected, actual);
 		return result;
 	}
-
 }

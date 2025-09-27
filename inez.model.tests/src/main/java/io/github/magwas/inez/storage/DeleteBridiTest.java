@@ -15,8 +15,7 @@ import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
 import io.github.magwas.testing.TestBase;
 
-class DeleteBridiTest extends TestBase
-		implements BridiTestData, SumtiTestData {
+class DeleteBridiTest extends TestBase implements BridiTestData, SumtiTestData {
 
 	@InjectMocks
 	DeleteBridiService deleteBridi;
@@ -30,16 +29,14 @@ class DeleteBridiTest extends TestBase
 	@Test
 	@DisplayName("- if there was no such bridi saved, a NoSuchElementException is thrown")
 	void test3() {
-		assertThrows(NoSuchElementException.class,
-				() -> deleteBridi.apply(NONEXISTENT));
+		assertThrows(NoSuchElementException.class, () -> deleteBridi.apply(NONEXISTENT));
 	}
 
 	@Test
 	@DisplayName("- the references are cleared")
 	void test() {
 		deleteBridi.apply(SUMTI_IS_A_THING);
-		verify(deleteBridi.removeReferences).apply(SUMTI_IS_A_THING_ID,
-				SUMTI_IS_A_THING.references());
+		verify(deleteBridi.removeReferences).apply(SUMTI_IS_A_THING_ID, SUMTI_IS_A_THING.references());
 	}
 
 	@Test
@@ -53,8 +50,6 @@ class DeleteBridiTest extends TestBase
 	@DisplayName("- notifies about the store change")
 	void test2() {
 		deleteBridi.apply(SUMTI_IS_A_THING);
-		verify(deleteBridi.notifyStoreChange).apply(BridiStoreOperation.DELETE,
-				SUMTI_IS_A_THING, null);
+		verify(deleteBridi.notifyStoreChange).apply(BridiStoreOperation.DELETE, SUMTI_IS_A_THING, null);
 	}
-
 }

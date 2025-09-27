@@ -16,5 +16,4 @@ public class BridiElementFactory {
 		element.fixParent();
 		return element;
 	}
-
 }

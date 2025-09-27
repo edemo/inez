@@ -12,8 +12,7 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.testing.TestBase;
 
-class FindAllByRepresentationTest extends TestBase
-		implements BridiTestData {
+class FindAllByRepresentationTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
 	FindAllByRepresentationService findAllByRepresentation;
@@ -21,7 +20,8 @@ class FindAllByRepresentationTest extends TestBase
 	@Test
 	@DisplayName("finds all bridis based on a representation")
 	void test() {
-		assertEquals(Set.of(GO1, GO2), findAllByRepresentation
-				.apply(GO_REPRESENTATION).collect(Collectors.toSet()));
+		assertEquals(
+				Set.of(GO1, GO2),
+				findAllByRepresentation.apply(GO_REPRESENTATION).collect(Collectors.toSet()));
 	}
 }

@@ -10,5 +10,4 @@ import io.github.magwas.inez.storage.model.Sumti;
 @Repository
 public interface SumtiRepository extends CrudRepository<Sumti, String> {
 	Set<Sumti> findAllByRepresentation(String representation);
-
 }

@@ -12,12 +12,16 @@ public class RepresentBridiElementService implements ElementConstants {
 
 	@Autowired
 	GetBridiElementRepresentationService getBridiElementRepresentation;
+
 	@Autowired
 	GetBridiElementChildrenService getBridiElementChildren;
+
 	@Autowired
 	GetBridiElementParentService getBridiElementParent;
+
 	@Autowired
 	GetBridiElementTypeService getBridiElementType;
+
 	@Autowired
 	GetBridiElementReferenceIdsService getBridiElementReferenceIds;
 
@@ -38,20 +42,15 @@ public class RepresentBridiElementService implements ElementConstants {
 				.append(getBridiElementRepresentation.apply(id))
 				.append("'>\n");
 		if (!references.isEmpty()) {
-			builder.append(INDENT.repeat(indentLevel + 1))
-					.append("<references>\n");
+			builder.append(INDENT.repeat(indentLevel + 1)).append("<references>\n");
 			references.forEach(x -> builder.append(INDENT.repeat(indentLevel + 2))
-                    .append("<reference>")
-                    .append(x)
-                    .append("</reference>\n"));
-			builder.append(INDENT.repeat(indentLevel + 1))
-					.append("</references>\n");
+					.append("<reference>")
+					.append(x)
+					.append("</reference>\n"));
+			builder.append(INDENT.repeat(indentLevel + 1)).append("</references>\n");
 		}
-		getBridiElementChildren.apply(id)
-				.forEach(x -> builder.append(toString(x.id, indentLevel + 1)));
-		builder.append(INDENT.repeat(indentLevel))
-				.append("</element>\n");
+		getBridiElementChildren.apply(id).forEach(x -> builder.append(toString(x.id, indentLevel + 1)));
+		builder.append(INDENT.repeat(indentLevel)).append("</element>\n");
 		return builder.toString();
 	}
-
 }

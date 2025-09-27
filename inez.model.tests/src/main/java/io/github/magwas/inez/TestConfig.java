@@ -12,5 +12,4 @@ import io.github.magwas.kodekonveyorannotations.Glue;
 @ComponentScan("io.github.magwas")
 @EnableMapRepositories("io.github.magwas.inez")
 @Glue
-public class TestConfig {
-}
+public class TestConfig {}

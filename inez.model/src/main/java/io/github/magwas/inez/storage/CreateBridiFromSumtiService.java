@@ -23,8 +23,7 @@ public class CreateBridiFromSumtiService {
 
 	public Bridi apply(final Sumti sumti) {
 		final Map<Integer, BridiReference> map = new HashMap<>();
-		Set<BridiReference> refs = bridiReferenceRepository
-				.findAllByBridiId(sumti.id());
+		Set<BridiReference> refs = bridiReferenceRepository.findAllByBridiId(sumti.id());
 		LogUtil.debug("refs:" + refs);
 		refs.forEach(ref -> map.put(ref.position(), ref));
 		LogUtil.debug("map:" + map);
@@ -38,5 +37,4 @@ public class CreateBridiFromSumtiService {
 		LogUtil.debug("bridi:" + bridi);
 		return bridi;
 	}
-
 }

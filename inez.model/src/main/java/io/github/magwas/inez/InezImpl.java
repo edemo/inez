@@ -36,42 +36,56 @@ import io.github.magwas.kodekonveyorannotations.Delegate;
 public final class InezImpl implements Inez {
 	@Autowired
 	BridiStoreChangeListenersService bridiStoreChangeListeners;
+
 	@Autowired
 	QueryProcessorService queryProcessor;
+
 	@Autowired
 	BridiStoreHistoryRepository bridiStoreHistoryRepository;
+
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
+
 	@Autowired
 	CreateBridiFromSumtiService createBridiFromSumti;
+
 	@Autowired
 	SaveBridiService saveBridi;
+
 	@Autowired
 	DeleteBridiService deleteBridi;
+
 	@Autowired
 	FindBridiByIdService findBridiById;
+
 	@Autowired
 	GetBridiIdBySelbriAndSumtiIdsService getBridiIdBySelbriAndSumtiIds;
+
 	@Autowired
 	FindAllIdByRepresentationService findAllIdByRepresentation;
+
 	@Autowired
 	FindAllByRepresentationService findAllByRepresentation;
+
 	@Autowired
 	BridiElementSystemInitializationService bridiElementSystemInitialization;
+
 	@Autowired
 	BridiElementFactory bridiElementFactory;
+
 	@Autowired
 	CreateBridisFromQueryService createBridisFromQuery;
+
 	@Autowired
 	CreateSumtiService createSumti;
+
 	@Autowired
 	ProblemRepository problemRepository;
 
 	@Autowired
 	CreateBridisFromDefinitionService createBridisFromDefinition;
 
-	private InezImpl() {
-	}
+	private InezImpl() {}
 
 	public void initialize() throws IOException {
 		bridiElementSystemInitialization.apply();
@@ -139,5 +153,4 @@ public final class InezImpl implements Inez {
 	public ProblemRepository getProblems() {
 		return problemRepository;
 	}
-
 }

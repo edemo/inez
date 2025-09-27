@@ -12,12 +12,11 @@ import io.github.magwas.inez.storage.repository.SumtiRepository;
 public class FindAllByRepresentationService {
 	@Autowired
 	SumtiRepository sumtiRepository;
+
 	@Autowired
 	CreateBridiFromSumtiService createBridiFromSumti;
 
 	public Stream<Bridi> apply(final String representation) {
-		return sumtiRepository.findAllByRepresentation(representation).stream()
-				.map(createBridiFromSumti::apply);
+		return sumtiRepository.findAllByRepresentation(representation).stream().map(createBridiFromSumti::apply);
 	}
-
 }

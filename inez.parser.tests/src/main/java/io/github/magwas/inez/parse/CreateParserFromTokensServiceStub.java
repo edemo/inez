@@ -16,8 +16,7 @@ import io.github.magwas.kodekonveyorannotations.Glue;
 @Glue
 public class CreateParserFromTokensServiceStub implements ParserOutputTestData {
 	public static CreateParserFromTokensService stub() {
-		CreateParserFromTokensService mock = mock(
-				CreateParserFromTokensService.class);
+		CreateParserFromTokensService mock = mock(CreateParserFromTokensService.class);
 		BridiParser bridiParsermock = mock(BridiParser.class);
 		BridiContext bridiContext = mock(BridiContext.class);
 		bridiContext.children = List.of(mock(ParseTree.class));

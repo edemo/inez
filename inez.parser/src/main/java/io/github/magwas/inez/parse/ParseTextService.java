@@ -20,8 +20,7 @@ import io.github.magwas.inez.parser.BridiParser.TextReferenceContext;
 import io.github.magwas.runtime.LogUtil;
 
 @Service
-public class ParseTextService
-		implements Function<String, Stream<ParserOutput>> {
+public class ParseTextService implements Function<String, Stream<ParserOutput>> {
 	@Autowired
 	CreateParserFromTokensService createParserFromTokens;
 
@@ -30,7 +29,8 @@ public class ParseTextService
 		LogUtil.debug("input:" + input);
 		BridiParser parser = createParserFromTokens.apply(input);
 		ParagraphContext text = parser.paragraph();
-		return text.children.stream().filter(x -> x instanceof BridiContext)
+		return text.children.stream()
+				.filter(BridiContext.class::isInstance)
 				.map(x -> compileBridiFromTree((BridiContext) x));
 	}
 
@@ -44,12 +44,9 @@ public class ParseTextService
 			String text = kid.getText();
 			if (kid instanceof TerminalNode) {
 				LogUtil.debug("r:" + text);
-				if ("{[".equals(text))
-					representation.append("{");
-				else if ("]}".equals(text))
-					representation.append("}");
-				else
-					representation.append(text);
+				if ("{[".equals(text)) representation.append("{");
+				else if ("]}".equals(text)) representation.append("}");
+				else representation.append(text);
 				topBuilder.append(text);
 			} else if (kid instanceof BridiContext) {
 				LogUtil.debug("bridi", text, kid.getChildCount());
@@ -69,8 +66,7 @@ public class ParseTextService
 				representation.append(childIndex++);
 				topBuilder.append(text);
 				kidrefs.add(text);
-			} else
-				throw new InternalError("unrecognized tree element:" + kid.getClass());
+			} else throw new InternalError("unrecognized tree element:" + kid.getClass());
 		}
 		String repr = representation.toString();
 		String top = topBuilder.toString();
@@ -83,5 +79,4 @@ public class ParseTextService
 		LogUtil.debug("compileBridiFromTree", top, ret);
 		return ret;
 	}
-
 }

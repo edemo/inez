@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 public class GetBridiElementTypeService {
 	@Autowired
 	GetBridiElementTypeIdService getBridiElementTypeId;
+
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
@@ -14,5 +15,4 @@ public class GetBridiElementTypeService {
 		String type = getBridiElementTypeId.apply(id);
 		return bridiElementFactory.apply(type);
 	}
-
 }

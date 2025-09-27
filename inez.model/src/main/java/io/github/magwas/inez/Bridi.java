@@ -4,6 +4,4 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
-public record Bridi(@Id String id, String representation,
-		List<String> references) {
-}
+public record Bridi(@Id String id, String representation, List<String> references) {}

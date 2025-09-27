@@ -56,32 +56,22 @@ public interface BridiFieldTestData {
 	String BRIDI_ID = IdUtil.createID("bridi");
 	String IS_A_ID = "IS_A";
 	String SUMTI_IS_A_THING_ID = IdUtil.createID("{sumti} is a {THING}");
-	String SUMTI_IS_A_THING_IS_A_THING_ID = IdUtil
-			.createID("{{sumti} is a {THING}} is a {THING}");
-	String TAUTOLOGY_IS_A_THING_ID = IdUtil
-			.createID("{{THING} is a {THING}} is a {THING}");
+	String SUMTI_IS_A_THING_IS_A_THING_ID = IdUtil.createID("{{sumti} is a {THING}} is a {THING}");
+	String TAUTOLOGY_IS_A_THING_ID = IdUtil.createID("{{THING} is a {THING}} is a {THING}");
 	String THING_IS_A_SUMTI_ID = "not tautology";
 	String TAUTOLOGY_ID = "tautology";
 
 	String GOD_ID = IdUtil.createID("god");
 	String NOT_SAVED_ID = IdUtil.createID(SUMTI_REPR);
 	String NONEXISTENT_ID = IdUtil.createID(NONEXISTENT_REPR);
-	List<String> SUMTI_IS_A_THING_IS_A_THING_REFERENCES = List.of(IS_A_ID,
-			SUMTI_IS_A_THING_ID, THING_ID);
-	List<String> TAUTOLOGY_IS_A_THING_REFERENCES = List.of(IS_A_ID, TAUTOLOGY_ID,
-			THING_REPR);
-	List<String> BAD_BRIDI_REFERENCES = List.of(IS_A_REPR, SUMTI_IS_A_THING_ID,
-			NONEXISTENT_REPR);
-	List<String> SUMTI_IS_A_THING_CHANGED_REFERENCES = List.of(IS_A_ID, THING_ID,
-			THING_ID);
-	List<String> SUMTI_IS_A_THING_REFERENCES = List.of(IS_A_ID, SUMTI_ID,
-			THING_ID);
-	List<String> SUMTI_IS_A_THING_GENERATED_REFERENCES = List
-			.of(IdUtil.createID(IS_A_REPR), SUMTI_ID, IdUtil.createID(THING_REPR));
-	List<String> THING_IS_A_SUMTI_REFERENCES = List.of(IS_A_ID, THING_ID,
-			SUMTI_ID);
+	List<String> SUMTI_IS_A_THING_IS_A_THING_REFERENCES = List.of(IS_A_ID, SUMTI_IS_A_THING_ID, THING_ID);
+	List<String> TAUTOLOGY_IS_A_THING_REFERENCES = List.of(IS_A_ID, TAUTOLOGY_ID, THING_REPR);
+	List<String> BAD_BRIDI_REFERENCES = List.of(IS_A_REPR, SUMTI_IS_A_THING_ID, NONEXISTENT_REPR);
+	List<String> SUMTI_IS_A_THING_CHANGED_REFERENCES = List.of(IS_A_ID, THING_ID, THING_ID);
+	List<String> SUMTI_IS_A_THING_REFERENCES = List.of(IS_A_ID, SUMTI_ID, THING_ID);
+	List<String> SUMTI_IS_A_THING_GENERATED_REFERENCES =
+			List.of(IdUtil.createID(IS_A_REPR), SUMTI_ID, IdUtil.createID(THING_REPR));
+	List<String> THING_IS_A_SUMTI_REFERENCES = List.of(IS_A_ID, THING_ID, SUMTI_ID);
 	String INPUT_WITH_LITERAL = "{My folder} contains {[{0} is a {1}]}";
-	List<String> INPUT_WITH_LITERAL_REFS = List.of("{0} contains {1}",
-			"My folder", "{0} is a {1}");
-
+	List<String> INPUT_WITH_LITERAL_REFS = List.of("{0} contains {1}", "My folder", "{0} is a {1}");
 }

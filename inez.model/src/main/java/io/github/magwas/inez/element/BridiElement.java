@@ -17,54 +17,65 @@ import io.github.magwas.runtime.LogUtil;
 public class BridiElement implements ElementConstants {
 	@Id
 	public String id;
+
 	@Autowired
 	GetBridiElementRepresentationService getBridiElementRepresentation;
+
 	@Autowired
 	GetRelativeForBridiElementService getRelativeForBridiElement;
+
 	@Autowired
 	GetBridiElementChildrenService getBridiElementChildren;
+
 	@Autowired
 	GetBridiElementParentService getBridiElementParent;
+
 	@Autowired
 	GetBridiElementTypeService getBridiElementType;
+
 	@Autowired
 	GetBridiElementReferencesService getBridiElementReferences;
+
 	@Autowired
 	RepresentBridiElementService representBridiElement;
+
 	@Autowired
 	SumtiRepository sumtiRepository;
+
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
+
 	@Autowired
 	AddReferencesService addReferences;
+
 	@Autowired
 	IsInstanceService isInstance;
+
 	@Autowired
 	CreateBridiElementService createBridiElement;
+
 	@Autowired
 	BridiElementFactory bridiElementFactory;
+
 	@Autowired
 	IsOfTypeService isOfType;
 
 	@Autowired
 	GetBridiElementReferenceIdsService getBridiElementReferenceIds;
+
 	@Autowired
 	GetBridiElementTypeIdService getBridiElementTypeId;
 
 	void fixParent() {
-		if (ROOT_ID.equals(id))
-			return;
+		if (ROOT_ID.equals(id)) return;
 		String parent = getBridiElementParent.apply(id);
-		if (parent != null)
-			return;
+		if (parent != null) return;
 		LogUtil.debug("fixing", id);
 		List<String> references = getBridiElementReferenceIds.apply(id).toList();
 		if (references.size() > 1) {
 			String firstSumtiID = references.get(1);
-			if (isOfType.apply(firstSumtiID, CONTAINER_ID))
-				parent = firstSumtiID;
-			else
-				parent = getBridiElementParent.apply(firstSumtiID);
+			if (isOfType.apply(firstSumtiID, CONTAINER_ID)) parent = firstSumtiID;
+			else parent = getBridiElementParent.apply(firstSumtiID);
 		}
 		if (parent == null) {
 			parent = UNPLACED_ID;
@@ -112,10 +123,8 @@ public class BridiElement implements ElementConstants {
 		return isInstance.apply(id, typeId);
 	}
 
-	public BridiElement create(final String containerId, final String typeId,
-                               final String representation, final String... references) {
-		return createBridiElement.apply(containerId, typeId, representation,
-				references);
+	public BridiElement create(
+			final String containerId, final String typeId, final String representation, final String... references) {
+		return createBridiElement.apply(containerId, typeId, representation, references);
 	}
-
 }

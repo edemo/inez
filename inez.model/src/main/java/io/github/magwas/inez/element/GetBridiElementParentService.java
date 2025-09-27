@@ -14,26 +14,28 @@ import io.github.magwas.inez.storage.repository.SumtiRepository;
 public class GetBridiElementParentService implements ElementConstants {
 	@Autowired
 	GetRelativeForBridiElementService getRelativeForBridiElement;
+
 	@Autowired
 	SumtiRepository sumtiRepository;
+
 	@Autowired
 	BridiReferenceRepository bridiReferenceRepository;
 
 	public String apply(final String id) {
-		List<String> parents = getRelativeForBridiElement.apply(id, CONTAINS_ID, 2, 1).toList();
-        if (!parents.isEmpty()) {
-            return parents.getFirst();
-        }
+		List<String> parents =
+				getRelativeForBridiElement.apply(id, CONTAINS_ID, 2, 1).toList();
+		if (!parents.isEmpty()) {
+			return parents.getFirst();
+		}
 
-        Set<BridiReference> selbriref = bridiReferenceRepository.findAllByBridiIdAndPosition(id, 1);
-        if (!selbriref.isEmpty()) {
-            BridiReference ref = selbriref.iterator().next();
-            if (ref.selbriId().equals(CONTAINS_ID)) {
-                return ref.sumtiId();
-            }
-        }
+		Set<BridiReference> selbriref = bridiReferenceRepository.findAllByBridiIdAndPosition(id, 1);
+		if (!selbriref.isEmpty()) {
+			BridiReference ref = selbriref.iterator().next();
+			if (CONTAINS_ID.equals(ref.selbriId())) {
+				return ref.sumtiId();
+			}
+		}
 
-        return null;
-    }
-
+		return null;
+	}
 }

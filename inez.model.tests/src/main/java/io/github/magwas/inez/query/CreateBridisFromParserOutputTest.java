@@ -14,19 +14,16 @@ import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.parse.ParserOutputTestData;
 import io.github.magwas.testing.TestBase;
 
-class CreateBridisFromParserOutputTest extends TestBase
-		implements BridiTestData, ParserOutputTestData {
+class CreateBridisFromParserOutputTest extends TestBase implements BridiTestData, ParserOutputTestData {
 	@InjectMocks
 	CreateBridisFromParserOutputService createBridisFromParserOutput;
 
 	@Test
-	@DisplayName("creates a list of bridis from the output of the parser\n"
-			+ " - does not save them")
+	@DisplayName("creates a list of bridis from the output of the parser\n" + " - does not save them")
 	void test() {
-		Set<Bridi> expected = Set.of(THING_GENERATED, IS_A_NONSAVED, SUMTI,
-				SUMTI_IS_A_THING_GENERATED);
-		Set<Bridi> actual = createBridisFromParserOutput
-				.apply(OUTPUT_SUMTI_IS_A_THING).collect(Collectors.toSet());
+		Set<Bridi> expected = Set.of(THING_GENERATED, IS_A_NONSAVED, SUMTI, SUMTI_IS_A_THING_GENERATED);
+		Set<Bridi> actual =
+				createBridisFromParserOutput.apply(OUTPUT_SUMTI_IS_A_THING).collect(Collectors.toSet());
 		assertEquals(expected, actual);
 	}
 }

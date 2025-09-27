@@ -5,7 +5,6 @@ import static org.mockito.Mockito.mock;
 public class CreateBridisFromQueryServiceStub {
 
 	static CreateBridisFromQueryService stub() {
-		return mock(
-				CreateBridisFromQueryService.class);
+		return mock(CreateBridisFromQueryService.class);
 	}
 }

@@ -14,10 +14,8 @@ public class GetBridiElementReferenceIdsService {
 	BridiReferenceRepository bridiReferenceRepository;
 
 	public Stream<String> apply(final String id) {
-		return bridiReferenceRepository
-				.findAllByBridiId(id).stream().sorted((arg0, arg1) -> Integer
-						.valueOf(arg0.position()).compareTo(arg1.position()))
+		return bridiReferenceRepository.findAllByBridiId(id).stream()
+				.sorted((arg0, arg1) -> Integer.valueOf(arg0.position()).compareTo(arg1.position()))
 				.map(x -> x.sumtiId());
 	}
-
 }

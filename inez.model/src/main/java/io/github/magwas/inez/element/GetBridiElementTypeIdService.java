@@ -14,16 +14,13 @@ public class GetBridiElementTypeIdService implements ElementConstants {
 	GetRelativeForBridiElementService getRelativeForBridiElement;
 
 	public String apply(final String id) {
-		List<String> types = getRelativeForBridiElement.apply(id, IS_A_ID, 1, 2)
-				.toList();
+		List<String> types = getRelativeForBridiElement.apply(id, IS_A_ID, 1, 2).toList();
 		if (types.size() > 1) {
 			throw new Error("more parents for " + id + ":" + types);
 		}
 		String type = THING_ID;
-		if (!types.isEmpty())
-			type = types.get(0);
+		if (!types.isEmpty()) type = types.get(0);
 		LogUtil.debug("type:" + type);
 		return type;
 	}
-
 }

@@ -16,5 +16,4 @@ public class CreateSumtiService {
 		sumtiRepository.save(sumti);
 		return sumti;
 	}
-
 }

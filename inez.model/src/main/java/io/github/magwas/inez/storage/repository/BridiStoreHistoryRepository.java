@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import io.github.magwas.inez.StoreCommand;
 
 @Repository
-public interface BridiStoreHistoryRepository
-		extends CrudRepository<StoreCommand, String> {
-}
+public interface BridiStoreHistoryRepository extends CrudRepository<StoreCommand, String> {}

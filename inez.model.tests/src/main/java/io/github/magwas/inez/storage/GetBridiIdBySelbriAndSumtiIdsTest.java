@@ -12,23 +12,18 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.testing.TestBase;
 
-class GetBridiIdBySelbriAndSumtiIdsTest extends TestBase
-		implements BridiTestData {
+class GetBridiIdBySelbriAndSumtiIdsTest extends TestBase implements BridiTestData {
 
 	@InjectMocks
 	GetBridiIdBySelbriAndSumtiIdsService getBridiIdBySelbriAndSumtiIds;
 
 	@Test
-	@DisplayName("returns the ids of all bridies with the given sumti,"
-			+ " and with the given selbri in the given position")
+	@DisplayName(
+			"returns the ids of all bridies with the given sumti," + " and with the given selbri in the given position")
 	void test() {
 		assertEquals(
-				Stream
-						.of(TAUTOLOGY_ID, SUMTI_IS_A_THING_IS_A_THING_ID,
-								SUMTI_IS_A_THING_ID, TAUTOLOGY_IS_A_THING_ID)
+				Stream.of(TAUTOLOGY_ID, SUMTI_IS_A_THING_IS_A_THING_ID, SUMTI_IS_A_THING_ID, TAUTOLOGY_IS_A_THING_ID)
 						.collect(Collectors.toSet()),
-				getBridiIdBySelbriAndSumtiIds.apply(IS_A_ID, THING_ID, 2)
-						.collect(Collectors.toSet()));
-
+				getBridiIdBySelbriAndSumtiIds.apply(IS_A_ID, THING_ID, 2).collect(Collectors.toSet()));
 	}
 }

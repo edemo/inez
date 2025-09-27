@@ -31,5 +31,4 @@ public class CreateBridisFromDefinitionService {
 			return new String(inputStream.readAllBytes());
 		}
 	}
-
 }

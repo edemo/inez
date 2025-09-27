@@ -14,8 +14,7 @@ import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
 import io.github.magwas.testing.TestBase;
 
-class SaveBridiTest extends TestBase
-		implements BridiTestData, SumtiTestData {
+class SaveBridiTest extends TestBase implements BridiTestData, SumtiTestData {
 
 	@InjectMocks
 	SaveBridiService saveBridi;
@@ -34,8 +33,7 @@ class SaveBridiTest extends TestBase
 	}
 
 	@Test
-	@DisplayName("- if there was an existing version,\n"
-			+ " - then creates a bridi from it")
+	@DisplayName("- if there was an existing version,\n" + " - then creates a bridi from it")
 	void test4() {
 		saveBridi.apply(SUMTI_IS_A_THING_CHANGED);
 		verify(saveBridi.createBridiFromSumti).apply(SUMTI_IS_A_THING_SUMTI);
@@ -45,8 +43,7 @@ class SaveBridiTest extends TestBase
 	@DisplayName(" - and cleans its references")
 	void test4_1() {
 		saveBridi.apply(SUMTI_IS_A_THING_CHANGED);
-		verify(saveBridi.removeReferences).apply(SUMTI_IS_A_THING_ID,
-				SUMTI_IS_A_THING.references());
+		verify(saveBridi.removeReferences).apply(SUMTI_IS_A_THING_ID, SUMTI_IS_A_THING.references());
 	}
 
 	@Test
@@ -60,31 +57,26 @@ class SaveBridiTest extends TestBase
 	@DisplayName("- adds the references")
 	void test_1() {
 		saveBridi.apply(SUMTI_IS_A_THING_CHANGED);
-		verify(saveBridi.addReferences).apply(SUMTI_IS_A_THING_ID,
-				SUMTI_IS_A_THING_CHANGED.references());
+		verify(saveBridi.addReferences).apply(SUMTI_IS_A_THING_ID, SUMTI_IS_A_THING_CHANGED.references());
 	}
 
 	@Test
 	@DisplayName("- adds the save operation to the history with SAVE, the old and new bridi")
 	void test2() {
 		saveBridi.apply(SUMTI_IS_A_THING_CHANGED);
-		verify(saveBridi.notifyStoreChange).apply(BridiStoreOperation.SAVE,
-				SUMTI_IS_A_THING, SUMTI_IS_A_THING_CHANGED);
+		verify(saveBridi.notifyStoreChange).apply(BridiStoreOperation.SAVE, SUMTI_IS_A_THING, SUMTI_IS_A_THING_CHANGED);
 	}
 
 	@Test
 	@DisplayName("- if there was no previous sumti, uses null in the history for it")
 	void test5() {
 		saveBridi.apply(NONEXISTENT);
-		verify(saveBridi.notifyStoreChange).apply(BridiStoreOperation.SAVE, null,
-				NONEXISTENT);
+		verify(saveBridi.notifyStoreChange).apply(BridiStoreOperation.SAVE, null, NONEXISTENT);
 	}
 
 	@Test
 	@DisplayName("the form with collection parameter saves all the bridis")
 	void test6() {
-		assertEquals(Set.of(SUMTI_IS_A_THING, THING),
-				saveBridi.apply(Set.of(SUMTI_IS_A_THING_CHANGED, THING)));
+		assertEquals(Set.of(SUMTI_IS_A_THING, THING), saveBridi.apply(Set.of(SUMTI_IS_A_THING_CHANGED, THING)));
 	}
-
 }

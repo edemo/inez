@@ -12,17 +12,15 @@ public class IsInstanceService implements ElementConstants {
 	GetRelativeForBridiElementService getRelativeForBridiElement;
 
 	public boolean apply(final String objectId, final String typeId) {
-		if (THING_ID.equals(typeId))
-			return true;
+		if (THING_ID.equals(typeId)) return true;
 		List<String> relatives = getRelativeForBridiElement
-				.apply(objectId, IS_A_ID, 1, 2).distinct().toList();
-		if (relatives.contains(typeId))
-			return true;
+				.apply(objectId, IS_A_ID, 1, 2)
+				.distinct()
+				.toList();
+		if (relatives.contains(typeId)) return true;
 		for (String relative : relatives) {
-			if (!THING_ID.equals(relative) && apply(relative, typeId))
-				return true;
+			if (!THING_ID.equals(relative) && apply(relative, typeId)) return true;
 		}
 		return false;
 	}
-
 }

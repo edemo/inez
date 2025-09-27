@@ -21,7 +21,7 @@ import io.github.magwas.kodekonveyorannotations.Glue;
 
 @SpringBootApplication
 @EnableMapRepositories("io.github.magwas.inez.storage")
-@ComponentScan(basePackages = { "io.github.magwas" })
+@ComponentScan(basePackages = {"io.github.magwas"})
 @Glue
 public class SpringBootBundleActivator implements BundleActivator {
 
@@ -38,10 +38,8 @@ public class SpringBootBundleActivator implements BundleActivator {
 	@Override
 	public void start(final BundleContext bundleContext) throws IOException {
 		SpringBootBundleActivator.bundleContext = bundleContext;
-		Thread.currentThread()
-				.setContextClassLoader(this.getClass().getClassLoader());
-		appContext = new AnnotationConfigApplicationContext(
-				SpringBootBundleActivator.class, MyBeanRegistrar.class);
+		Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
+		appContext = new AnnotationConfigApplicationContext(SpringBootBundleActivator.class, MyBeanRegistrar.class);
 		inez = appContext.getBean(InezImpl.class);
 		inez.initialize();
 
@@ -59,11 +57,10 @@ public class SpringBootBundleActivator implements BundleActivator {
 	}
 
 	public BridiFunction obtainAndWireOSGIService(final String relname) {
-		ServiceReference<BridiFunction> ref = (ServiceReference<BridiFunction>) bundleContext
-				.getServiceReference(relname);
+		ServiceReference<BridiFunction> ref =
+				(ServiceReference<BridiFunction>) bundleContext.getServiceReference(relname);
 		BridiFunction fun = bundleContext.getService(ref);
 		autowireCapableBeanFactory.autowireBean(fun);
 		return fun;
 	}
-
 }

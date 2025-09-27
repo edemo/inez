@@ -4,6 +4,6 @@ import static org.mockito.Mockito.mock;
 
 public class DeleteBridiServiceStub {
 	public static DeleteBridiService stub() {
-        return mock(DeleteBridiService.class);
+		return mock(DeleteBridiService.class);
 	}
 }
