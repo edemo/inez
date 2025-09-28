@@ -67,7 +67,7 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	@DisplayName("literal is parsed correctly")
 	void test6() {
 		assertEquals(
-				OUTPOUT_WITH_LITERAL,
+				OUTPUT_WITH_LITERAL,
 				parseText.apply(WITH_LITERAL_INPUT).toList().get(0));
 	}
 
@@ -75,7 +75,7 @@ class ParseTextTest extends TestBase implements ParserOutputTestData {
 	@DisplayName("multiline is working")
 	void test7() {
 		assertEquals(
-				List.of(OUTPOUT_WITH_LITERAL, OUTPUT_TAUTOLOGY),
+				List.of(OUTPUT_WITH_LITERAL, OUTPUT_TAUTOLOGY),
 				parseText
 						.apply(WITH_LITERAL_INPUT + "\n" + TAUTOLOGY_GENERATED_REPR)
 						.toList());

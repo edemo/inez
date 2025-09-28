@@ -26,7 +26,7 @@ import io.github.magwas.inez.storage.repository.SumtiRepository;
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-class BridiElementEndToEndTest implements BridiTestData {
+class BridiElementEndToEndTest implements BridiTestData, BridiElementTestData {
 
 	@Autowired
 	SumtiRepository sumtiRepository;
@@ -46,7 +46,8 @@ class BridiElementEndToEndTest implements BridiTestData {
 	@BeforeEach
 	void setUp() {
 		sumtiRepository.findAll().forEach(x -> sumtiRepository.delete(x));
-		bridiReferenceRepository.findAll().forEach(x -> bridiReferenceRepository.delete(x));
+		bridiReferenceRepository.findAll()
+				.forEach(x -> bridiReferenceRepository.delete(x));
 	}
 
 	@Test
@@ -55,10 +56,9 @@ class BridiElementEndToEndTest implements BridiTestData {
 		assertSame(bridiElementSystemInitialization.inez, inez);
 		bridiElementSystemInitialization.apply();
 		BridiElement elementModel = bridiElementFactory.apply(ELEMENT_MODEL_ID);
-		assertTrue(elementModel
-				.getChildren()
-				.anyMatch(
-						x -> x.getReferences().map(y -> y.id).toList().contains(ElementConstants.IS_FUNCTION_FOR_ID)));
+		assertTrue(elementModel.getChildren()
+				.anyMatch(x -> x.getReferences().map(y -> y.id).toList()
+						.contains(ElementConstants.IS_FUNCTION_FOR_ID)));
 		BridiElement root = bridiElementFactory.apply(ROOT_ID);
 		String rootXml = loadResourceAsString("root.xml");
 		String theXml = root.toXml();
@@ -71,8 +71,7 @@ class BridiElementEndToEndTest implements BridiTestData {
 		assertEquals(CONTAINS_ELEMENT_REPR, element.getRepresentation());
 
 		assertEquals(THING_ID, element.getType().id);
-		assertEquals(
-				CONTAINS_ELEMENT_REFERENCES,
+		assertEquals(CONTAINS_ELEMENT_REFERENCES,
 				element.getReferences().map(x -> x.id).toList());
 		assertEquals(List.of(), element.getChildren().toList());
 		assertEquals(MY_MODEL_ID, element.getParent().id);
@@ -83,7 +82,8 @@ class BridiElementEndToEndTest implements BridiTestData {
 		assertEquals(MY_MODEL_REPR, element.getRepresentation());
 		assertEquals(FOLDER_ID, element.getType().id);
 		assertEquals(List.of(), element.getReferences().toList());
-		assertEquals(MY_FOLDER_CHILDREN, element.getChildren().map(x -> x.id).collect(Collectors.toSet()));
+		assertEquals(MY_FOLDER_CHILDREN,
+				element.getChildren().map(x -> x.id).collect(Collectors.toSet()));
 		assertEquals(ROOT_ID, element.getParent().id);
 		String xml = loadResourceAsString("mymodel.xml");
 		assertEquals(xml, element.toXml());
@@ -92,9 +92,11 @@ class BridiElementEndToEndTest implements BridiTestData {
 		assertTrue(element.isInstance(THING_ID));
 	}
 
-	private String loadResourceAsString(final String definitionName) throws IOException {
+	private String loadResourceAsString(final String definitionName)
+			throws IOException {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		try (InputStream inputStream = classloader.getResourceAsStream(definitionName)) {
+		try (InputStream inputStream = classloader
+				.getResourceAsStream(definitionName)) {
 			return new String(inputStream.readAllBytes());
 		}
 	}

@@ -1,11 +1,11 @@
-package io.github.magwas.inez.storage.model;
+package io.github.magwas.inez.parse;
 
+import java.text.MessageFormat;
 import java.util.function.Supplier;
 
-import io.github.magwas.inez.parse.TestDataGeneratorConstants;
 import io.github.magwas.runtime.GeneratorUtil;
 
-public class SumtiTestData2Generator
+public class RepresentationTestDataGenerator
 		implements Supplier<StringBuilder>, TestDataGeneratorConstants {
 
 	@Override
@@ -14,6 +14,12 @@ public class SumtiTestData2Generator
 		GeneratorUtil.testDataBoilerPlate(builder, "");
 		GeneratorUtil.mapToCode(REPRESENTATIONS,
 				GeneratorUtil.stringConstant("REPR"), builder);
+		GeneratorUtil.mapToCode(IDREFERENCES, line -> {
+			String[] parts = line.split(",", 2);
+			return MessageFormat.format("""
+							String {0}_REFERENCE = "@{0}";
+					""", parts[0].trim());
+		}, builder);
 		builder.append("}\n");
 		return builder;
 	}

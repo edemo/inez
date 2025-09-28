@@ -23,3 +23,17 @@ ALICE_EATS_CHIPS,{alice} {{eats} {chips}}
 ALICE_EATS_BANANA,{alice} {{eats} {banana}}
 SUMTI_IS_A_THING_CHANGED,{sumti} is a {THING} changed
 COULDBE,could be
+PUTTY,putty
+OSGI,osgi
+BITCH,bitch
+OSGI_IS_A_BITCH,{osgi} is a {bitch}
+DOG,dog
+ELEMENT_MODEL,elementModel
+CONTAINS_ELEMENT,{my model} contains {alice}
+MY_MODEL,my model
+FOLDER,folder
+HUMAN,human
+ALICE_IS_A_HUMAN,{alice} is a {human}
+HUMAN_IS_A_ANIMAL,{human} is a {animal}
+DOG_IS_A_ANIMAL,{dog} is a {animal}
+MY_MODEL_IS_A_FOLDER,{my model} is a {folder}

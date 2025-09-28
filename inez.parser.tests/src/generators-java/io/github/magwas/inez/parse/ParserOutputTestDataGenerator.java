@@ -1,0 +1,33 @@
+package io.github.magwas.inez.parse;
+
+import java.text.MessageFormat;
+import java.util.function.Supplier;
+
+import io.github.magwas.runtime.GeneratorUtil;
+
+public class ParserOutputTestDataGenerator
+		implements Supplier<StringBuilder>, TestDataGeneratorConstants {
+
+	@Override
+	public StringBuilder get() {
+		StringBuilder builder = new StringBuilder();
+		GeneratorUtil.testDataBoilerPlate(builder, """
+				import java.util.Map;
+				""", "InputTestData", "ReferenceTestData");
+		GeneratorUtil.linesOf(OUTPUTS).map(line -> {
+			String[] parts = line.split(",", 3);
+			String name = parts[0];
+			String top = parts[1];
+			String map = "";
+			if (parts.length == 3)
+				map = parts[1] + "," + parts[2];
+
+			return MessageFormat.format(
+					"\tParserOutput OUTPUT_{0} = new ParserOutput({1},Map.of({2}));\n",
+					name, top, map);
+		}).forEach(builder::append);
+		builder.append("}\n");
+		return builder;
+	}
+
+}

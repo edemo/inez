@@ -7,3 +7,8 @@ QUERY,{{$?} is a {THING}} is a {THING}
 FROM_UNKNOWN_PARSER,INPUT_FROM_UNKNOWN_PARSER
 WITH_LITERAL,{My folder} contains {[{0} is a {1}]}
 RECURSIVE,{{$?} is a {THING}} is a {THING}
+DO_SAVE_OSGI_IS_A_BITCH,doSave {{osgi} is a {bitch}}
+ALICE_EATS_WHAT,{alice} {{eats} {$?}}
+CECILE_WHAT_BANANA,{cecile} {{$?} {banana}}
+WHO_EATS_BANANA,{$?} {{eats} {banana}}
+DO_SAVE_PUTTY,doSave {putty}

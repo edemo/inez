@@ -1,20 +1,20 @@
-package io.github.magwas.inez.storage.model;
+package io.github.magwas.inez.parse;
 
 import java.util.function.Supplier;
 
-import io.github.magwas.inez.parse.TestDataGeneratorConstants;
 import io.github.magwas.runtime.GeneratorUtil;
 
-public class SumtiTestData2Generator
+public class InputTestDataGenerator
 		implements Supplier<StringBuilder>, TestDataGeneratorConstants {
 
 	@Override
 	public StringBuilder get() {
 		StringBuilder builder = new StringBuilder();
 		GeneratorUtil.testDataBoilerPlate(builder, "");
-		GeneratorUtil.mapToCode(REPRESENTATIONS,
-				GeneratorUtil.stringConstant("REPR"), builder);
+		GeneratorUtil.mapToCode(INPUTS, GeneratorUtil.stringConstant("INPUT"),
+				builder);
 		builder.append("}\n");
+
 		return builder;
 	}
 }
