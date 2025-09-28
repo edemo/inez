@@ -17,13 +17,15 @@ public class CreateBridiElementService implements ElementConstants {
 
 	@Autowired
 	SaveBridiService saveBridi;
+
 	@Autowired
 	FindBridiByIdService findBridiById;
+
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
-	public BridiElement apply(final String containerId, final String typeId,
-                              final String representation, final String... references) {
+	public BridiElement apply(
+			final String containerId, final String typeId, final String representation, final String... references) {
 		String elementId = IdUtil.createID(representation);
 		List<String> refs = List.of();
 		if (references != null) {
@@ -36,21 +38,19 @@ public class CreateBridiElementService implements ElementConstants {
 		Bridi element = new Bridi(elementId, representation, refs);
 		String isAId = IdUtil.createID(representation + "isA");
 		Optional<Bridi> typeP = findBridiById.apply(typeId);
-		if (typeP.isEmpty())
-			throw new IllegalArgumentException("unknown type:" + typeId);
-		Bridi type = new Bridi(isAId, MessageFormat.format(IS_A_REPR,
-				representation, typeP.get().representation()),
+		if (typeP.isEmpty()) throw new IllegalArgumentException("unknown type:" + typeId);
+		Bridi type = new Bridi(
+				isAId,
+				MessageFormat.format(IS_A_REPR, representation, typeP.get().representation()),
 				List.of(IS_A_ID, elementId, typeId));
 		Optional<Bridi> containerP = findBridiById.apply(containerId);
-		if (containerP.isEmpty())
-			throw new IllegalArgumentException("unknown container:" + containerId);
+		if (containerP.isEmpty()) throw new IllegalArgumentException("unknown container:" + containerId);
 		String containsId = IdUtil.createID(representation + "Contains");
 		Bridi location = new Bridi(
-				containsId, MessageFormat.format(CONTAINS_REPR,
-						containerP.get().representation(), representation),
+				containsId,
+				MessageFormat.format(CONTAINS_REPR, containerP.get().representation(), representation),
 				List.of(CONTAINS_ID, containerId, elementId));
 		saveBridi.apply(List.of(element, type, location));
 		return bridiElementFactory.apply(elementId);
 	}
-
 }

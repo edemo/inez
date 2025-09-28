@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 public class GetBridiElementReferencesService {
 	@Autowired
 	GetBridiElementReferenceIdsService getBridiElementReferenceIds;
+
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
 	public Stream<BridiElement> apply(final String id) {
-		return getBridiElementReferenceIds.apply(id)
-				.map(bridiElementFactory::apply);
+		return getBridiElementReferenceIds.apply(id).map(bridiElementFactory::apply);
 	}
-
 }

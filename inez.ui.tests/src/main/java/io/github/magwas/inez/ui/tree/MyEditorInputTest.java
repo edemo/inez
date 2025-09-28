@@ -18,5 +18,4 @@ class MyEditorInputTest implements BridiElementTestData {
 		MyEditorInput e = new MyEditorInput(mock);
 		assertTrue(e.exists());
 	}
-
 }

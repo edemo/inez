@@ -16,10 +16,7 @@ public class RemoveReferencesService {
 	public void apply(final String bridiId, final List<String> references) {
 		for (int i = 0; i < references.size(); i++) {
 			String ref = references.get(i);
-			bridiReferenceRepository.deleteBybridiIdAndPositionAndSumtiId(bridiId, i,
-					ref);
+			bridiReferenceRepository.deleteBybridiIdAndPositionAndSumtiId(bridiId, i, ref);
 		}
-
 	}
-
 }

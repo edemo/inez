@@ -4,6 +4,6 @@ import static org.mockito.Mockito.mock;
 
 public class NotifyStoreChangeServiceStub {
 	public static NotifyStoreChangeService stub() {
-        return mock(NotifyStoreChangeService.class);
+		return mock(NotifyStoreChangeService.class);
 	}
 }

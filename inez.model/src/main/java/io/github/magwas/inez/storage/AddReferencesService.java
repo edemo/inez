@@ -15,16 +15,13 @@ public class AddReferencesService {
 	BridiReferenceRepository bridiReferenceRepository;
 
 	public void apply(final String id, final List<String> references) {
-		if (null == references || references.isEmpty())
-			return;
+		if (null == references || references.isEmpty()) return;
 		String selbriId = references.get(0);
 		for (int i = 0; i < references.size(); i++) {
 			String sumtiId = references.get(i);
 			String referenceId = IdUtil.createID(id + i);
-			BridiReference reference = new BridiReference(referenceId, id, selbriId,
-					i, sumtiId);
+			BridiReference reference = new BridiReference(referenceId, id, selbriId, i, sumtiId);
 			bridiReferenceRepository.save(reference);
 		}
 	}
-
 }

@@ -9,10 +9,10 @@ import io.github.magwas.inez.InezImpl;
 import io.github.magwas.runtime.LoggerService;
 
 @Service
-public class BridiElementSystemInitializationService
-		implements ElementConstants {
+public class BridiElementSystemInitializationService implements ElementConstants {
 	@Autowired
 	InezImpl inez;
+
 	@Autowired
 	LoggerService logger;
 
@@ -33,5 +33,4 @@ public class BridiElementSystemInitializationService
 		inez.createFromdefinitions(ELEMENT_DEFINITIONS_RESOURCE);
 		logger.info("BridiElement system initialized");
 	}
-
 }

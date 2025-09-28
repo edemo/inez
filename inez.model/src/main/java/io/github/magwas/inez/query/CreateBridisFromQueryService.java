@@ -16,21 +16,26 @@ import io.github.magwas.runtime.LogUtil;
 public class CreateBridisFromQueryService {
 	@Autowired
 	ParseTextService parseText;
+
 	@Autowired
 	CreateBridisFromParserOutputService createBridisFromParserOutput;
+
 	@Autowired
 	SaveBridiService saveBridi;
+
 	@Autowired
 	BridiElementFactory bridiElementFactory;
 
 	public Stream<Bridi> apply(final String query) {
 		LogUtil.debug("create(" + query);
-		List<Bridi> toSave = parseText.apply(query)
-				.map(createBridisFromParserOutput).flatMap(x -> x)
-				.peek(x -> LogUtil.debug("saving", x)).toList();
+		List<Bridi> toSave = parseText
+				.apply(query)
+				.map(createBridisFromParserOutput)
+				.flatMap(x -> x)
+				.peek(x -> LogUtil.debug("saving", x))
+				.toList();
 		saveBridi.apply(toSave);
 		toSave.forEach(x -> bridiElementFactory.apply(x.id()));
 		return toSave.stream();
 	}
-
 }

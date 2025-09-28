@@ -9,19 +9,15 @@ import org.springframework.stereotype.Repository;
 import io.github.magwas.inez.storage.model.BridiReference;
 
 @Repository
-public interface BridiReferenceRepository
-		extends CrudRepository<BridiReference, String> {
+public interface BridiReferenceRepository extends CrudRepository<BridiReference, String> {
 
 	Set<BridiReference> findAllByBridiId(String id);
 
-	Set<BridiReference> findAllBySelbriIdAndSumtiIdAndPosition(String selbriId,
-			String sumtiId, int position);
+	Set<BridiReference> findAllBySelbriIdAndSumtiIdAndPosition(String selbriId, String sumtiId, int position);
 
-	void deleteBybridiIdAndPositionAndSumtiId(String bridiId, Integer position,
-			String sumtiId);
+	void deleteBybridiIdAndPositionAndSumtiId(String bridiId, Integer position, String sumtiId);
 
 	Optional<BridiReference> findByBridiIdAndPosition(String bridiId, int i);
 
 	Set<BridiReference> findAllByBridiIdAndPosition(String bridiId, int i);
-
 }

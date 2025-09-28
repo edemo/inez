@@ -33,5 +33,4 @@ public interface Inez {
 	BridiElement root();
 
 	BridiElement byId(String id);
-
 }

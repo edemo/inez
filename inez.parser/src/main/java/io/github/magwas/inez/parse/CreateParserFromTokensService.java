@@ -20,5 +20,4 @@ public class CreateParserFromTokensService {
 		parser.addErrorListener(new ThrowingErrorListener(input));
 		return parser;
 	}
-
 }

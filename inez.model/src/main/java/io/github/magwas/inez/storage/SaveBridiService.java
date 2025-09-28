@@ -18,12 +18,16 @@ import io.github.magwas.runtime.LogUtil;
 public class SaveBridiService implements Function<Bridi, Bridi> {
 	@Autowired
 	SumtiRepository sumtiRepository;
+
 	@Autowired
 	NotifyStoreChangeService notifyStoreChange;
+
 	@Autowired
 	CreateBridiFromSumtiService createBridiFromSumti;
+
 	@Autowired
 	RemoveReferencesService removeReferences;
+
 	@Autowired
 	AddReferencesService addReferences;
 
@@ -50,5 +54,4 @@ public class SaveBridiService implements Function<Bridi, Bridi> {
 		notifyStoreChange.apply(BridiStoreOperation.SAVE, oldBridi, bridi);
 		return oldBridi;
 	}
-
 }

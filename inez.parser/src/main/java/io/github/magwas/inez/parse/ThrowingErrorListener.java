@@ -17,15 +17,18 @@ public class ThrowingErrorListener extends BaseErrorListener {
 	}
 
 	@Override
-	public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol,
-                            final int line, final int charPositionInLine, final String msg,
-                            final RecognitionException e) {
+	public void syntaxError(
+			final Recognizer<?, ?> recognizer,
+			final Object offendingSymbol,
+			final int line,
+			final int charPositionInLine,
+			final String msg,
+			final RecognitionException e) {
 		String[] splat = input.split("\n");
 		String theline = null;
-		if (splat.length >= line)
-			theline = splat[line - 1];
-		String message = line + ":" + charPositionInLine + " " + msg + "\n"
-				+ theline + "\n" + " ".repeat(charPositionInLine) + "^";
+		if (splat.length >= line) theline = splat[line - 1];
+		String message = line + ":" + charPositionInLine + " " + msg + "\n" + theline + "\n"
+				+ " ".repeat(charPositionInLine) + "^";
 		System.err.println(message);
 		throw new ParseCancellationException(message);
 	}

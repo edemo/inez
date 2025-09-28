@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.Assert;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "io.github.magwas" })
+@ComponentScan(basePackages = {"io.github.magwas"})
 public class ParserBundleActivator implements BundleActivator {
 
 	ConfigurableApplicationContext appContext;
@@ -30,13 +30,11 @@ public class ParserBundleActivator implements BundleActivator {
 		BundleWiring bundleWiring = bundle.adapt(BundleWiring.class);
 		ClassLoader classLoader = bundleWiring.getClassLoader();
 		Thread.currentThread().setContextClassLoader(classLoader);
-		appContext = new AnnotationConfigApplicationContext(
-				ParserBundleActivator.class);
+		appContext = new AnnotationConfigApplicationContext(ParserBundleActivator.class);
 		parseText = appContext.getBean(ParseTextService.class);
 		Assert.notNull(parseText, "parseText is null");
-		ServiceRegistration<ParseTextService> registration = bundleContext
-				.registerService(ParseTextService.class, parseText,
-						new Hashtable<String, String>());
+		ServiceRegistration<ParseTextService> registration =
+				bundleContext.registerService(ParseTextService.class, parseText, new Hashtable<String, String>());
 		System.err.println("registered ParseTextService:" + registration);
 	}
 
@@ -44,5 +42,4 @@ public class ParserBundleActivator implements BundleActivator {
 	public void stop(final BundleContext bundleContext) {
 		SpringApplication.exit(appContext, () -> 0);
 	}
-
 }

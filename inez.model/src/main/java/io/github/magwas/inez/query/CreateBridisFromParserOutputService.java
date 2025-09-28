@@ -18,8 +18,7 @@ import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
 
 @Service
-public class CreateBridisFromParserOutputService
-		implements Function<ParserOutput, Stream<Bridi>> {
+public class CreateBridisFromParserOutputService implements Function<ParserOutput, Stream<Bridi>> {
 
 	@Autowired
 	SumtiRepository sumtiRepository;
@@ -39,22 +38,20 @@ public class CreateBridisFromParserOutputService
 			return Stream.of(bridi);
 		}
 		List<String> partList = refMap.get(top);
-		return Stream
-				.of(new Bridi(getIdOrRepr(top), top,
+		return Stream.of(new Bridi(
+						getIdOrRepr(top),
+						top,
 						partList.stream().map(this::getIdOrRepr).toList()))
 				.mapMulti((topBridi, consumer) -> {
 					consumer.accept(topBridi);
-					partList.stream().map(x -> apply(x, refMap)).flatMap(x -> x)
-							.forEach(consumer::accept);
+					partList.stream().map(x -> apply(x, refMap)).flatMap(x -> x).forEach(consumer::accept);
 				});
 	}
 
 	private String getIdOrRepr(final String top) {
 		Set<Sumti> candidates = sumtiRepository.findAllByRepresentation(top);
-		if (candidates.isEmpty())
-			return IdUtil.createID(top);
-		if (candidates.size() > 1)
-			System.err.println("multiple candidates for " + top + ":" + candidates);
+		if (candidates.isEmpty()) return IdUtil.createID(top);
+		if (candidates.size() > 1) System.err.println("multiple candidates for " + top + ":" + candidates);
 		return candidates.iterator().next().id();
 	}
 }

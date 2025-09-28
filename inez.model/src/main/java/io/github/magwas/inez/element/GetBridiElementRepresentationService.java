@@ -21,5 +21,4 @@ public class GetBridiElementRepresentationService {
 		}
 		return sumtiP.get().representation();
 	}
-
 }

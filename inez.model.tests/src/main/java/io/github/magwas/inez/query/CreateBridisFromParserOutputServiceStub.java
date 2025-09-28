@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 
 public class CreateBridisFromParserOutputServiceStub {
 	static CreateBridisFromParserOutputService stub() {
-		return mock(
-				CreateBridisFromParserOutputService.class);
+		return mock(CreateBridisFromParserOutputService.class);
 	}
 }

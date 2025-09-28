@@ -10,8 +10,7 @@ import io.github.magwas.inez.BridiTestData;
 import io.github.magwas.inez.storage.model.SumtiTestData;
 import io.github.magwas.testing.TestBase;
 
-class CreateBridiFromSumtiTest extends TestBase
-		implements BridiTestData, SumtiTestData {
+class CreateBridiFromSumtiTest extends TestBase implements BridiTestData, SumtiTestData {
 
 	@InjectMocks
 	CreateBridiFromSumtiService createBridiFromSumti;
@@ -19,7 +18,6 @@ class CreateBridiFromSumtiTest extends TestBase
 	@Test
 	@DisplayName("creates a bridi from the sumti")
 	void test() {
-		assertEquals(SUMTI_IS_A_THING,
-				createBridiFromSumti.apply(SUMTI_IS_A_THING_SUMTI));
+		assertEquals(SUMTI_IS_A_THING, createBridiFromSumti.apply(SUMTI_IS_A_THING_SUMTI));
 	}
 }

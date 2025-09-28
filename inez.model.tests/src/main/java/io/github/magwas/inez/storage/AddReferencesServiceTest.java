@@ -16,8 +16,7 @@ import io.github.magwas.inez.parse.BridiFieldTestData;
 import io.github.magwas.inez.storage.model.BridiReference;
 import io.github.magwas.testing.TestBase;
 
-class AddReferencesServiceTest extends TestBase
-		implements BridiFieldTestData {
+class AddReferencesServiceTest extends TestBase implements BridiFieldTestData {
 
 	@InjectMocks
 	AddReferencesService addReferences;
@@ -40,10 +39,8 @@ class AddReferencesServiceTest extends TestBase
 	@DisplayName("for each reference adds an entry to the bridireferencerepository")
 	void test2() {
 		addReferences.apply(ALICE_ID, List.of(IS_A_ID, SUMTI_ID));
-		ArgumentCaptor<BridiReference> argument = ArgumentCaptor
-				.forClass(BridiReference.class);
-		verify(addReferences.bridiReferenceRepository, times(2))
-				.save(argument.capture());
+		ArgumentCaptor<BridiReference> argument = ArgumentCaptor.forClass(BridiReference.class);
+		verify(addReferences.bridiReferenceRepository, times(2)).save(argument.capture());
 		List<BridiReference> values = argument.getAllValues();
 		assertEquals(ALICE_ID, values.get(0).bridiId());
 		assertEquals(ALICE_ID, values.get(1).bridiId());
@@ -52,5 +49,4 @@ class AddReferencesServiceTest extends TestBase
 		assertEquals(IS_A_ID, values.get(0).sumtiId());
 		assertEquals(SUMTI_ID, values.get(1).sumtiId());
 	}
-
 }

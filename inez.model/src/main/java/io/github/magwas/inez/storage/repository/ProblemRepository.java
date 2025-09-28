@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import io.github.magwas.inez.InezProblem;
 
 @Repository
-public interface ProblemRepository extends CrudRepository<InezProblem, String> {
-
-}
+public interface ProblemRepository extends CrudRepository<InezProblem, String> {}

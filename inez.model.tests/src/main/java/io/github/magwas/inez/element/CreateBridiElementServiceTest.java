@@ -17,11 +17,11 @@ import org.mockito.InjectMocks;
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.testing.TestBase;
 
-class CreateBridiElementServiceTest extends TestBase
-		implements BridiElementTestData {
+class CreateBridiElementServiceTest extends TestBase implements BridiElementTestData {
 
 	@InjectMocks
 	CreateBridiElementService createBridiElement;
+
 	private BridiElement element;
 	private List<Bridi> saved;
 
@@ -64,22 +64,21 @@ class CreateBridiElementServiceTest extends TestBase
 	@Test
 	@DisplayName("the second one is '{@elementId} is a {@typeId}' ")
 	void test4() {
-		assertEquals(List.of(IS_A_ID, element.id, HUMAN_ID),
-				saved.get(1).references());
+		assertEquals(List.of(IS_A_ID, element.id, HUMAN_ID), saved.get(1).references());
 	}
 
 	@Test
 	@DisplayName("the representation of the second one uses actual representations")
 	void test4_1() {
-		assertEquals(MessageFormat.format("{0} is a {1}", ALICE_REPR, HUMAN_REPR),
+		assertEquals(
+				MessageFormat.format("{0} is a {1}", ALICE_REPR, HUMAN_REPR),
 				saved.get(1).representation());
 	}
 
 	@Test
 	@DisplayName("the third one is '{@containerId} contains {@elementId}' ")
 	void test5() {
-		assertEquals(List.of(CONTAINS_ID, MY_MODEL_ID, element.id),
-				saved.get(2).references());
+		assertEquals(List.of(CONTAINS_ID, MY_MODEL_ID, element.id), saved.get(2).references());
 	}
 
 	@Test
@@ -93,8 +92,7 @@ class CreateBridiElementServiceTest extends TestBase
 	@Test
 	@DisplayName("the references are saved")
 	void test6() {
-		createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR, IS_A_ID,
-				ALICE_ID, GOD_ID);
+		createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR, IS_A_ID, ALICE_ID, GOD_ID);
 		@SuppressWarnings("unchecked")
 		ArgumentCaptor<List<Bridi>> argument = ArgumentCaptor.forClass(List.class);
 		verify(createBridiElement.saveBridi, times(2)).apply(argument.capture());
@@ -106,26 +104,24 @@ class CreateBridiElementServiceTest extends TestBase
 	@Test
 	@DisplayName("if the type does not exist, an IllegalArgumentException is thrown")
 	void test7() {
-		assertThrows(IllegalArgumentException.class,
-				() -> createBridiElement.apply(MY_MODEL_ID, NONEXISTENT_ID, ALICE_REPR,
-						IS_A_ID, ALICE_ID, GOD_ID));
-
+		assertThrows(
+				IllegalArgumentException.class,
+				() -> createBridiElement.apply(MY_MODEL_ID, NONEXISTENT_ID, ALICE_REPR, IS_A_ID, ALICE_ID, GOD_ID));
 	}
 
 	@Test
 	@DisplayName("if the container does not exist, an IllegalArgumentException is thrown")
 	void test8() {
-		assertThrows(IllegalArgumentException.class,
-				() -> createBridiElement.apply(NONEXISTENT_ID, HUMAN_ID, ALICE_REPR,
-						IS_A_ID, ALICE_ID, GOD_ID));
+		assertThrows(
+				IllegalArgumentException.class,
+				() -> createBridiElement.apply(NONEXISTENT_ID, HUMAN_ID, ALICE_REPR, IS_A_ID, ALICE_ID, GOD_ID));
 	}
 
 	@Test
 	@DisplayName("if the there is a nonexisting reference, an IllegalArgumentException is thrown")
 	void test9() {
-		assertThrows(IllegalArgumentException.class,
-				() -> createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR,
-						NONEXISTENT_ID, ALICE_ID, GOD_ID));
+		assertThrows(
+				IllegalArgumentException.class,
+				() -> createBridiElement.apply(MY_MODEL_ID, HUMAN_ID, ALICE_REPR, NONEXISTENT_ID, ALICE_ID, GOD_ID));
 	}
-
 }

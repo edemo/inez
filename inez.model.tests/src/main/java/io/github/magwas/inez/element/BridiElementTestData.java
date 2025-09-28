@@ -21,12 +21,15 @@ public interface BridiElementTestData extends BridiFieldTestData {
 	String HUMAN_IS_A_ANIMAL_ID = "id:{human} is a {animal}";
 	String DOG_IS_A_ANIMAL_ID = "id:{dog} is a {animal}";
 	String MY_MODEL_IS_A_FOLDER_ID = "id:{my model} is a {folder}";
-	List<String> CONTAINS_ELEMENT_REFERENCES = List.of(CONTAINS_ID, MY_MODEL_ID,
-			ALICE_ID);
+	List<String> CONTAINS_ELEMENT_REFERENCES = List.of(CONTAINS_ID, MY_MODEL_ID, ALICE_ID);
 	String HUMAN_REPR = "human";
 	String HUMAN_ID = IdUtil.createID(HUMAN_REPR);
-	Set<String> MY_FOLDER_CHILDREN = Set.of(ALICE_ID, HUMAN_ID, DOG_ID,
-			MY_MODEL_IS_A_FOLDER_ID, DOG_IS_A_ANIMAL_ID, HUMAN_IS_A_ANIMAL_ID,
+	Set<String> MY_FOLDER_CHILDREN = Set.of(
+			ALICE_ID,
+			HUMAN_ID,
+			DOG_ID,
+			MY_MODEL_IS_A_FOLDER_ID,
+			DOG_IS_A_ANIMAL_ID,
+			HUMAN_IS_A_ANIMAL_ID,
 			ALICE_IS_A_HUMAN_ID);
-
 }

@@ -9,8 +9,7 @@ import org.mockito.InjectMocks;
 
 import io.github.magwas.testing.TestBase;
 
-class IsInstanceServiceTest extends TestBase
-		implements BridiElementTestData {
+class IsInstanceServiceTest extends TestBase implements BridiElementTestData {
 
 	@InjectMocks
 	IsInstanceService isInstance;
@@ -38,5 +37,4 @@ class IsInstanceServiceTest extends TestBase
 	void test3() {
 		assertTrue(isInstance.apply(MY_MODEL_ID, THING_ID));
 	}
-
 }

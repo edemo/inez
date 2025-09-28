@@ -19,8 +19,7 @@ class FindBridiByIdTest extends TestBase implements BridiTestData {
 	@Test
 	@DisplayName("finds the bridi by Id")
 	void test() {
-		assertEquals(Optional.of(SUMTI_IS_A_THING),
-				findBridiById.apply(SUMTI_IS_A_THING_ID));
+		assertEquals(Optional.of(SUMTI_IS_A_THING), findBridiById.apply(SUMTI_IS_A_THING_ID));
 	}
 
 	@Test
@@ -28,5 +27,4 @@ class FindBridiByIdTest extends TestBase implements BridiTestData {
 	void test1() {
 		assertEquals(Optional.empty(), findBridiById.apply(NONEXISTENT_ID));
 	}
-
 }

@@ -20,9 +20,7 @@ public class FindBridiByIdService {
 
 	public Optional<Bridi> apply(final String id) {
 		Optional<Sumti> sumtiP = sumtiRepository.findById(id);
-		if (sumtiP.isEmpty())
-			return Optional.empty();
+		if (sumtiP.isEmpty()) return Optional.empty();
 		return Optional.of(createBridiFromSumti.apply(sumtiP.get()));
 	}
-
 }

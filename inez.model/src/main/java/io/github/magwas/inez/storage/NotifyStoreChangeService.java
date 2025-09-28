@@ -12,5 +12,4 @@ public class NotifyStoreChangeService {
 		// TODO Auto-generated method stub
 
 	}
-
 }
