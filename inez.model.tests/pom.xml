@@ -53,6 +53,7 @@
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>tycho-surefire-plugin</artifactId>
+                <version>${version.tycho}</version>
                 <configuration>
                     <skip>true</skip>
                     <bundleStartLevel>

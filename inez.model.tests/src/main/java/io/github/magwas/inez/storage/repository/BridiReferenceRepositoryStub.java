@@ -14,9 +14,7 @@ public class BridiReferenceRepositoryStub implements BridiReferenceTestData {
 
 		when(mock.findAllByBridiId(SUMTI_IS_A_THING_ID))
 				.thenAnswer(params -> Set.of(
-						SUMTI_IS_A_THING_IS_A_THING_REFERENCE_0,
-						SUMTI_IS_A_THING_IS_A_THING_REFERENCE_1,
-						SUMTI_IS_A_THING_IS_A_THING_REFERENCE_2));
+						SUMTI_IS_A_THING_REFERENCE_0, SUMTI_IS_A_THING_REFERENCE_1, SUMTI_IS_A_THING_REFERENCE_2));
 		when(mock.findAllBySelbriIdAndSumtiIdAndPosition(IS_A_ID, THING_ID, 2))
 				.thenAnswer(params -> Set.of(
 						TAUTOLOGY_REFERENCE_2,

@@ -13,7 +13,6 @@ public class ReferenceTestDataGenerator
 		StringBuilder builder = GeneratorUtil.testDataBoilerPlate("""
 				import java.util.List;
 				""", "IdTestData", "InputTestData");
-		builder.append("\n");
 		GeneratorUtil.mapToCode(REFERENCES, line -> {
 			String[] parts = line.split(",", 2);
 			return MessageFormat.format("""
