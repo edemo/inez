@@ -10,8 +10,7 @@ public class ParserOutputTestDataGenerator
 
 	@Override
 	public StringBuilder get() {
-		StringBuilder builder = new StringBuilder();
-		GeneratorUtil.testDataBoilerPlate(builder, """
+		StringBuilder builder = GeneratorUtil.testDataBoilerPlate("""
 				import java.util.Map;
 				""", "InputTestData", "ReferenceTestData");
 		GeneratorUtil.linesOf(OUTPUTS).map(line -> {
@@ -26,8 +25,7 @@ public class ParserOutputTestDataGenerator
 					"\tParserOutput OUTPUT_{0} = new ParserOutput({1},Map.of({2}));\n",
 					name, top, map);
 		}).forEach(builder::append);
-		builder.append("}\n");
-		return builder;
+		return GeneratorUtil.testDataTail(builder);
 	}
 
 }

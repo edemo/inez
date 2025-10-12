@@ -9,12 +9,9 @@ public class InputTestDataGenerator
 
 	@Override
 	public StringBuilder get() {
-		StringBuilder builder = new StringBuilder();
-		GeneratorUtil.testDataBoilerPlate(builder, "");
+		StringBuilder builder = GeneratorUtil.testDataBoilerPlate("");
 		GeneratorUtil.mapToCode(INPUTS, GeneratorUtil.stringConstant("INPUT"),
 				builder);
-		builder.append("}\n");
-
-		return builder;
+		return GeneratorUtil.testDataTail(builder);
 	}
 }

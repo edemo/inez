@@ -32,8 +32,7 @@ import io.github.magwas.testing.TestUtil;
 @Tag("end-to-end")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-class QueryProcessorEndToEndTest
-		implements QueryProcessorTestData, InputTestData, BridiTestData {
+class QueryProcessorEndToEndTest implements QueryProcessorTestData, InputTestData, BridiTestData {
 
 	@Autowired
 	InezImpl inez;
@@ -42,8 +41,7 @@ class QueryProcessorEndToEndTest
 	void setUp() throws IOException {
 		ServiceReference<Save> sr = mock(ServiceReference.class);
 		BundleContext ctx = mock(BundleContext.class);
-		when((ServiceReference<Save>) ctx.getServiceReference(SAVE_CLASS_NAME))
-				.thenReturn(sr);
+		when((ServiceReference<Save>) ctx.getServiceReference(SAVE_CLASS_NAME)).thenReturn(sr);
 		when(ctx.getService(sr)).thenReturn(new Save());
 		SpringBootBundleActivator.bundleContext = ctx;
 		inez.initialize();
@@ -52,31 +50,26 @@ class QueryProcessorEndToEndTest
 	@Test
 	void test1() {
 		inez.create(TEST_TEXT).peek(x -> LogUtil.debug("created:" + x)).toList();
-		assertEquals(List.of(ALICE),
-				inez.findAllByRepresentation(ALICE_REPR).toList());
+		assertEquals(List.of(ALICE), inez.findAllByRepresentation(ALICE_REPR).toList());
 		assertQuery(Set.of(ALICE_REPR), ALICE_REPR);
 		assertQuery(Set.of(ALICE_EATS_BANANA_REPR), ALICE_EATS_BANANA_REPR);
-		assertQuery(Set.of(ALICE_EATS_BANANA_REPR, BOB_EATS_BANANA_REPR,
-				CECILE_EATS_BANANA_REPR), WHO_EATS_BANANA_INPUT);
-		assertQuery(Set.of(CECILE_EATS_BANANA_REPR, CECILE_LOOKS_AT_BANANA_REPR),
-				CECILE_WHAT_BANANA_INPUT);
-		assertQuery(Set.of(ALICE_EATS_BANANA_REPR, ALICE_EATS_CHIPS_REPR),
-				ALICE_EATS_WHAT_INPUT);
+		assertQuery(
+				Set.of(ALICE_EATS_BANANA_REPR, BOB_EATS_BANANA_REPR, CECILE_EATS_BANANA_REPR), WHO_EATS_BANANA_INPUT);
+		assertQuery(Set.of(CECILE_EATS_BANANA_REPR, CECILE_LOOKS_AT_BANANA_REPR), CECILE_WHAT_BANANA_INPUT);
+		assertQuery(Set.of(ALICE_EATS_BANANA_REPR, ALICE_EATS_CHIPS_REPR), ALICE_EATS_WHAT_INPUT);
 		assertQuery(Set.of(PUTTY_REPR), DO_SAVE_PUTTY_INPUT);
 		assertEquals(1, inez.findAllByRepresentation(PUTTY_REPR).count());
 		List<Bridi> putty = inez.findAllByRepresentation(PUTTY_REPR).toList();
-		assertQuery(Set.of(OSGI_REPR, BITCH_REPR, IS_A_REPR, OSGI_IS_A_BITCH_REPR),
-				DO_SAVE_OSGI_IS_A_BITCH_INPUT);
+		assertQuery(Set.of(OSGI_REPR, BITCH_REPR, IS_A_REPR, OSGI_IS_A_BITCH_REPR), DO_SAVE_OSGI_IS_A_BITCH_INPUT);
 		assertEquals(1, inez.findAllByRepresentation(OSGI_REPR).count());
 		assertEquals(1, inez.findAllByRepresentation(BITCH_REPR).count());
 		assertEquals(1, putty.size());
 	}
 
-	private Set<Bridi> assertQuery(final Set<String> expected,
-			final String query) {
+	private Set<Bridi> assertQuery(final Set<String> expected, final String query) {
 		Set<Bridi> result = inez.query(query).collect(Collectors.toSet());
-		Set<String> actual = result.stream().map(bridi -> bridi.representation())
-				.collect(Collectors.toSet());
+		Set<String> actual =
+				result.stream().map(bridi -> bridi.representation()).collect(Collectors.toSet());
 		if (!expected.equals(actual)) {
 			System.out.println("actual:");
 			actual.forEach(System.out::println);

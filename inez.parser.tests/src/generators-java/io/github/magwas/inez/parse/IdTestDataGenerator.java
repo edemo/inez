@@ -16,8 +16,8 @@ public class IdTestDataGenerator
 				.map(s -> s.split(",")[0]).toList();
 		Stream<String> generatedIds = GeneratorUtil.linesOf(REPRESENTATIONS)
 				.map(s -> s.split(",")[0]).filter(x -> !definedIdlist.contains(x));
-		StringBuilder builder = new StringBuilder();
-		GeneratorUtil.testDataBoilerPlate(builder, "", "RepresentationTestData");
+		StringBuilder builder = GeneratorUtil.testDataBoilerPlate("",
+				"RepresentationTestData");
 		GeneratorUtil.mapToCode(generatedIds, line -> {
 			String[] parts = line.split(",", 2);
 			return MessageFormat.format("""
@@ -25,8 +25,6 @@ public class IdTestDataGenerator
 					""", parts[0].trim());
 		}, builder);
 		GeneratorUtil.mapToCode(IDS, GeneratorUtil.stringConstant("ID"), builder);
-		builder.append("}\n");
-
-		return builder;
+		return GeneratorUtil.testDataTail(builder);
 	}
 }

@@ -23,13 +23,13 @@
 				<dependency>
 					<groupId>io.github.magwas</groupId>
 					<artifactId>konveyor-base-testing</artifactId>
-					<version>0.4.33</version>
+					<version>0.4.37</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>
 					<groupId>io.github.magwas</groupId>
 					<artifactId>konveyor-base</artifactId>
-					<version>0.4.33</version>
+					<version>0.4.37</version>
 					<type>jar</type>
 				</dependency>
 				<dependency>

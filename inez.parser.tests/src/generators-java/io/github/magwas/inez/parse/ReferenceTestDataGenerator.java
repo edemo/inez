@@ -10,8 +10,7 @@ public class ReferenceTestDataGenerator
 
 	@Override
 	public StringBuilder get() {
-		StringBuilder builder = new StringBuilder();
-		GeneratorUtil.testDataBoilerPlate(builder, """
+		StringBuilder builder = GeneratorUtil.testDataBoilerPlate("""
 				import java.util.List;
 				""", "IdTestData", "InputTestData");
 		builder.append("\n");
@@ -21,8 +20,6 @@ public class ReferenceTestDataGenerator
 							List<String> {0}_REFERENCES = List.of({1});
 					""", parts[0].trim(), parts[1]);
 		}, builder);
-		builder.append("}\n");
-
-		return builder;
+		return GeneratorUtil.testDataTail(builder);
 	}
 }

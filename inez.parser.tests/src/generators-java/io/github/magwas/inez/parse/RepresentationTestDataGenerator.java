@@ -10,8 +10,7 @@ public class RepresentationTestDataGenerator
 
 	@Override
 	public StringBuilder get() {
-		StringBuilder builder = new StringBuilder();
-		GeneratorUtil.testDataBoilerPlate(builder, "");
+		StringBuilder builder = GeneratorUtil.testDataBoilerPlate("");
 		GeneratorUtil.mapToCode(REPRESENTATIONS,
 				GeneratorUtil.stringConstant("REPR"), builder);
 		GeneratorUtil.mapToCode(IDREFERENCES, line -> {
@@ -20,7 +19,7 @@ public class RepresentationTestDataGenerator
 							String {0}_REFERENCE = "@{0}";
 					""", parts[0].trim());
 		}, builder);
-		builder.append("}\n");
-		return builder;
+		return GeneratorUtil.testDataTail(builder);
 	}
+
 }

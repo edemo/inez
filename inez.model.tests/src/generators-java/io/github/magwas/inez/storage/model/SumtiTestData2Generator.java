@@ -10,11 +10,9 @@ public class SumtiTestData2Generator
 
 	@Override
 	public StringBuilder get() {
-		StringBuilder builder = new StringBuilder();
-		GeneratorUtil.testDataBoilerPlate(builder, "");
+		StringBuilder builder = GeneratorUtil.testDataBoilerPlate("");
 		GeneratorUtil.mapToCode(REPRESENTATIONS,
 				GeneratorUtil.stringConstant("REPR"), builder);
-		builder.append("}\n");
-		return builder;
+		return GeneratorUtil.testDataTail(builder);
 	}
 }

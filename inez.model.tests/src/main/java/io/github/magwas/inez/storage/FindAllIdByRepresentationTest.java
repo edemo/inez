@@ -19,7 +19,7 @@ class FindAllIdByRepresentationTest extends TestBase implements IdTestData {
 	@Test
 	@DisplayName("returns the ids of all the sumties with the given representation")
 	void test() {
-		assertEquals(Set.of(GO_ID, GO2_ID),
-				findAllIdByRepresentation.apply(GO_REPR).collect(Collectors.toSet()));
+		assertEquals(
+				Set.of(GO_ID, GO2_ID), findAllIdByRepresentation.apply(GO_REPR).collect(Collectors.toSet()));
 	}
 }

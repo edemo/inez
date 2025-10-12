@@ -18,6 +18,11 @@ Require-Bundle: wrapped.io.github.magwas.konveyor-base-testing;bundle-version="0
  junit-jupiter-api;bundle-version="5.11.4",
  junit-platform-commons;bundle-version="1.11.4",
  wrapped.org.springframework.spring-aop;bundle-version="6.2.8",
- wrapped.org.springframework.spring-expression;bundle-version="6.2.8"
+ wrapped.org.springframework.spring-expression;bundle-version="6.2.8",
+ wrapped.org.springframework.spring-context;bundle-version="6.2.8",
+ wrapped.org.springframework.boot.spring-boot-autoconfigure;bundle-version="3.5.3",
+ wrapped.org.springframework.spring-beans;bundle-version="6.2.8",
+ wrapped.org.springframework.spring-core;bundle-version="6.2.8",
+ wrapped.org.springframework.data.spring-data-keyvalue;bundle-version="3.5.1"
 Automatic-Module-Name: io.github.magwas.inez.parser.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-21
