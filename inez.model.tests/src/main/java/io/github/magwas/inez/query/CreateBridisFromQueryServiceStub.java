@@ -1,10 +1,7 @@
 package io.github.magwas.inez.query;
 
-import static org.mockito.Mockito.mock;
+import io.github.magwas.testing.IndirectlyTested;
 
+@IndirectlyTested
 public class CreateBridisFromQueryServiceStub {
-
-	static CreateBridisFromQueryService stub() {
-		return mock(CreateBridisFromQueryService.class);
-	}
 }

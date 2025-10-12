@@ -1,9 +1,7 @@
 package io.github.magwas.inez.storage;
 
-import static org.mockito.Mockito.mock;
+import io.github.magwas.testing.IndirectlyTested;
 
+@IndirectlyTested
 public class BridiStoreChangeListenersServiceStub {
-	public static BridiStoreChangeListenersService stub() {
-		return mock(BridiStoreChangeListenersService.class);
-	}
 }

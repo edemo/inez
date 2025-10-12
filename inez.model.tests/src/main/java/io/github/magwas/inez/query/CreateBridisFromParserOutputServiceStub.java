@@ -1,9 +1,7 @@
 package io.github.magwas.inez.query;
 
-import static org.mockito.Mockito.mock;
+import io.github.magwas.testing.IndirectlyTested;
 
+@IndirectlyTested
 public class CreateBridisFromParserOutputServiceStub {
-	static CreateBridisFromParserOutputService stub() {
-		return mock(CreateBridisFromParserOutputService.class);
-	}
 }

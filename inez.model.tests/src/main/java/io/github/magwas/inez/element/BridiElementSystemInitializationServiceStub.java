@@ -1,9 +1,7 @@
 package io.github.magwas.inez.element;
 
-import static org.mockito.Mockito.mock;
+import io.github.magwas.testing.IndirectlyTested;
 
+@IndirectlyTested
 public class BridiElementSystemInitializationServiceStub {
-	static BridiElementSystemInitializationService stub() {
-		return mock(BridiElementSystemInitializationService.class);
-	}
 }
