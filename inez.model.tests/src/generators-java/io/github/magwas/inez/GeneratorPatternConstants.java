@@ -35,5 +35,13 @@ public interface GeneratorPatternConstants {
 			import io.github.magwas.inez.parse.IdUtil;
 			import java.util.List;
 			""";
+	String FIND_ALL_BY_REPRESENTATION_STUB_HEADER = """
+			import java.util.stream.Stream;
+
+			import io.github.magwas.inez.BridiTestData;
+			import io.github.magwas.inez.parse.ParserConstants;
+			""";
+	String FIND_ALL_ID_BY_REPRESENTATION_STUB_PATTERN = "\t\twhen(mock.apply({0})).thenAnswer((args) -> Stream.of({1}));\n";
+	String FIND_ALL_BY_REPRESENTATION_STUB_PATTERN = "\t\twhen(mock.apply({0})).thenAnswer((args) -> Stream.of({1}));\n";
 
 }
