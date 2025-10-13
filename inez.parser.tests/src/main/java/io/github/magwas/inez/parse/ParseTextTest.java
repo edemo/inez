@@ -8,11 +8,13 @@ import java.util.Map;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import io.github.magwas.testing.TestBase;
 
+@Tag("unit")
 class ParseTextTest extends TestBase implements ParserOutputTestData {
 
 	@InjectMocks
