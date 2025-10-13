@@ -3,5 +3,4 @@ package io.github.magwas.inez.storage;
 import io.github.magwas.testing.IndirectlyTested;
 
 @IndirectlyTested
-public class RemoveReferencesServiceStub {
-}
+public class RemoveReferencesServiceStub {}
