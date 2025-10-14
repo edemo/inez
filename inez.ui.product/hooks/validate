@@ -1,7 +1,0 @@
-#!/bin/bash
-if [ -d target/products ]
-then
-	rm -rf .konveyor/generated-site/resources/download
-	mkdir -p .konveyor/generated-site/resources/download
-	#cp target/products/*.* .konveyor/generated-site/resources/download
-fi

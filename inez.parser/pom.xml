@@ -7,8 +7,9 @@
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>io.github.magwas.inez.parser</artifactId>
-    <packaging>eclipse-plugin</packaging>
+    <groupId>io.github.magwas</groupId>
+    <artifactId>inez.parser</artifactId>
+    <version>${project.version}</version>
     <name>${project.artifactId}</name>
     <description>Parser for Inez</description>
     <url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -43,66 +44,40 @@
     </distributionManagement>
     <properties>
         <skipSurefireReport>true</skipSurefireReport>
+        <version.antlr4>4.13.2</version.antlr4>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-maven-plugin</artifactId>
-            <version>4.13.2</version>
+            <version>${version.antlr4}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>${version.antlr4}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>3.5.3</version>
+            <version>${version.spring-boot}</version>
         </dependency>
         <dependency>
             <groupId>io.github.magwas</groupId>
-            <artifactId>konveyor-base</artifactId>
+            <artifactId>konveyor.base</artifactId>
             <version>${version.konveyor}</version>
             <classifier>runtime</classifier>
         </dependency>
         <dependency>
             <groupId>io.github.magwas</groupId>
-            <artifactId>konveyor-base-testing</artifactId>
+            <artifactId>konveyor.base</artifactId>
             <version>${version.konveyor}</version>
+            <classifier>testing</classifier>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.core</artifactId>
-            <version>6.0.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-packaging-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <stripVersion>true</stripVersion>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
@@ -113,39 +88,16 @@
                             <goal>antlr4</goal>
                         </goals>
                         <phase>generate-sources</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>pre-site</phase>
                         <configuration>
-                            <skip>true</skip>
+                            <outputDirectory>${project.build.directory}/generated-sources/main</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
-    </build>
-    <reporting>
-        <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </reporting>
+    </build>
 </project>

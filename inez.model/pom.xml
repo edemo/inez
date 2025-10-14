@@ -7,8 +7,9 @@
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>io.github.magwas.inez.model</artifactId>
-    <packaging>eclipse-plugin</packaging>
+    <groupId>io.github.magwas</groupId>
+    <artifactId>inez.model</artifactId>
+    <version>${project.version}</version>
     <name>${project.artifactId}</name>
     <description>model layer for Inez</description>
     <url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -41,19 +42,36 @@
             <url>https://repo.kodekonveyor.com/${project.artifactId}</url>
         </site>
     </distributionManagement>
-    <properties>
-        <osgi.version>6.0.0</osgi.version>
-    </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-packaging-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>konveyor.base</artifactId>
+            <version>${version.konveyor}</version>
+            <classifier>runtime</classifier>
+        </dependency>
+        <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>konveyor.base</artifactId>
+            <version>${version.konveyor}</version>
+            <classifier>testing</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>inez.parser</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>inez.parser</artifactId>
+            <version>${project.version}</version>
+            <classifier>testing</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-keyvalue</artifactId>
+            <version>${version.spring-data}</version>
+        </dependency>
+    </dependencies>
 </project>

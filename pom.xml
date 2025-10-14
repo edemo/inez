@@ -3,9 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.magwas</groupId>
-        <artifactId>konveyor-parent</artifactId>
-        <version>0.4.38</version>
+        <artifactId>konveyor.parent</artifactId>
+        <version>0.4.40</version>
     </parent>
+    <groupId>io.github.magwas</groupId>
     <artifactId>inez</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
@@ -28,14 +29,8 @@
         </developer>
     </developers>
     <modules>
-        <module>inez.target</module>
         <module>inez.parser</module>
-        <module>inez.parser.tests</module>
         <module>inez.model</module>
-        <module>inez.model.tests</module>
-        <module>inez.ui</module>
-        <module>inez.ui.tests</module>
-        <module>inez.ui.product</module>
     </modules>
     <scm>
         <connection>scm:git:https://github.com/kode-konveyor/inez-server.git</connection>
@@ -55,32 +50,6 @@
     </distributionManagement>
     <properties>
         <mpir.skip>true</mpir.skip>
-        <version.konveyor>0.4.38</version.konveyor>
+        <version.konveyor>0.4.40</version.konveyor>
     </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>target-platform-configuration</artifactId>
-                <version>${version.tycho}</version>
-                <configuration>
-                    <target>
-                        <artifact>
-                            <groupId>io.github.magwas</groupId>
-                            <artifactId>io.github.magwas.inez.target</artifactId>
-                            <version>${project.version}</version>
-                        </artifact>
-                    </target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
