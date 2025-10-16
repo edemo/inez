@@ -59,7 +59,7 @@
         <dependency>
             <groupId>io.github.magwas</groupId>
             <artifactId>inez.parser</artifactId>
-            <version>0.0.1</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.magwas</groupId>

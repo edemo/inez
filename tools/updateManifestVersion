@@ -6,5 +6,4 @@ then
 else
 	VERSION=$1
 fi
-mvn org.eclipse.tycho:tycho-versions-plugin:4.0.12:set-version -DnewVersion=$VERSION
-sed -i 's/application" version="[^"]*"/application" version="'$VERSION'"/' inez.ui.product/Inez.product
+mvn org.codehaus.mojo:versions-maven-plugin:set -DnewVersion=$VERSION
