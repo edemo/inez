@@ -33,7 +33,7 @@ public class CreateBridisFromParserOutputService implements Function<ParserOutpu
 	private Stream<Bridi> apply(final String top, final Map<String, List<String>> refMap) {
 		debug("apply(", top, refMap);
 		if (!refMap.containsKey(top)) {
-			Bridi bridi = new Bridi(getIdOrRepr(top), top, null);
+			Bridi bridi = new Bridi(getIdOrRepr(top), top, List.of());
 			debug("bridi->", bridi);
 			return Stream.of(bridi);
 		}

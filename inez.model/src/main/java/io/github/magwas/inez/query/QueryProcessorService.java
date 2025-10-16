@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.element.ElementConstants;
 import io.github.magwas.inez.element.GetRelativeForBridiElementService;
-import io.github.magwas.inez.osgi.SpringBootBundleActivator;
 import io.github.magwas.inez.parse.ParseTextService;
 import io.github.magwas.inez.parse.ParserConstants;
 import io.github.magwas.inez.parse.ParserOutput;
@@ -51,7 +51,7 @@ public class QueryProcessorService implements Function<ParserOutput, Stream<Brid
 	GetRelativeForBridiElementService getRelativeForBridiElement;
 
 	@Autowired
-	SpringBootBundleActivator springBootBundleActivator;
+	GetServiceByNameService getServiceByName;
 
 	public Stream<Bridi> apply(final String query) {
 		return parseText.apply(query).map(x -> apply(x)).flatMap(x -> x);
@@ -126,8 +126,14 @@ public class QueryProcessorService implements Function<ParserOutput, Stream<Brid
 		debug("rels", rels);
 		if (rels.isEmpty()) return null;
 		if (rels.size() != 1) throw new Error("multiple functions for " + partList);
-		String relname = rels.get(0);
-		return springBootBundleActivator.obtainAndWireOSGIService(relname);
+		String serviceName = rels.get(0);
+		BridiFunction service;
+		try {
+			service = getServiceByName.apply(serviceName);
+		} catch (BeansException | ClassNotFoundException e) {
+			throw new Error(serviceName + " not found for " + partList, e);
+		}
+		return service;
 	}
 
 	private Stream<Bridi> findCandidates(

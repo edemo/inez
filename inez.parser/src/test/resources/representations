@@ -1,0 +1,39 @@
+THING,THING
+IS_A,{0} is a {1}
+ALICE,alice
+SUMTI,sumti
+BRIDI,bridi
+SUMTI_IS_A_THING,{sumti} is a {THING}
+THING_IS_A_SUMTI,{THING} is a {sumti}
+TAUTOLOGY,the most basic tautology
+TAUTOLOGY_GENERATED,{THING} is a {THING}
+SUMTI_IS_A_THING_IS_A_THING,{{sumti} is a {THING}} is a {@THING}
+SUMTI_IS_A_THING_IS_A_THING_NOREFERENCE,{{sumti} is a {THING}} is a {THING}
+TAUTOLOGY_IS_A_THING,{{THING} is a {THING}} is a {THING}
+GOD,god
+TWO_SUMTI_BRIDI,{0} {1}
+GO,go
+NONEXISTENT,nonexistent
+DESCRIPTION_SUMTI_IS_A_THING,sumti is a THING
+CECILE_LOOKS_AT_BANANA,{cecile} {{looks at} {banana}}
+CECILE_EATS_BANANA,{cecile} {{eats} {banana}}
+BOB_EATS_CHIPS,{bob} {{eats} {chips}}
+BOB_EATS_BANANA,{bob} {{eats} {banana}}
+ALICE_EATS_CHIPS,{alice} {{eats} {chips}}
+ALICE_EATS_BANANA,{alice} {{eats} {banana}}
+SUMTI_IS_A_THING_CHANGED,{sumti} is a {THING} changed
+COULDBE,could be
+PUTTY,putty
+OSGI,osgi
+BITCH,bitch
+OSGI_IS_A_BITCH,{osgi} is a {bitch}
+DOG,dog
+ELEMENT_MODEL,elementModel
+CONTAINS_ELEMENT,{my model} contains {alice}
+MY_MODEL,my model
+FOLDER,folder
+HUMAN,human
+ALICE_IS_A_HUMAN,{alice} is a {human}
+HUMAN_IS_A_ANIMAL,{human} is a {animal}
+DOG_IS_A_ANIMAL,{dog} is a {animal}
+MY_MODEL_IS_A_FOLDER,{my model} is a {folder}

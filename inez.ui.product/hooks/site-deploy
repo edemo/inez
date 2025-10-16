@@ -1,5 +1,0 @@
-#!/bin/bash
-set -xe
-.konveyor/tools/deploySite.sh $1
-rsync -rv .konveyor/generated-site/resources/download $1
-
