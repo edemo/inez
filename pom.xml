@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.github.magwas</groupId>
         <artifactId>konveyor.parent</artifactId>
-        <version>0.4.40</version>
+        <version>0.5.2</version>
     </parent>
     <groupId>io.github.magwas</groupId>
     <artifactId>inez</artifactId>
@@ -50,6 +50,6 @@
     </distributionManagement>
     <properties>
         <mpir.skip>true</mpir.skip>
-        <version.konveyor>0.4.40</version.konveyor>
+        <version.konveyor>0.5.2</version.konveyor>
     </properties>
 </project>
