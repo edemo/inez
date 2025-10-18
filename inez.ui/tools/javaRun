@@ -1,0 +1,2 @@
+rm target/jpackage-input/inez.ui-0.0.1-*
+java --module-path /usr/local/lib/javafx-sdk-21.0.8/lib:target/jpackage-input:target/jpackage-input/lib/ -cp target/jpackage-input/lib:../inez.parser/target/inez.parser-0.0.1.jar --add-modules javafx.controls,javafx.fxml -m io.github.magwas.inez.ui/io.github.magwas.inez.ui.UIMain

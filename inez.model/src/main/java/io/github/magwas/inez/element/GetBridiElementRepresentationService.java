@@ -16,8 +16,7 @@ public class GetBridiElementRepresentationService {
 	public String apply(final String id) throws Error {
 		Optional<Sumti> sumtiP = sumtiRepository.findById(id);
 		if (sumtiP.isEmpty()) {
-			sumtiRepository.findAll().forEach(x -> System.err.println("s:" + x));
-			throw new Error("no representation for: " + id);
+			return "(" + id + ")";
 		}
 		return sumtiP.get().representation();
 	}

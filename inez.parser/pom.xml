@@ -7,9 +7,7 @@
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>io.github.magwas</groupId>
     <artifactId>inez.parser</artifactId>
-    <version>${project.version}</version>
     <name>${project.artifactId}</name>
     <description>Parser for Inez</description>
     <url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -50,7 +48,6 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>${version.antlr4}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,7 +64,7 @@
             <groupId>io.github.magwas</groupId>
             <artifactId>konveyor.base</artifactId>
             <version>${version.konveyor}</version>
-            <classifier>testing</classifier>
+            <type>test-jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -91,6 +88,7 @@
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
+                <version>${version.antlr4}</version>
                 <executions>
                     <execution>
                         <goals>
