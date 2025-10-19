@@ -14,5 +14,6 @@ module io.github.magwas.inez.ui {
 	opens io.github.magwas.inez.ui to
 			javafx.fxml,
 			javafx.graphics,
-			spring.beans;
+			spring.beans,
+			spring.core;
 }

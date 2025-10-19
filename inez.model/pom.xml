@@ -39,7 +39,7 @@
         <site>
             <id>website</id>
             <name>Project site</name>
-            <url>https://repo.kodekonveyor.com/${project.artifactId}</url>
+            <url>https://repo.kdea.hu/${project.artifactId}</url>
         </site>
     </distributionManagement>
     <dependencies>

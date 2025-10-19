@@ -37,7 +37,7 @@
         <site>
             <id>website</id>
             <name>Project site</name>
-            <url>https://repo.kodekonveyor.com/${project.artifactId}</url>
+            <url>https://repo.kdea.hu/${project.artifactId}</url>
         </site>
     </distributionManagement>
     <properties>
@@ -53,6 +53,7 @@
             <groupId>io.github.magwas</groupId>
             <artifactId>konveyor.base</artifactId>
             <version>${version.konveyor}</version>
+            <classifier>runtime</classifier>
         </dependency>
         <dependency>
             <groupId>io.github.magwas</groupId>

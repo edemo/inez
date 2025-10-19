@@ -1,5 +1,6 @@
 package io.github.magwas.inez;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
@@ -33,4 +34,6 @@ public interface Inez {
 	BridiElement root();
 
 	BridiElement byId(String id);
+
+	void initialize() throws IOException;
 }
