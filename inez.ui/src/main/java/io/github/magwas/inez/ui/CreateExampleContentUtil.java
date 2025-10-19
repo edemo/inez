@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -136,7 +137,7 @@ public class CreateExampleContentUtil implements UIConstants {
 		progressBar.setPrefWidth(PROGRESS_BAR_PREFERRED_WIDTH);
 
 		Region spacer = new Region();
-		HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+		HBox.setHgrow(spacer, Priority.ALWAYS);
 
 		statusBar.getChildren().addAll(statusLabel, spacer, progressBar);
 	}

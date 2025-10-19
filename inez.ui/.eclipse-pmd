@@ -6,3 +6,4 @@
     <ruleset name="Upstream rules" ref=".konveyor/upstream.xml" refcontext="project" />
   </rulesets>
 </eclipse-pmd>
+
