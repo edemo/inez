@@ -19,6 +19,5 @@ public class PopulateUIService {
 	void apply() throws IOException {
 		Tab treeviewTab = createTreeViewTab.apply();
 		((TabPane) uiState.mainArea.getItems().get(0)).getTabs().add(treeviewTab);
-		CreateExampleContentUtil.createExampleContent(uiState);
 	}
 }
