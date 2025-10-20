@@ -7,9 +7,9 @@
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>inez.parser</artifactId>
+    <artifactId>inez.ui</artifactId>
     <name>${project.artifactId}</name>
-    <description>Parser for Inez</description>
+    <description>ui for Inez</description>
     <url>https://github.com/kode-konveyor/inez-server.git</url>
     <licenses>
         <license>
@@ -41,19 +41,14 @@
         </site>
     </distributionManagement>
     <properties>
-        <skipSurefireReport>true</skipSurefireReport>
-        <version.antlr4>4.13.2</version.antlr4>
+        <gluonfx.plugin.version>1.0.27</gluonfx.plugin.version>
+        <jpackageInputDirectory>${project.build.directory}/jpackage-input</jpackageInputDirectory>
+        <jpro.version>2024.4.0</jpro.version>
+        <mainclass>io.github.magwas.testfx.HelloWorldButton</mainclass>
+        <mainmodule>io.github.magwas.testfx/HelloWorldButton</mainmodule>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4-runtime</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${version.spring-boot}</version>
-        </dependency>
         <dependency>
             <groupId>io.github.magwas</groupId>
             <artifactId>konveyor.base</artifactId>
@@ -68,42 +63,49 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>inez.model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>inez.parser</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.magwas</groupId>
+            <artifactId>inez.model</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-keyvalue</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.antlr</groupId>
-            <artifactId>antlr4-maven-plugin</artifactId>
-            <version>${version.antlr4}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.plexus</groupId>
-                    <artifactId>plexus-utils</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>antlr4-runtime</artifactId>
         </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-maven-plugin</artifactId>
-                <version>${version.antlr4}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>antlr4</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/generated-sources/main</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgs combine.self="override"/>
+                </configuration>
             </plugin>
         </plugins>
     </build>

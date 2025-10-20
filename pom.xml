@@ -4,9 +4,8 @@
     <parent>
         <groupId>io.github.magwas</groupId>
         <artifactId>konveyor.parent</artifactId>
-        <version>0.5.2</version>
+        <version>0.5.3</version>
     </parent>
-    <groupId>io.github.magwas</groupId>
     <artifactId>inez</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
@@ -31,6 +30,7 @@
     <modules>
         <module>inez.parser</module>
         <module>inez.model</module>
+        <module>inez.ui</module>
     </modules>
     <scm>
         <connection>scm:git:https://github.com/kode-konveyor/inez-server.git</connection>
@@ -45,11 +45,11 @@
         <site>
             <id>website</id>
             <name>Project site</name>
-            <url>https://repo.kodekonveyor.com/${project.artifactId}</url>
+            <url>https://repo.kdea.hu/${project.artifactId}</url>
         </site>
     </distributionManagement>
     <properties>
         <mpir.skip>true</mpir.skip>
-        <version.konveyor>0.5.2</version.konveyor>
+        <version.konveyor>0.5.3</version.konveyor>
     </properties>
 </project>

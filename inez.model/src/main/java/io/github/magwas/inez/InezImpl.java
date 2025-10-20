@@ -87,6 +87,7 @@ public final class InezImpl implements Inez {
 
 	private InezImpl() {}
 
+	@Override
 	public void initialize() throws IOException {
 		bridiElementSystemInitialization.apply();
 	}

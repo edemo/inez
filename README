@@ -1,8 +1,5 @@
 Knowledge representation based on experiences of metamodel-based architecture modeling and nadural language dictionaries.
 
-(No point to look at the code. This project is long abandoned, if the folowing gets implemented that will probably be done in another project.
-I am just using this README to write up my thoughts.)
-
 Dictionaries for natural languages are hard to implement for the following reasons:
 1. A word usually have different meanings
 2. How do you describe the meaning of a word? The best approach so far is that of wordnet: you basically define relationships between words.

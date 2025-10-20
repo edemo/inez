@@ -9,7 +9,7 @@
     </parent>
     <groupId>io.github.magwas</groupId>
     <artifactId>inez.model</artifactId>
-    <version>${project.version}</version>
+    <version>0.0.1</version>
     <name>${project.artifactId}</name>
     <description>model layer for Inez</description>
     <url>https://github.com/kode-konveyor/inez-server.git</url>
@@ -39,7 +39,7 @@
         <site>
             <id>website</id>
             <name>Project site</name>
-            <url>https://repo.kodekonveyor.com/${project.artifactId}</url>
+            <url>https://repo.kdea.hu/${project.artifactId}</url>
         </site>
     </distributionManagement>
     <dependencies>
@@ -53,7 +53,7 @@
             <groupId>io.github.magwas</groupId>
             <artifactId>konveyor.base</artifactId>
             <version>${version.konveyor}</version>
-            <classifier>testing</classifier>
+            <type>test-jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -65,13 +65,12 @@
             <groupId>io.github.magwas</groupId>
             <artifactId>inez.parser</artifactId>
             <version>${project.version}</version>
-            <classifier>testing</classifier>
+            <type>test-jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-keyvalue</artifactId>
-            <version>${version.spring-data}</version>
         </dependency>
     </dependencies>
 </project>

@@ -13,11 +13,12 @@ public class IsOfTypeService implements ElementConstants {
 
 	boolean apply(String id, final String typeId) {
 		LogUtil.debug("IsOfTypeService", id, typeId);
+		String theId = id;
 		for (int i = 0; i < MAX_TYPE_DEPTH; i++) {
-			if (id.equals(typeId)) return true;
-			if (THING_ID.equals(id)) return false;
-			id = getBridiElementTypeId.apply(id);
-			LogUtil.debug("id:", id);
+			if (theId.equals(typeId)) return true;
+			if (THING_ID.equals(theId)) return false;
+			theId = getBridiElementTypeId.apply(theId);
+			LogUtil.debug("id:", theId);
 		}
 		throw new Error("Probable type loop");
 	}

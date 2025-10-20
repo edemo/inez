@@ -5,3 +5,4 @@
     <ruleset name="Kode Konveyor ruleset" ref="konveyor-pmdrules/target/classes/konveyor.xml" refcontext="workspace" />
   </rulesets>
 </eclipse-pmd>
+
