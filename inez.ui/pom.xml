@@ -98,22 +98,6 @@
             <artifactId>antlr4-runtime</artifactId>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>jpro-sandec-repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </repository>
-        <repository>
-            <id>gluon-releases</id>
-            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jpro-sandec-repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </pluginRepository>
-    </pluginRepositories>
     <build>
         <plugins>
             <plugin>
@@ -121,37 +105,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <compilerArgs combine.self="override"/>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>${jpackageInputDirectory}</outputDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <outputDirectory>${jpackageInputDirectory}/lib</outputDirectory>
-                            <includeScope>runtime</includeScope>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>one.jpro</groupId>
-                <artifactId>jpro-maven-plugin</artifactId>
-                <version>${jpro.version}</version>
-                <configuration>
-                    <mainClassName>${mainclass}</mainClassName>
                 </configuration>
             </plugin>
         </plugins>

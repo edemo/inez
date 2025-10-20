@@ -30,9 +30,9 @@ public class SetupPrimaryStageService implements UIConstants {
 
 		inez.initialize();
 
-		fullScreenRelatedState.mainScene = new Scene(createMainScene.apply(), MAIN_WINDOW_SIZE_X, MAIN_WINDOW_SIZE_Y);
+		fullScreenRelatedState.mainScene = new Scene(createMainScene.apply(), MAIN_WINDOW_HEIGHT, MAIN_WINDOW_WIDTH);
 
-		fullScreenRelatedState.fullscreenScene = new Scene(new StackPane(), MAIN_WINDOW_SIZE_X, MAIN_WINDOW_SIZE_Y);
+		fullScreenRelatedState.fullscreenScene = new Scene(new StackPane(), MAIN_WINDOW_HEIGHT, MAIN_WINDOW_WIDTH);
 
 		populateUI.apply();
 
