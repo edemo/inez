@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 public class ToggleFullscreenService implements UIConstants {
 
 	@Autowired
-	UIState uiState;
+	FullScreenRelatedState fullScreenRelatedState;
 
 	public void apply(final TabPane tabPane) {
-		if (uiState.isFullscreen) {
+		if (fullScreenRelatedState.isFullscreen) {
 			exitFullscreen();
 		} else {
 			enterFullscreen(tabPane);
@@ -21,9 +21,9 @@ public class ToggleFullscreenService implements UIConstants {
 	}
 
 	private void enterFullscreen(final TabPane tabPane) {
-		uiState.fullScreened = tabPane;
-		uiState.fullScreenedParent = (StackPane) tabPane.getParent();
-		StackPane fullscreenRoot = (StackPane) uiState.fullscreenScene.getRoot();
+		fullScreenRelatedState.fullScreened = tabPane;
+		fullScreenRelatedState.fullScreenedParent = (StackPane) tabPane.getParent();
+		StackPane fullscreenRoot = (StackPane) fullScreenRelatedState.fullscreenScene.getRoot();
 		fullscreenRoot.getChildren().setAll(tabPane);
 		fullscreenRoot.setStyle(FULL_SCREEN_ROOT_STYLE);
 
@@ -33,13 +33,13 @@ public class ToggleFullscreenService implements UIConstants {
 			}
 		});
 
-		uiState.primaryStage.setScene(uiState.fullscreenScene);
-		uiState.isFullscreen = true;
+		fullScreenRelatedState.primaryStage.setScene(fullScreenRelatedState.fullscreenScene);
+		fullScreenRelatedState.isFullscreen = true;
 	}
 
 	private void exitFullscreen() {
-		uiState.primaryStage.setScene(uiState.mainScene);
-		uiState.fullScreenedParent.getChildren().add(uiState.fullScreened);
-		uiState.isFullscreen = false;
+		fullScreenRelatedState.primaryStage.setScene(fullScreenRelatedState.mainScene);
+		fullScreenRelatedState.fullScreenedParent.getChildren().add(fullScreenRelatedState.fullScreened);
+		fullScreenRelatedState.isFullscreen = false;
 	}
 }

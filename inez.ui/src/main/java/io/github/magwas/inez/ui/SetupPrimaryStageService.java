@@ -17,27 +17,27 @@ public class SetupPrimaryStageService implements UIConstants {
 	CreateMainSceneService createMainScene;
 
 	@Autowired
-	UIState uiState;
-
-	@Autowired
 	Inez inez;
 
 	@Autowired
 	PopulateUIService populateUI;
 
+	@Autowired
+	FullScreenRelatedState fullScreenRelatedState;
+
 	void apply(final Stage primaryStage) throws IOException {
-		uiState.primaryStage = primaryStage;
+		fullScreenRelatedState.primaryStage = primaryStage;
 
 		inez.initialize();
 
-		uiState.mainScene = new Scene(createMainScene.apply(), MAIN_WINDOW_SIZE_X, MAIN_WINDOW_SIZE_Y);
+		fullScreenRelatedState.mainScene = new Scene(createMainScene.apply(), MAIN_WINDOW_SIZE_X, MAIN_WINDOW_SIZE_Y);
 
-		uiState.fullscreenScene = new Scene(new StackPane(), MAIN_WINDOW_SIZE_X, MAIN_WINDOW_SIZE_Y);
+		fullScreenRelatedState.fullscreenScene = new Scene(new StackPane(), MAIN_WINDOW_SIZE_X, MAIN_WINDOW_SIZE_Y);
 
 		populateUI.apply();
 
 		primaryStage.setTitle(STAGE_TITLE);
-		primaryStage.setScene(uiState.mainScene);
+		primaryStage.setScene(fullScreenRelatedState.mainScene);
 		primaryStage.show();
 	}
 }
