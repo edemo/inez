@@ -17,7 +17,7 @@ import io.github.magwas.inez.parser.BridiParser.BridiContext;
 import io.github.magwas.inez.parser.BridiParser.LiteralContext;
 import io.github.magwas.inez.parser.BridiParser.ParagraphContext;
 import io.github.magwas.inez.parser.BridiParser.TextReferenceContext;
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Service
 public class ParseTextService implements Function<String, Stream<ParserOutput>> {

@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.parser.BridiLexer;
 import io.github.magwas.inez.parser.BridiParser;
-import io.github.magwas.kodekonveyorannotations.Glue;
+import io.github.magwas.konveyor.annotations.Glue;
 
 @Glue
 @Service
 public class CreateParserFromTokensService {
 
-	BridiParser apply(final String input) {
+	public BridiParser apply(final String input) {
 		BridiLexer lexer = new BridiLexer(CharStreams.fromString(input));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		BridiParser parser = new BridiParser(tokens);

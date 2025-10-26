@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.storage.model.BridiReference;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Service
 public class GetRelativeForBridiElementService {

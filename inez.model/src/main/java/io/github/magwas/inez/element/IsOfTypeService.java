@@ -3,7 +3,7 @@ package io.github.magwas.inez.element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Service
 public class IsOfTypeService implements ElementConstants {

@@ -13,7 +13,7 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.storage.model.BridiReference;
 import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Service
 public class CreateBridiFromSumtiService {

@@ -11,7 +11,7 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.InezImpl;
 import io.github.magwas.inez.parse.ParseTextService;
 import io.github.magwas.inez.query.BridiFunction;
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Service
 public class Save implements BridiFunction {

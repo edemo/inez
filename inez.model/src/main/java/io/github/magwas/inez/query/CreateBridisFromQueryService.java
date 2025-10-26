@@ -10,7 +10,7 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.element.BridiElementFactory;
 import io.github.magwas.inez.parse.ParseTextService;
 import io.github.magwas.inez.storage.SaveBridiService;
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Service
 public class CreateBridisFromQueryService {

@@ -1,6 +1,6 @@
 package io.github.magwas.inez.query;
 
-import static io.github.magwas.runtime.LogUtil.debug;
+import static io.github.magwas.konveyor.runtime.LogUtil.debug;
 
 import java.util.List;
 import java.util.Map;
