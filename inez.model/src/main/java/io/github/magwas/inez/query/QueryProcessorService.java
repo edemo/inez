@@ -1,7 +1,7 @@
 package io.github.magwas.inez.query;
 
-import static io.github.magwas.runtime.LogUtil.debug;
-import static io.github.magwas.runtime.LogUtil.warning;
+import static io.github.magwas.konveyor.runtime.LogUtil.debug;
+import static io.github.magwas.konveyor.runtime.LogUtil.warning;
 
 import java.util.ArrayList;
 import java.util.List;

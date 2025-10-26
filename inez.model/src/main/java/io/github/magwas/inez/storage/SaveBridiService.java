@@ -12,7 +12,7 @@ import io.github.magwas.inez.Bridi;
 import io.github.magwas.inez.BridiStoreOperation;
 import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Service
 public class SaveBridiService implements Function<Bridi, Bridi> {

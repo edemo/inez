@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import io.github.magwas.inez.element.BridiElement;
 import io.github.magwas.inez.storage.model.Sumti;
-import io.github.magwas.kodekonveyorannotations.Glue;
+import io.github.magwas.konveyor.annotations.Glue;
 
 @Glue
 public interface Inez {

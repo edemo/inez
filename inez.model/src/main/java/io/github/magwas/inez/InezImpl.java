@@ -29,7 +29,7 @@ import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 import io.github.magwas.inez.storage.repository.BridiStoreHistoryRepository;
 import io.github.magwas.inez.storage.repository.ProblemRepository;
-import io.github.magwas.kodekonveyorannotations.Delegate;
+import io.github.magwas.konveyor.annotations.Delegate;
 
 @Component
 @Delegate

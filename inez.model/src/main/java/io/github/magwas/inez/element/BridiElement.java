@@ -10,8 +10,8 @@ import io.github.magwas.inez.storage.AddReferencesService;
 import io.github.magwas.inez.storage.model.Sumti;
 import io.github.magwas.inez.storage.repository.BridiReferenceRepository;
 import io.github.magwas.inez.storage.repository.SumtiRepository;
-import io.github.magwas.kodekonveyorannotations.Delegate;
-import io.github.magwas.runtime.LogUtil;
+import io.github.magwas.konveyor.annotations.Delegate;
+import io.github.magwas.konveyor.runtime.LogUtil;
 
 @Delegate
 public class BridiElement implements ElementConstants {

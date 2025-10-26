@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.magwas.inez.InezImpl;
-import io.github.magwas.runtime.LoggerService;
+import io.github.magwas.konveyor.runtime.LoggerService;
 
 @Service
 public class BridiElementSystemInitializationService implements ElementConstants {

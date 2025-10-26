@@ -1,6 +1,6 @@
 package io.github.magwas.inez;
 
-import io.github.magwas.kodekonveyorannotations.Glue;
+import io.github.magwas.konveyor.annotations.Glue;
 
 @Glue
 public interface BridiStoreChangeListener {

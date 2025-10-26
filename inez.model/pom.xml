@@ -45,13 +45,12 @@
     <dependencies>
         <dependency>
             <groupId>io.github.magwas</groupId>
-            <artifactId>konveyor.base</artifactId>
+            <artifactId>konveyor.runtime</artifactId>
             <version>${version.konveyor}</version>
-            <classifier>runtime</classifier>
         </dependency>
         <dependency>
             <groupId>io.github.magwas</groupId>
-            <artifactId>konveyor.base</artifactId>
+            <artifactId>konveyor.runtime</artifactId>
             <version>${version.konveyor}</version>
             <type>test-jar</type>
             <scope>test</scope>
